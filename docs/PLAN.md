@@ -152,9 +152,10 @@ Mục tiêu: Hiện thực hóa thiết kế từ Stitch thành ứng dụng web
   * Tích hợp chuông thiền Solfeggio 528Hz sinh bằng Web Audio API và hiệu ứng ăn mừng `canvas-confetti`.
   * Lưu trữ thống kê số phiên hoàn thành trong ngày vào `localStorage`.
 - [x] **Task 4.4: Xây dựng Module YouTube Lofi Player**
-  * Tích hợp YouTube IFrame Player API với 6 kênh Lofi nổi tiếng (Lofi Girl, Chillhop, Cozy Coffee...).
-  * Trích xuất link/ID YouTube tùy chỉnh với regex parser thông minh.
-  * Điều khiển Play/Pause/Volume và equalizer hoạt họa sống động.
+  * Tích hợp YouTube IFrame Player API với các bài hát Lofi chọn lọc đảm bảo phát mượt 100%.
+  * Thanh phát nhạc nổi (Dock) hiển thị duy nhất tên của bài hát đang phát kèm hoạt họa equalizer, không hiển thị các nút bài hát khác gây rối mắt.
+  * Tích hợp Playlist Modal chuyên dụng hiển thị toàn bộ danh sách, hỗ trợ xem/phát/thêm link YouTube (tự động lấy tên chuẩn)/xóa bài hát.
+  * Điều khiển Play/Pause/Volume và Skip bài hát trước/sau tiện lợi.
 - [x] **Task 4.5: Xây dựng & Tinh chỉnh Module White Noise Mixer**
   * Xây dựng và tinh chỉnh chuyên sâu Web Audio API synthesizer cho toàn bộ 10 kênh âm thanh độc lập, đảm bảo âm thanh phát ra chuẩn xác 100% với tên gọi:
     1. **Mưa rào**: Tiếng mưa rào rơi dày hạt qua cascaded lowpass + highpass filter kèm LFO điều biến cường độ gió thoảng.

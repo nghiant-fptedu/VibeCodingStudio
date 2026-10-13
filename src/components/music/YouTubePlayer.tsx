@@ -198,7 +198,6 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
 
   const currentTrack = tracks.find((p) => p.videoId === currentVideoId);
   const trackTitle = currentTrack?.title || 'YouTube Lofi Focus Track';
-  const curatorName = currentTrack?.curator || 'Lofi Beats';
 
   return (
     <>
@@ -208,13 +207,13 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
       </div>
 
       {/* Floating Bottom Dock */}
-      <div className="fixed bottom-3 md:bottom-6 left-1/2 -translate-x-1/2 z-40 w-[94vw] max-w-xl md:max-w-2xl lg:max-w-3xl px-3 md:px-5 py-2.5 md:py-3 rounded-full glass-panel shadow-2xl border border-white/10 flex items-center justify-between gap-2 md:gap-4 backdrop-blur-2xl">
-        {/* Playback Controls & Track Info */}
-        <div className="flex items-center gap-2 md:gap-3 min-w-0 max-w-[280px] md:max-w-sm">
+      <div className="fixed bottom-3 md:bottom-6 left-1/2 -translate-x-1/2 z-40 w-[94vw] max-w-lg md:max-w-xl lg:max-w-2xl px-3 md:px-5 py-2.5 md:py-3 rounded-full glass-panel shadow-2xl border border-white/10 flex items-center justify-between gap-3 md:gap-4 backdrop-blur-2xl">
+        {/* Playback Controls & Currently Playing Song Title */}
+        <div className="flex items-center gap-2 md:gap-3 min-w-0 flex-1">
           {/* Previous Track */}
           <button
             onClick={handlePrevTrack}
-            className="w-7 h-7 hidden sm:flex items-center justify-center rounded-full text-slate-400 hover:text-white hover:bg-white/5 active:scale-95 transition-all"
+            className="w-7 h-7 flex items-center justify-center rounded-full text-slate-400 hover:text-white hover:bg-white/5 active:scale-95 transition-all shrink-0"
             title="Bài trước"
           >
             <SkipBack className="w-3.5 h-3.5" />
@@ -236,53 +235,30 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
           {/* Next Track */}
           <button
             onClick={handleNextTrack}
-            className="w-7 h-7 hidden sm:flex items-center justify-center rounded-full text-slate-400 hover:text-white hover:bg-white/5 active:scale-95 transition-all"
+            className="w-7 h-7 flex items-center justify-center rounded-full text-slate-400 hover:text-white hover:bg-white/5 active:scale-95 transition-all shrink-0"
             title="Bài tiếp theo"
           >
             <SkipForward className="w-3.5 h-3.5" />
           </button>
 
-          {/* Track Details */}
-          <div className="flex flex-col min-w-0">
-            <div className="flex items-center gap-2">
-              {isPlaying && (
-                <div className="flex items-end gap-0.5 h-3 w-3 shrink-0 text-primary">
-                  <span className="w-0.5 bg-primary rounded-full animate-eq-1" />
-                  <span className="w-0.5 bg-primary rounded-full animate-eq-2" />
-                  <span className="w-0.5 bg-primary rounded-full animate-eq-3" />
-                  <span className="w-0.5 bg-primary rounded-full animate-eq-4" />
-                </div>
-              )}
-              <span
-                onClick={onOpenPlaylistModal}
-                className="text-xs md:text-sm font-semibold text-white truncate drop-shadow cursor-pointer hover:text-primary transition-colors"
-                title={trackTitle}
-              >
-                {trackTitle}
-              </span>
-            </div>
-            <span className="text-[10px] text-slate-400 truncate">{curatorName}</span>
+          {/* Only Currently Playing Song Title */}
+          <div className="flex items-center gap-2 min-w-0 flex-1 ml-0.5">
+            {isPlaying && (
+              <div className="flex items-end gap-0.5 h-3.5 w-3.5 shrink-0 text-primary">
+                <span className="w-0.5 bg-primary rounded-full animate-eq-1" />
+                <span className="w-0.5 bg-primary rounded-full animate-eq-2" />
+                <span className="w-0.5 bg-primary rounded-full animate-eq-3" />
+                <span className="w-0.5 bg-primary rounded-full animate-eq-4" />
+              </div>
+            )}
+            <span
+              onClick={onOpenPlaylistModal}
+              className="text-xs md:text-sm font-semibold text-white truncate drop-shadow cursor-pointer hover:text-primary transition-colors"
+              title={trackTitle}
+            >
+              {trackTitle}
+            </span>
           </div>
-        </div>
-
-        {/* Curated Preset Pills (Desktop & Tablet) */}
-        <div className="hidden lg:flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 max-w-sm">
-          {tracks.slice(0, 4).map((preset) => {
-            const isActive = preset.videoId === currentVideoId;
-            return (
-              <button
-                key={preset.id}
-                onClick={() => onSelectVideo(preset.videoId)}
-                className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all truncate max-w-[140px] ${isActive
-                  ? 'bg-primary/20 border border-primary/50 text-primary shadow-glow-amber'
-                  : 'bg-white/5 border border-white/5 text-slate-300 hover:bg-white/10 hover:text-white'
-                  }`}
-                title={preset.title}
-              >
-                {preset.title.split('·')[0].split('[')[0].trim()}
-              </button>
-            );
-          })}
         </div>
 
         {/* Right Controls: Playlist Modal Trigger, Quick Add, Volume */}
