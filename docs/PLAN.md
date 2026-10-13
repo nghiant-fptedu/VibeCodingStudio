@@ -220,10 +220,12 @@ Mục tiêu: Triển khai trọn vẹn dịch vụ Express.js backend, thiết l
   * Cài đặt middleware: error handler, cors, json parser, health check endpoint `GET /api/health`.
   * Thiết lập script khởi chạy tại root `package.json`: `npm run dev:backend`, `npm run build:backend`, `npm run start:backend`.
   * Đã build TypeScript và kiểm thử endpoint `/api/health` trả về HTTP 200 thành công.
-- [ ] **Task 7.2: Cấu hình Prisma ORM & Đồng bộ Schema với Supabase PostgreSQL**
+- [x] **Task 7.2: Cấu hình Prisma ORM & Đồng bộ Schema với Supabase PostgreSQL**
   * Cài đặt `prisma` và `@prisma/client`.
-  * Khởi tạo `prisma/schema.prisma` với 3 models: `User`, `MusicTrack`, `TodoItem`.
-  * Kết nối `DATABASE_URL` tới Supabase project `VibeSpace` (`ynqwfjqiiqjtizagokdt`) qua Supabase MCP và chạy migration `prisma db push` / `prisma migrate deploy`.
+  * Khởi tạo `apps/backend/prisma/schema.prisma` với 3 models: `User`, `MusicTrack`, `TodoItem`.
+  * Khởi tạo Prisma Client singleton instance tại `apps/backend/src/lib/prisma.ts`.
+  * Áp dụng migration DDL đồng bộ 3 bảng (`users`, `music_tracks`, `todo_items`) và thiết lập chỉ mục indexes trên Supabase project `VibeSpace` (`ynqwfjqiiqjtizagokdt`).
+  * Kích hoạt Row Level Security (RLS) bảo vệ an toàn toàn bộ các bảng trên Supabase PostgreSQL.
 - [ ] **Task 7.3: Hiện thực hóa Authentication API (Email/Password & Google OAuth)**
   * Endpoint `POST /api/auth/register`: Validate input, hash mật khẩu bằng `bcryptjs`, tạo user, cấp token `JWT`.
   * Endpoint `POST /api/auth/login`: Xác thực credentials, cấp token `JWT`.

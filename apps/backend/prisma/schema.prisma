@@ -1,0 +1,58 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id             String       @id @default(uuid())
+  email          String       @unique
+  password       String?
+  name           String
+  avatar         String?
+  googleId       String?      @unique @map("google_id")
+  lastActiveDate String?      @map("last_active_date")
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+
+  tracks         MusicTrack[]
+  todos          TodoItem[]
+
+  @@map("users")
+}
+
+model MusicTrack {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  videoId   String   @map("video_id")
+  title     String
+  curator   String
+  category  String   @default("custom")
+  isCustom  Boolean  @default(true) @map("is_custom")
+  order     Int      @default(0) @map("track_order")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("music_tracks")
+}
+
+model TodoItem {
+  id          String    @id @default(uuid())
+  userId      String    @map("user_id")
+  title       String
+  type        String    @default("one_off")
+  completed   Boolean   @default(false)
+  completedAt DateTime? @map("completed_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("todo_items")
+}
