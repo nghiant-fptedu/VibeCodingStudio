@@ -46,21 +46,71 @@ $$\text{Planning} \longrightarrow \text{Design (Google Stitch)} \longrightarrow 
 
 ---
 
-### Giai đoạn 2: Design với Google Stitch (StitchMCP)
+### Giai đoạn 2: Design với Google Stitch (StitchMCP) [HOÀN THÀNH]
 Mục tiêu: Sử dụng công cụ Google Stitch (qua StitchMCP) để sinh các màn hình giao diện chuẩn Lofi Aesthetic, bố cục hài hòa, hiệu ứng kính mờ (Glassmorphism).
 
-* [ ] **Task 2.1: Khởi tạo Project trên Google Stitch**
-  * Gọi công cụ `create_project` trên StitchMCP: Tên project `vibespace-workspace`.
-  * Thiết lập phong cách thiết kế chủ đạo: *Dark mode, Lofi Aesthetic, Frosted Glass, Minimalist, Calming, Forest/Nature vibes*.
-* [ ] **Task 2.2: Thiết kế Screen 1 - Main Workspace Dashboard (Full View)**
-  * Prompting sinh giao diện: Hình nền 4K rừng thông phủ sương mờ, đồng hồ Pomodoro số lớn ở chính giữa, thanh phát nhạc YouTube mini dock ở dưới đáy, nút mở White Noise Mixer, nút mở Daily Todo List drawer bên cạnh, nút chuyển đổi hình nền.
-* [ ] **Task 2.3: Thiết kế Screen 2 - Expanded Modals & Drawers**
-  * Sinh giao diện mở rộng:
-    * Modal bảng điều khiển **White Noise Multi-Channel Mixer** (10 thẻ âm thanh với slider + các thẻ preset 1-click).
-    * Drawer bảng công việc **Daily Todo List** (chia 2 tab: Thói quen hàng ngày & Việc trong ngày, kèm thanh progress bar).
-    * Modal kho ảnh nền **Wallpaper Gallery** (lưới thumbnail chọn ảnh + thanh trượt Darkness Overlay & Blur).
-* [ ] **Task 2.4: Thiết kế Screen 3 - Minimalist Zen Mode**
-  * Giao diện tối giản tuyệt đối: Ẩn mọi widget phụ, chỉ còn lại hình nền thiên nhiên và đồng hồ Pomodoro đếm ngược cùng các nút điều khiển tối giản.
+* **Stitch Project ID**: `4624087171133771439` (`projects/4624087171133771439`)
+* **Project Title**: `VibeSpace Focus Workspace`
+* **Design System**: `Lofi Nightfall Workspace` (`assets/d79328efeafd49b7bcd14ace16f8ab89`)
+  * Bảng màu chủ đạo: Soft Amber Glow (`#f59e0b`), Deep Twilight Indigo (`#6366f1`), Serene Teal (`#14b8a6`), Midnight Slate (`#0b1326`).
+  * Hiệu ứng kính mờ: `backdrop-filter: blur(20px)` với viền `rgba(255, 255, 255, 0.08)`.
+  * Typography: Plus Jakarta Sans & JetBrains Mono.
+
+- [x] **Task 2.1: Khởi tạo Project trên Google Stitch**
+  * Đã tạo thành công project `VibeSpace Focus Workspace` (ID: `4624087171133771439`).
+  * Phong cách thiết kế: Dark mode, Atmospheric Glassmorphism, Cozy & Calming nature vibe.
+
+- [x] **Task 2.2: Thiết kế Screen 1 - Main Workspace Dashboard (Full View)**
+  * **Screen ID**: `3fc492be343d49dc9ad20fb45c2f91ee`
+  * **Title**: `VibeSpace - Lofi Focus Workspace`
+  * **Kích thước**: Desktop 2560x2048 (16:9 view)
+  * **Screenshot Preview**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1XmBoy-HiPVsSw1q196Q3fPj20Lca4cpEYxOB9oKcCDICfHuUJnUBdP7pFSe3FowUnShneBGNwW0-svbUSXl-vI19yTl_sINrK5yeg87eJ5F4Nnpjc1wRx_-jWfFD2NjVdqSYaSur9MjTeRYUbdzaQXTCdHS7WWKCVhCCO5KkwOyt-lj5Jc7ouBucfRHTjAVhtSfOAvG4Jw0oSG57aE_8d-cVQJjF5CNsjQxYp0FjjjI7bNyHGIt-OmCug)
+  * **Component React ánh xạ**:
+    * `src/components/common/Header.tsx` (Logo, quote, clock, toggle Zen Mode)
+    * `src/components/pomodoro/PomodoroTimer.tsx` (Đồng hồ đếm giờ 25:00, circular progress, Focus/Break tabs, nút Start amber glow)
+    * `src/components/music/YouTubePlayer.tsx` (Thanh nhạc Lofi bottom dock, track title, volume slider, preset pills)
+    * `src/components/background/BackgroundContainer.tsx` (Hình nền 4K rừng thông sương mù + dark vignette overlay)
+    * `src/components/mixer/SoundMixerTrigger.tsx` (Nút nổi mở sound mixer bên trái)
+    * `src/components/todo/TodoDrawerTrigger.tsx` (Nút nổi mở task drawer bên phải với badge tiến độ 67%)
+
+- [x] **Task 2.3: Thiết kế Screen 2 - Expanded Modals & Drawers**
+  * **Screen ID**: `1c869128fba241db9e5116c79279724b`
+  * **Title**: `VibeSpace - Sound Mixer Modal & Task Drawer`
+  * **Kích thước**: Desktop 2560x2048
+  * **Screenshot Preview**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1X3gIdQKd_Ype6gaFpKU-nrG7WZErLF1qGoKoh4jgTcGs1CctBdSQiEKhwVZYEWCIEL8PCUH1OYavbD4WOK0oayQTBzw25djKpLrfmbxc_YQZzCg6tD16pBa1dujgzAOnH5EOZ--zihfQTDyuqSseHK5cFU8qBziqVHBiQENMvXIi3SWFv8W7ywIqufDgz9gym2DpcnSqSar5x8DBXRDiYIMnJprcwwXMJOuoUxWdRJnDHkblXt7xO0yuY)
+  * **Component React ánh xạ**:
+    * `src/components/mixer/SoundMixerModal.tsx` (Modal hòa âm 10 kênh, Master volume, Mute all)
+    * `src/components/mixer/SoundChannelCard.tsx` (Card âm thanh độc lập với icon, toggle, slider âm lượng)
+    * `src/components/mixer/PresetCombos.tsx` (Pills chọn nhanh preset: Stormy Night, Cozy Fireplace, Coffee Shop, Forest Dawn)
+    * `src/components/todo/TodoDrawer.tsx` (Drawer bên phải quản lý công việc và thói quen)
+    * `src/components/todo/HabitList.tsx` (Mục thói quen hàng ngày tự bỏ tick sau 00:00)
+    * `src/components/todo/DailyTaskList.tsx` (Mục công việc trong ngày với tag và ước lượng Pomodoro)
+    * `src/components/todo/TodoProgressBar.tsx` (Thanh tiến độ % hoàn thành)
+    * `src/components/background/BackgroundSelector.tsx` (Lưới thumbnail đổi hình nền & slider Darkness/Blur)
+
+- [x] **Task 2.4: Thiết kế Screen 3 - Minimalist Zen Mode**
+  * **Screen ID**: `e95bd016ecf64506964d0dc2d18e34ae`
+  * **Title**: `VibeSpace - Minimalist Zen Mode`
+  * **Kích thước**: Desktop 2560x2048
+  * **Screenshot Preview**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1U3wKQFh9wMXiVOe8QFMpAQ9EBee-ytnE9O35ltTKOIp1bMgi69Hl37zfVQC2augBuPHzW7FPb8J4IVYW2XuNArMcXOn_N7vGe3oqPoK4CP_TrbZOUcGZ6weVKMUl0wxKgwJY3KXl95u5lIPqFR4i9pCOihcg15O6u5g9RgqdiPl4jRQRPEzq3BK8PwoeUb--I2omWDoulGR2sGoxlHKKCKnsCoYfT0SODmVL5fxrowDshC2agCaYXAKQ)
+  * **Component React ánh xạ**:
+    * `src/components/pomodoro/ZenPomodoro.tsx` (Đồng hồ đếm ngược tối giản 24:38, vòng progress thanh thoát)
+    * `src/components/common/ZenModeToggle.tsx` (Nút thoát chế độ Zen Mode thu nhỏ ở góc trên phải)
+    * `src/components/music/ZenAudioIndicator.tsx` (Dòng hiển thị bài hát và âm lượng tối giản ở đáy)
+
+* **Wallpaper Asset đi kèm**:
+  * **Screen ID**: `323cac25fc104f738346fae07e77b679`
+  * **Title**: `Cinematic high-resolution photograph of a serene misty pine forest at deep twilight`
+  * **Image URL**: [Tải ảnh 4K](https://lh3.googleusercontent.com/aida/AEtjO1U_DTq0YgEStLBcMJfjJuPhd30BWKEFy1iCYSrIuC1aMWNFyHZeGIFV1bvBOzJt2j2iPwmVSu3deUPrfWb-FGQqCGVBhxJY5fbfKG9E-xOm59wstqLpTVLCUwztqIeCXQydcWT2p1dkGLCwZLSA01-Tp4czuCBHwpdd-viNT_i8KgCxdmmATg1TBbKst8Cc9kCaMCyPPUak3oeZqSd7RFGM8npXMoEGv7Ng3S5OHUEh_ebWqc2g0IBSfxM)
+
+#### Bảng Tổng hợp Ánh xạ Screen và React Components
+
+| Screen ID | Tiêu đề Màn hình | Loại giao diện | Các Component React ánh xạ tương ứng |
+| :--- | :--- | :--- | :--- |
+| `3fc492be343d49dc9ad20fb45c2f91ee` | VibeSpace - Lofi Focus Workspace | Dashboard chính đầy đủ | `Header`, `PomodoroTimer`, `YouTubePlayer`, `BackgroundContainer`, `SoundMixerTrigger`, `TodoDrawerTrigger` |
+| `1c869128fba241db9e5116c79279724b` | VibeSpace - Sound Mixer Modal & Task Drawer | Overlay Modals & Drawers | `SoundMixerModal`, `SoundChannelCard`, `PresetCombos`, `TodoDrawer`, `HabitList`, `DailyTaskList`, `TodoProgressBar`, `BackgroundSelector` |
+| `e95bd016ecf64506964d0dc2d18e34ae` | VibeSpace - Minimalist Zen Mode | Chế độ tập trung thuần túy | `ZenPomodoro`, `ZenModeToggle`, `ZenAudioIndicator`, `BackgroundContainer` |
+| `323cac25fc104f738346fae07e77b679` | Serene Misty Pine Forest at Twilight | 4K Wallpaper Asset | `BackgroundContainer` (Default Wallpaper) |
 
 ---
 
@@ -124,7 +174,7 @@ Mục tiêu: Hiện thực hóa thiết kế từ Stitch thành ứng dụng web
 | Mốc | Mô tả | Trạng thái |
 | :--- | :--- | :--- |
 | **M1: Specification & Planning** | Hoàn thành PRD.md, TECH_ARCHITECTURE.md, PLAN.md | **Hoàn thành (Done)** |
-| **M2: Google Stitch UI Design** | Sinh và duyệt các màn hình trên StitchMCP | **Bước tiếp theo sẵn sàng** |
-| **M3: Design Download & Mapping** | Trích xuất tokens & bóc tách layout thành component spec | Chờ M2 |
+| **M2: Google Stitch UI Design** | Sinh và duyệt các màn hình trên StitchMCP (3 screens + wallpaper) | **Hoàn thành (Done)** |
+| **M3: Design Download & Mapping** | Trích xuất tokens & bóc tách layout thành component spec | **Sẵn sàng thực hiện** |
 | **M4: Core Implementation** | Chuyển đổi mã React, tích hợp Audio & YouTube, Todo Reset | Chờ M3 |
 | **M5: Launch Ready** | Kiểm thử hoàn chỉnh và sẵn sàng sử dụng thực tế | Chờ M4 |
