@@ -79,6 +79,13 @@ export default function App() {
   };
 
   const toggleZenMode = () => {
+    if (!visualSettings.isZenMode) {
+      // Đóng các modal/drawer đang mở khi chuyển sang Zen Mode
+      setIsWallpaperModalOpen(false);
+      setIsMixerModalOpen(false);
+      setIsTodoDrawerOpen(false);
+      setIsPlaylistModalOpen(false);
+    }
     updateVisualSettings({ isZenMode: !visualSettings.isZenMode });
   };
 
@@ -93,115 +100,124 @@ export default function App() {
       blurAmount={visualSettings.blurAmount}
     >
       {/* 1. Zen Mode Minimalist View */}
-      {visualSettings.isZenMode ? (
+      {visualSettings.isZenMode && (
         <ZenPomodoro
           timeLeft={pomodoro.timeLeft}
+          mode={pomodoro.mode}
           isRunning={pomodoro.isRunning}
           onTogglePlay={() => (pomodoro.isRunning ? pomodoro.pause() : pomodoro.start())}
           onReset={pomodoro.reset}
+          onSkip={pomodoro.skip}
           onExitZen={toggleZenMode}
           audioTrackTitle={currentTrackTitle}
+          isPlayingMusic={isPlayingMusic}
+          onToggleMusic={() => setIsPlayingMusic((prev) => !prev)}
         />
-      ) : (
-        /* 2. Full Standard Workspace View */
-        <div className="relative w-full h-full flex flex-col justify-between overflow-hidden">
-          {/* Header Navigation */}
-          <Header
-            onOpenWallpaperModal={() => setIsWallpaperModalOpen(true)}
-            onOpenMixerModal={() => setIsMixerModalOpen(true)}
-            onOpenTodoDrawer={() => setIsTodoDrawerOpen(true)}
-            onToggleZenMode={toggleZenMode}
-            isMuted={mixer.isMasterMuted}
-            onToggleMasterMute={mixer.toggleMasterMute}
-            todoProgressPercent={todo.progressPercent}
-            mixerActiveCount={mixer.activeCount}
-          />
-
-          {/* Central Hero: Pomodoro Timer */}
-          <main className="flex-1 flex items-center justify-center px-4 pt-16 pb-24 md:pb-28">
-            <PomodoroTimer
-              timeLeft={pomodoro.timeLeft}
-              totalDuration={pomodoro.totalDuration}
-              progressRatio={pomodoro.progressRatio}
-              mode={pomodoro.mode}
-              isRunning={pomodoro.isRunning}
-              completedToday={pomodoro.completedToday}
-              onStart={pomodoro.start}
-              onPause={pomodoro.pause}
-              onReset={pomodoro.reset}
-              onSkip={pomodoro.skip}
-              onChangeMode={pomodoro.changeMode}
-            />
-          </main>
-
-          {/* Bottom Dock: YouTube Lofi Music Player */}
-          <YouTubePlayer
-            currentVideoId={currentVideoId}
-            isPlaying={isPlayingMusic}
-            volume={musicVolume}
-            tracks={playlist.tracks}
-            onTogglePlay={() => setIsPlayingMusic((prev) => !prev)}
-            onVolumeChange={setMusicVolume}
-            onSelectVideo={(id) => {
-              setCurrentVideoId(id);
-              setIsPlayingMusic(true);
-            }}
-            onOpenPlaylistModal={() => setIsPlaylistModalOpen(true)}
-            onAddTrack={playlist.addTrack}
-          />
-
-          {/* Bottom-Right: Live Realtime Clock */}
-          <RealtimeClock />
-
-          {/* Overlay Modals & Drawers */}
-          <BackgroundSelector
-            isOpen={isWallpaperModalOpen}
-            onClose={() => setIsWallpaperModalOpen(false)}
-            settings={visualSettings}
-            onUpdateSettings={updateVisualSettings}
-          />
-
-          <PlaylistModal
-            isOpen={isPlaylistModalOpen}
-            onClose={() => setIsPlaylistModalOpen(false)}
-            tracks={playlist.tracks}
-            currentVideoId={currentVideoId}
-            isPlaying={isPlayingMusic}
-            onSelectVideo={(id) => {
-              setCurrentVideoId(id);
-              setIsPlayingMusic(true);
-            }}
-            onRemoveTrack={playlist.removeTrack}
-            onAddTrack={playlist.addTrack}
-            onRestoreDefaults={playlist.restoreDefaults}
-          />
-
-          <SoundMixerModal
-            isOpen={isMixerModalOpen}
-            onClose={() => setIsMixerModalOpen(false)}
-            channels={mixer.channels}
-            presets={mixer.presets}
-            activeCount={mixer.activeCount}
-            onToggleChannel={mixer.toggleChannel}
-            onUpdateVolume={mixer.updateChannelVolume}
-            onApplyPreset={mixer.applyPreset}
-            onMuteAll={mixer.muteAll}
-          />
-
-          <TodoDrawer
-            isOpen={isTodoDrawerOpen}
-            onClose={() => setIsTodoDrawerOpen(false)}
-            habits={todo.habits}
-            tasks={todo.tasks}
-            progressPercent={todo.progressPercent}
-            completedItems={todo.completedItems}
-            totalItems={todo.totalItems}
-            onToggleItem={todo.toggleItem}
-            onAddItem={todo.addItem}
-            onDeleteItem={todo.deleteItem}
-          />
-        </div>
       )}
+
+      {/* 2. Full Standard Workspace View (luôn giữ trong DOM để duy trì iframe phát nhạc ngầm) */}
+      <div
+        className={`relative w-full h-full flex flex-col justify-between overflow-hidden transition-opacity duration-500 ${
+          visualSettings.isZenMode ? 'opacity-0 pointer-events-none select-none' : 'opacity-100'
+        }`}
+        aria-hidden={visualSettings.isZenMode}
+      >
+        {/* Header Navigation */}
+        <Header
+          onOpenWallpaperModal={() => setIsWallpaperModalOpen(true)}
+          onOpenMixerModal={() => setIsMixerModalOpen(true)}
+          onOpenTodoDrawer={() => setIsTodoDrawerOpen(true)}
+          onToggleZenMode={toggleZenMode}
+          isMuted={mixer.isMasterMuted}
+          onToggleMasterMute={mixer.toggleMasterMute}
+          todoProgressPercent={todo.progressPercent}
+          mixerActiveCount={mixer.activeCount}
+        />
+
+        {/* Central Hero: Pomodoro Timer */}
+        <main className="flex-1 flex items-center justify-center px-4 pt-16 pb-24 md:pb-28">
+          <PomodoroTimer
+            timeLeft={pomodoro.timeLeft}
+            totalDuration={pomodoro.totalDuration}
+            progressRatio={pomodoro.progressRatio}
+            mode={pomodoro.mode}
+            isRunning={pomodoro.isRunning}
+            completedToday={pomodoro.completedToday}
+            onStart={pomodoro.start}
+            onPause={pomodoro.pause}
+            onReset={pomodoro.reset}
+            onSkip={pomodoro.skip}
+            onChangeMode={pomodoro.changeMode}
+          />
+        </main>
+
+        {/* Bottom Dock: YouTube Lofi Music Player */}
+        <YouTubePlayer
+          currentVideoId={currentVideoId}
+          isPlaying={isPlayingMusic}
+          volume={musicVolume}
+          tracks={playlist.tracks}
+          onTogglePlay={() => setIsPlayingMusic((prev) => !prev)}
+          onVolumeChange={setMusicVolume}
+          onSelectVideo={(id) => {
+            setCurrentVideoId(id);
+            setIsPlayingMusic(true);
+          }}
+          onOpenPlaylistModal={() => setIsPlaylistModalOpen(true)}
+          onAddTrack={playlist.addTrack}
+        />
+
+        {/* Bottom-Right: Live Realtime Clock */}
+        <RealtimeClock />
+
+        {/* Overlay Modals & Drawers */}
+        <BackgroundSelector
+          isOpen={isWallpaperModalOpen}
+          onClose={() => setIsWallpaperModalOpen(false)}
+          settings={visualSettings}
+          onUpdateSettings={updateVisualSettings}
+        />
+
+        <PlaylistModal
+          isOpen={isPlaylistModalOpen}
+          onClose={() => setIsPlaylistModalOpen(false)}
+          tracks={playlist.tracks}
+          currentVideoId={currentVideoId}
+          isPlaying={isPlayingMusic}
+          onSelectVideo={(id) => {
+            setCurrentVideoId(id);
+            setIsPlayingMusic(true);
+          }}
+          onRemoveTrack={playlist.removeTrack}
+          onAddTrack={playlist.addTrack}
+          onRestoreDefaults={playlist.restoreDefaults}
+        />
+
+        <SoundMixerModal
+          isOpen={isMixerModalOpen}
+          onClose={() => setIsMixerModalOpen(false)}
+          channels={mixer.channels}
+          presets={mixer.presets}
+          activeCount={mixer.activeCount}
+          onToggleChannel={mixer.toggleChannel}
+          onUpdateVolume={mixer.updateChannelVolume}
+          onApplyPreset={mixer.applyPreset}
+          onMuteAll={mixer.muteAll}
+        />
+
+        <TodoDrawer
+          isOpen={isTodoDrawerOpen}
+          onClose={() => setIsTodoDrawerOpen(false)}
+          habits={todo.habits}
+          tasks={todo.tasks}
+          progressPercent={todo.progressPercent}
+          completedItems={todo.completedItems}
+          totalItems={todo.totalItems}
+          onToggleItem={todo.toggleItem}
+          onAddItem={todo.addItem}
+          onDeleteItem={todo.deleteItem}
+        />
+      </div>
     </BackgroundContainer>
   );
 }

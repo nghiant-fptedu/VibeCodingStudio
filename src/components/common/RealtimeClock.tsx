@@ -30,7 +30,7 @@ export const RealtimeClock: React.FC = () => {
 
   return (
     <div
-      className="fixed bottom-3 md:bottom-6 right-3 md:right-8 z-40 hidden sm:flex items-center gap-2.5 h-11 md:h-12 px-3.5 md:px-4 py-2 rounded-full glass-panel border border-white/10 shadow-2xl backdrop-blur-2xl select-none hover:border-white/20 transition-all"
+      className="fixed bottom-3 md:bottom-6 right-3 md:right-8 z-40 hidden sm:flex items-center gap-2.5 h-11 md:h-12 px-3.5 md:px-4 py-2 rounded-full select-none hover:border-white/20 transition-all"
       title="Thời gian thực hệ thống"
     >
       {/* Live Pulsing Beacon Dot */}

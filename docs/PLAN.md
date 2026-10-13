@@ -189,6 +189,11 @@ Mục tiêu: Hiện thực hóa thiết kế từ Stitch thành ứng dụng web
   * Đã tối ưu hóa bố cục thích ứng hoàn hảo trên Desktop, Tablet và Mobile.
   * Tích hợp cập nhật tiêu đề tab trình duyệt theo thời gian thực Pomodoro countdown (ví dụ: `(24:59) 🍅 Tập trung — VibeSpace`).
   * Tốc độ build production tối ưu: 2.20 giây, kích thước bundle gzipped < 70KB.
+- [x] **Task 5.4: Khắc phục sự cố ngắt nhạc khi bật Zen Mode (Audio Persistence in Zen Mode)**
+  * Thực thi nghiêm ngặt nguyên lý Clean DOM theo mục 6.4 của `TECH_ARCHITECTURE.md`: Duy trì toàn bộ cây DOM của vùng làm việc chính cùng phần tử YouTube Iframe (`#yt-hidden-player`) ngầm với `opacity-0 pointer-events-none select-none` thay vì unmount component bằng điều kiện `isZenMode ? ... : ...`.
+  * Nhạc Lofi YouTube tiếp tục phát liên tục không bị gián đoạn hay ngắt quãng khi kích hoạt Zen Mode và chuyển đổi qua lại giữa các chế độ.
+  * Tinh chỉnh giao diện `ZenPomodoro`: hiển thị badge phiên ("Phiên tập trung" / "Nghỉ ngơi"), nút bỏ qua phiên (Skip), cho phép click vào thanh Audio Pill dưới đáy để tạm dừng/phát nhạc trực tiếp, và hỗ trợ phím tắt `Escape` để thoát nhanh.
+
 
 ---
 
