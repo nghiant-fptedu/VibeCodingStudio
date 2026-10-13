@@ -2,43 +2,68 @@
 
 ---
 
-## 1. Tổng quan Kiến trúc Hệ thống (System Overview)
+## 1. Tổng quan Kiến trúc Hệ thống (System Overview - Monorepo V2)
 
-VibeSpace được thiết kế theo mô hình **Client-Side Single Page Application (SPA)** thuần túy. Ứng dụng không cần backend hay database tập trung, toàn bộ logic nghiệp vụ, quản lý trạng thái âm thanh, hình ảnh và dữ liệu công việc được thực thi và lưu trữ trực tiếp trên trình duyệt của người dùng thông qua `localStorage` và `Web Audio API`.
+VibeSpace phát triển theo mô hình **Monorepo Client-Server Fullstack**:
+* **Frontend**: Single Page Application (React 18 + Vite + Tailwind CSS) hoạt động theo cơ chế **Hybrid Mode**: Người dùng chưa đăng nhập sử dụng mượt mà qua `localStorage` (Zero-Friction); khi đăng nhập thì tự động đồng bộ (Merge) lên đám mây.
+* **Backend**: RESTful API service viết bằng **Express.js + TypeScript**, quản lý xác thực tài khoản (JWT/bcrypt & Google OAuth) và cung cấp API đồng bộ dữ liệu.
+* **Database**: **PostgreSQL** lưu trữ trên nền tảng **Supabase**, được truy vấn và ánh xạ kiểu an toàn thông qua **Prisma ORM**.
+* **Deployment**: Backend triển khai trên dịch vụ web **Render** thông qua Render MCP; Database quản lý qua Supabase MCP.
 
 ```
-+-----------------------------------------------------------------------------------+
-|                                 USER BROWSER                                      |
-|                                                                                   |
-|  +-----------------------------------------------------------------------------+  |
-|  |                             REACT 18 + VITE APP                             |  |
-|  |                                                                             |  |
-|  |  +---------------------+  +----------------------+  +--------------------+  |  |
-|  |  |   Central Pomodoro  |  |  YouTube Music Player|  | Ambient Sound Mixer|  |  |
-|  |  |   (Timer State)     |  |  (YT IFrame API)     |  | (Web Audio Engine) |  |  |
-|  |  +---------------------+  +----------------------+  +--------------------+  |  |
-|  |                                                                             |  |
-|  |  +---------------------+  +----------------------+  +--------------------+  |  |
-|  |  |   Daily Todo List   |  | Background Gallery   |  |  Zen / Focus Mode  |  |  |
-|  |  | (Daily Reset Engine)|  | (4K CSS Filter Engine|  | (Full UI Toggle)   |  |  |
-|  |  +---------------------+  +----------------------+  +--------------------+  |  |
-|  +-----------------------------------------------------------------------------+  |
-|                                         |                                         |
-|                                         v                                         |
-|               +--------------------------------------------------+                |
-|               |        APP CONTEXT & LOCAL STORAGE SYNC          |                |
-|               |  - User Preferences (Volume, Presets, Dark/Blur) |                |
-|               |  - Daily Habits & Tasks (Last Active Date Check) |                |
-|               |  - Pomodoro Custom Durations                     |                |
-|               +--------------------------------------------------+                |
-|                                         |                                         |
-|                     +-------------------+-------------------+                     |
-|                     v                                       v                     |
-|        +-------------------------+             +-------------------------+        |
-|        |    BROWSER AUDIO API    |             |    YOUTUBE IFRAME API   |        |
-|        | Multi-track Loop Player |             | Embedded Audio Stream   |        |
-|        +-------------------------+             +-------------------------+        |
-+-----------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------+
+|                                              CLIENT TIER                                              |
+|                                                                                                       |
+|  +-------------------------------------------------------------------------------------------------+  |
+|  |                            VIBESPACE WEB APP (REACT 18 + VITE)                                  |  |
+|  |                                                                                                 |  |
+|  |  +------------------+  +------------------+  +-------------------+  +------------------------+  |  |
+|  |  | Pomodoro Timer   |  | Lofi Player (YT) |  | Sound Mixer (Web) |  | Daily Todo & Reset     |  |  |
+|  |  +------------------+  +------------------+  +-------------------+  +------------------------+  |  |
+|  |           |                     |                     |                         |               |  |
+|  |           +---------------------+---------------------+-------------------------+               |  |
+|  |                                                 |                                               |  |
+|  |                      +--------------------------+--------------------------+                    |  |
+|  |                      v                                                     v                    |  |
+|  |         +--------------------------+                         +--------------------------+       |  |
+|  |         |  GUEST MODE: LOCALSTORAGE|                         |   AUTH MODAL & API CLIENT|       |  |
+|  |         |  Offline-first cache     |                         |   JWT Bearer / Google ID |       |  |
+|  |         +--------------------------+                         +--------------------------+       |  |
+|  +----------------------------------------------------------------------------|--------------------+  |
++-------------------------------------------------------------------------------|-----------------------+
+                                                                                | HTTPS / REST
+                                                                                v
++-------------------------------------------------------------------------------------------------------+
+|                                              SERVER TIER                                              |
+|                                                                                                       |
+|  +-------------------------------------------------------------------------------------------------+  |
+|  |                     EXPRESS.JS BACKEND SERVICE (DEPLOYED ON RENDER)                             |  |
+|  |                                                                                                 |  |
+|  |   +-----------------------+   +-----------------------+   +----------------------------------+  |  |
+|  |   | Auth Controller       |   | Tracks Controller     |   | Todos Controller                 |  |  |
+|  |   | (bcrypt, JWT, Google) |   | (User Custom Playlist)|   | (Daily Reset Engine on Server)   |  |  |
+|  |   +-----------------------+   +-----------------------+   +----------------------------------+  |  |
+|  |                                                 |                                               |  |
+|  |                                                 v                                               |  |
+|  |                              +------------------------------------+                             |  |
+|  |                              |        PRISMA ORM CLIENT           |                             |  |
+|  |                              +------------------------------------+                             |  |
+|  +-------------------------------------------------|-----------------------------------------------+  |
++---------------------------------------------------|---------------------------------------------------+
+                                                    | Connection Pooling / SSL
+                                                    v
++-------------------------------------------------------------------------------------------------------+
+|                                             DATABASE TIER                                             |
+|                                                                                                       |
+|  +-------------------------------------------------------------------------------------------------+  |
+|  |                               SUPABASE MANAGED POSTGRESQL (v17)                                 |  |
+|  |                                                                                                 |  |
+|  |           [User Table]              [MusicTrack Table]                 [TodoItem Table]         |  |
+|  |        - id, email, password     - id, userId, videoId              - id, userId, title         |  |
+|  |        - name, googleId, avatar  - title, curator, category         - type (habit / one_off)    |  |
+|  |        - lastActiveDate          - isCustom, createdAt              - completed, completedAt    |  |
+|  +-------------------------------------------------------------------------------------------------+  |
++-------------------------------------------------------------------------------------------------------+
 ```
 
 ---
@@ -47,93 +72,81 @@ VibeSpace được thiết kế theo mô hình **Client-Side Single Page Applica
 
 | Thành phần | Công nghệ được chọn | Lý do lựa chọn |
 | :--- | :--- | :--- |
-| **Framework & Bundler** | **React 18 + Vite** | Khởi động tức thì (< 300ms), Hot Module Replacement (HMR) cực nhanh, tối ưu build tĩnh nhẹ nhàng. |
-| **Ngôn ngữ** | **TypeScript** | Đảm bảo tính chặt chẽ về mặt kiểu dữ liệu cho Todo items, Audio mixer channels, Pomodoro states và Settings. |
-| **Styling** | **Tailwind CSS + CSS Modules** | Xây dựng giao diện Glassmorphism mờ ảo cao cấp, dễ dàng tùy biến CSS Variables cho bộ lọc hình nền và bảng màu. |
-| **Icons** | **Lucide React** | Bộ icon vector tối giản, sắc nét, dung lượng nhẹ, hỗ trợ đầy đủ các biểu tượng âm thanh, thời gian, công việc. |
-| **YouTube Player** | **YouTube IFrame Player API** | Không cần backend proxy, không tốn quota của YouTube Data API, hỗ trợ điều khiển Play/Pause/Volume chính thức. |
-| **Audio Engine** | **HTML5 Audio / Web Audio API** | Cho phép phát đồng thời 10+ track âm thanh môi trường độc lập, loop mượt mà không bị ngắt quãng, điều chỉnh volume từng kênh qua GainNode. |
-| **Lưu trữ dữ liệu** | **Browser `localStorage`** | Đảm bảo tính riêng tư 100%, không cần kết nối mạng để lưu task, khôi phục trạng thái làm việc ngay khi mở lại tab. |
+| **Monorepo Manager** | **npm workspaces** | Quản lý độc lập `apps/frontend` và `apps/backend` không cần cài đặt thêm công cụ phức tạp. |
+| **Frontend Framework** | **React 18 + Vite + TS** | Khởi động tức thì (< 300ms), Hot Module Replacement (HMR) cực nhanh, tối ưu build tĩnh nhẹ nhàng. |
+| **Styling** | **Tailwind CSS + CSS Modules** | Giao diện Glassmorphism mờ ảo cao cấp, dễ dàng tùy biến CSS Variables cho bộ lọc hình nền. |
+| **Backend Framework** | **Express.js + TypeScript** | Hệ sinh thái Node.js phong phú, linh hoạt, cấu trúc rõ ràng, kiểm soát hoàn toàn API và middleware. |
+| **ORM & Schema** | **Prisma ORM** | Type-safe 100% với TypeScript, hỗ trợ schema tập trung và migration tự động lên Supabase PostgreSQL. |
+| **Database** | **PostgreSQL (Supabase)** | Cơ sở dữ liệu quan hệ ACID mạnh mẽ, tin cậy, quản lý qua Supabase MCP (project `ynqwfjqiiqjtizagokdt`). |
+| **Authentication** | **JWT + bcrypt + Google Identity** | Hash mật khẩu an toàn với bcrypt, token JWT không trạng thái; đăng nhập Google 1-click mượt mà qua Google ID token. |
+| **Deployment** | **Render Web Service** | Triển khai nhanh chóng, hỗ trợ auto-deploy từ repository và quản lý biến môi trường qua Render MCP. |
+| **YouTube & Audio** | **YouTube IFrame + Web Audio API** | Không cần backend proxy, âm thanh thiên nhiên 10 kênh đa tầng loopable mượt mà. |
+| **Offline Cache** | **Browser `localStorage`** | Đảm bảo tính riêng tư 100% cho chế độ Guest, tự động đồng bộ khi chuyển sang tài khoản đã đăng nhập. |
 
 ---
 
-## 3. Cấu trúc Thư mục Dự án (Project Directory Structure)
+## 3. Cấu trúc Thư mục Dự án (Project Directory Structure - Monorepo)
+
+Dự án được tổ chức theo kiến trúc **Monorepo** sử dụng **npm workspaces**, phân tách rõ ràng giữa ứng dụng Client (`apps/frontend`) và dịch vụ Backend (`apps/backend`):
 
 ```
-vibespace/
-├── public/
-│   ├── audio/                     # Các file âm thanh white noise chất lượng cao (.mp3 / .ogg)
-│   │   ├── rain.mp3
-│   │   ├── thunder.mp3
-│   │   ├── campfire.mp3
-│   │   ├── wind.mp3
-│   │   ├── waves.mp3
-│   │   ├── stream.mp3
-│   │   ├── birds.mp3
-│   │   ├── cafe.mp3
-│   │   ├── keyboard.mp3
-│   │   └── crickets.mp3
-│   ├── sounds/                    # Âm báo chuông Pomodoro
-│   │   └── zen-bell.mp3
-│   └── favicon.svg
-├── src/
-│   ├── assets/                    # Hình ảnh, logo, placeholder
-│   ├── components/
-│   │   ├── background/
-│   │   │   ├── BackgroundContainer.tsx
-│   │   │   ├── BackgroundSelector.tsx
-│   │   │   └── FilterControls.tsx
-│   │   ├── pomodoro/
-│   │   │   ├── PomodoroTimer.tsx
-│   │   │   ├── PomodoroControls.tsx
-│   │   │   └── PomodoroSettingsModal.tsx
-│   │   ├── music/
-│   │   │   ├── YouTubePlayer.tsx
-│   │   │   ├── PresetSelector.tsx
-│   │   │   └── CustomUrlModal.tsx
-│   │   ├── mixer/
-│   │   │   ├── SoundMixerModal.tsx
-│   │   │   ├── SoundChannelCard.tsx
-│   │   │   └── PresetCombos.tsx
-│   │   ├── todo/
-│   │   │   ├── TodoDrawer.tsx
-│   │   │   ├── HabitList.tsx
-│   │   │   ├── DailyTaskList.tsx
-│   │   │   └── TodoProgressBar.tsx
-│   │   └── common/
-│   │       ├── GlassCard.tsx
-│   │       ├── Slider.tsx
-│   │       └── Tooltip.tsx
-│   ├── context/
-│   │   ├── AppContext.tsx          # Context toàn cục liên kết các module
-│   │   ├── AudioContext.tsx        # Quản lý phát nhạc & white noise
-│   │   └── TodoContext.tsx         # Quản lý task & logic reset ngày
-│   ├── hooks/
-│   │   ├── useLocalStorage.ts      # Custom hook đồng bộ hóa state với localStorage
-│   │   ├── usePomodoro.ts          # Custom hook logic đếm giờ Pomodoro
-│   │   ├── useDailyReset.ts        # Custom hook kiểm tra và kích hoạt reset theo ngày
-│   │   └── useAudioMixer.ts        # Custom hook điều khiển Web Audio mixer
-│   ├── data/
-│   │   ├── curatedPlaylists.ts     # Danh sách preset YouTube Lofi
-│   │   ├── defaultWallpapers.ts    # Danh sách hình nền 4K tuyển chọn
-│   │   └── soundTracks.ts          # Metadata các kênh âm thanh môi trường
-│   ├── types/
-│   │   ├── index.ts                # TypeScript Interfaces & Types
-│   │   ├── audio.ts
-│   │   ├── pomodoro.ts
-│   │   └── todo.ts
-│   ├── utils/
-│   │   ├── youtubeParser.ts        # Hàm trích xuất Video ID từ YouTube URL
-│   │   ├── timeFormatter.ts        # Hàm format mm:ss
-│   │   └── dateHelper.ts           # Hàm kiểm tra so sánh ngày YYYY-MM-DD
-│   ├── App.tsx                     # Layout tổng thể & Zen mode controller
-│   ├── index.css                   # Tailwind directives & Glassmorphism styles
-│   └── main.tsx                    # Entry point React
-├── index.html
-├── package.json
-├── tailwind.config.js
-├── tsconfig.json
-└── vite.config.ts
+vibespace/ (Monorepo Root)
+├── apps/
+│   ├── frontend/                  # Ứng dụng Web VibeSpace Client (React 18 + Vite)
+│   │   ├── public/                # File âm thanh, wallpapers, icons tĩnh
+│   │   │   ├── wallpapers/
+│   │   │   ├── favicon.svg
+│   │   │   └── icons.svg
+│   │   ├── src/
+│   │   │   ├── assets/            # Hình ảnh, logo
+│   │   │   ├── components/        # React components
+│   │   │   │   ├── background/
+│   │   │   │   │   ├── BackgroundContainer.tsx
+│   │   │   │   │   └── BackgroundSelector.tsx
+│   │   │   │   ├── pomodoro/
+│   │   │   │   │   ├── PomodoroTimer.tsx
+│   │   │   │   │   └── ZenPomodoro.tsx
+│   │   │   │   ├── music/
+│   │   │   │   │   ├── YouTubePlayer.tsx
+│   │   │   │   │   └── PlaylistModal.tsx
+│   │   │   │   ├── mixer/
+│   │   │   │   │   ├── SoundMixerModal.tsx
+│   │   │   │   │   └── SoundChannelCard.tsx
+│   │   │   │   ├── todo/
+│   │   │   │   │   └── TodoDrawer.tsx
+│   │   │   │   └── common/
+│   │   │   │       ├── Header.tsx
+│   │   │   │       └── RealtimeClock.tsx
+│   │   │   ├── hooks/             # Custom hooks (usePomodoro, useDailyReset, useAudioMixer, etc.)
+│   │   │   ├── data/              # Curated playlists, wallpapers, soundTracks
+│   │   │   ├── types/             # TypeScript types & interfaces
+│   │   │   ├── utils/             # Helpers (youtubeParser, timeFormatter, etc.)
+│   │   │   ├── App.tsx            # Root component & Zen mode controller
+│   │   │   ├── index.css          # Tailwind directives & Glassmorphism styles
+│   │   │   └── main.tsx           # Entry point React
+│   │   ├── index.html
+│   │   ├── package.json           # @vibespace/frontend scripts & dependencies
+│   │   ├── postcss.config.js
+│   │   ├── tailwind.config.js
+│   │   ├── tsconfig.app.json
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.node.json
+│   │   └── vite.config.ts
+│   │
+│   └── backend/                   # Thư mục mã nguồn backend (sẵn sàng mở rộng API/Service)
+│       ├── .gitkeep
+│       └── README.md
+│
+├── docs/                          # Bộ tài liệu dự án
+│   ├── PRD.md
+│   ├── TECH_ARCHITECTURE.md
+│   ├── PLAN.md
+│   └── COMPONENT_SPECS.md
+├── stitch-designs/                # File thiết kế & Design tokens từ Google Stitch
+├── .agents/                       # Agent rules, workflows & skills
+├── package.json                   # Cấu hình Monorepo Root với npm workspaces
+├── package-lock.json
+└── README.md
 ```
 
 ---
@@ -243,6 +256,71 @@ export interface VisualSettings {
 
 ---
 
+### 4.3 Cấu trúc Schema Cơ sở Dữ liệu PostgreSQL (`prisma/schema.prisma`)
+
+```prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id             String       @id @default(uuid())
+  email          String       @unique
+  password       String?      // Nullable nếu đăng nhập hoàn toàn qua Google
+  name           String
+  avatar         String?
+  googleId       String?      @unique
+  lastActiveDate String?      // Định dạng "YYYY-MM-DD" phục vụ Daily Reset
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  tracks         MusicTrack[]
+  todos          TodoItem[]
+
+  @@map("users")
+}
+
+model MusicTrack {
+  id        String   @id @default(uuid())
+  userId    String
+  videoId   String
+  title     String
+  curator   String
+  category  String   @default("custom") // lofi, ambient, custom...
+  isCustom  Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("music_tracks")
+}
+
+model TodoItem {
+  id          String    @id @default(uuid())
+  userId      String
+  title       String
+  type        String    @default("one_off") // habit hoặc one_off
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("todo_items")
+}
+```
+
+---
+
 ## 5. Kiến trúc Các Module Cốt lõi (Core Engine Architectures)
 
 ### 5.1 Động cơ Quản lý Reset theo ngày (Daily Reset Engine)
@@ -292,6 +370,26 @@ Mỗi kênh âm thanh được khởi tạo bằng một phần tử `HTMLAudioE
   * `https://www.youtube.com/watch?v=VIDEO_ID`
   * `https://youtu.be/VIDEO_ID`
   * `https://www.youtube.com/live/VIDEO_ID`
+
+### 5.4 Đặc tả Hợp đồng REST API Backend (`/api`)
+
+Tất cả các endpoint yêu cầu xác thực (`Protected`) sử dụng Header: `Authorization: Bearer <JWT_TOKEN>`.
+
+| Phương thức | Endpoint | Auth | Mô tả |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/auth/register` | Public | Đăng ký tài khoản (email, password, name) -> trả về token & user info |
+| `POST` | `/api/auth/login` | Public | Đăng nhập bằng email & password -> trả về token & user info |
+| `POST` | `/api/auth/google` | Public | Xác thực Google ID Token từ client -> tìm/tạo user -> trả về token |
+| `GET` | `/api/auth/me` | Protected | Lấy thông tin tài khoản hiện tại |
+| `GET` | `/api/tracks` | Protected | Lấy danh sách playlist bài hát của user (nếu rỗng tự động seed 6 bài mặc định) |
+| `POST` | `/api/tracks` | Protected | Thêm bài hát mới vào playlist cá nhân (videoId, title, curator, category) |
+| `DELETE` | `/api/tracks/:id` | Protected | Xóa bài hát khỏi playlist cá nhân theo ID |
+| `POST` | `/api/tracks/restore-defaults` | Protected | Khôi phục playlist về 6 bài mặc định ban đầu |
+| `GET` | `/api/todos` | Protected | Lấy danh sách todos (tự động kích hoạt Backend Daily Reset nếu sang ngày mới) |
+| `POST` | `/api/todos` | Protected | Thêm task hoặc habit mới |
+| `PATCH` | `/api/todos/:id` | Protected | Cập nhật trạng thái completed hoặc đổi tiêu đề |
+| `DELETE` | `/api/todos/:id` | Protected | Xóa task/habit theo ID |
+| `POST` | `/api/sync/merge` | Protected | Đồng bộ gộp (merge) dữ liệu từ localStorage lên tài khoản sau khi login |
 
 ---
 

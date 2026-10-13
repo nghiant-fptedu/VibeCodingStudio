@@ -194,6 +194,71 @@ Mục tiêu: Hiện thực hóa thiết kế từ Stitch thành ứng dụng web
   * Nhạc Lofi YouTube tiếp tục phát liên tục không bị gián đoạn hay ngắt quãng khi kích hoạt Zen Mode và chuyển đổi qua lại giữa các chế độ.
   * Tinh chỉnh giao diện `ZenPomodoro`: hiển thị badge phiên ("Phiên tập trung" / "Nghỉ ngơi"), nút bỏ qua phiên (Skip), cho phép click vào thanh Audio Pill dưới đáy để tạm dừng/phát nhạc trực tiếp, và hỗ trợ phím tắt `Escape` để thoát nhanh.
 
+---
+
+### Giai đoạn 6: Tái cấu trúc sang Kiến trúc Monorepo (Monorepo Architecture) [HOÀN THÀNH]
+Mục tiêu: Chuyển đổi toàn bộ cấu trúc dự án từ Single SPA sang chuẩn Monorepo với npm workspaces, chuẩn bị sẵn sàng cho việc mở rộng backend trong tương lai.
+
+- [x] **Task 6.1: Tổ chức lại cấu trúc thư mục Monorepo**
+  * Di chuyển toàn bộ mã nguồn Client SPA sang `apps/frontend/`.
+  * Tạo sẵn thư mục `apps/backend/` rỗng kèm `.gitkeep` và `README.md` sẵn sàng cho việc tích hợp mã nguồn backend (REST API, WebSocket, Auth, Cloud Sync).
+- [x] **Task 6.2: Thiết lập npm workspaces và root orchestration**
+  * Định nghĩa `workspaces: ["apps/*"]` tại root `package.json`.
+  * Thiết lập các script điều khiển từ thư mục gốc: `npm run dev`, `npm run build`, `npm run preview`, `npm run dev:frontend`, `npm run build:frontend`.
+  * Đặt tên package frontend chuẩn hóa: `@vibespace/frontend`.
+- [x] **Task 6.3: Kiểm thử toàn diện và cập nhật tài liệu kiến trúc**
+  * Chạy `npm install` và `npm run build` thành công 100% không phát sinh lỗi liên kết thư viện.
+  * Cập nhật sơ đồ cấu trúc thư mục trong `docs/TECH_ARCHITECTURE.md` và `docs/PLAN.md`.
+
+---
+
+### Giai đoạn 7: Xây dựng Backend, Database & Cloud Sync (Milestone M7) [ĐANG THỰC HIỆN]
+Mục tiêu: Triển khai trọn vẹn dịch vụ Express.js backend, thiết lập Prisma ORM kết nối cơ sở dữ liệu Supabase PostgreSQL, xây dựng hệ thống Authentication (JWT + Google OAuth), CRUD playlist bài hát và Daily Todo với cơ chế Backend Daily Reset, tích hợp UI Auth Modal Glassmorphism trên Frontend, và triển khai lên Render qua MCP.
+
+- [x] **Task 7.1: Khởi tạo Source Code Backend Express.js trong `apps/backend/`**
+  * Thiết lập `package.json` với package name `@vibespace/backend`, cấu hình TypeScript (`tsconfig.json`), `cors`, `dotenv`, `express`, `tsx`.
+  * Cài đặt middleware: error handler, cors, json parser, health check endpoint `GET /api/health`.
+  * Thiết lập script khởi chạy tại root `package.json`: `npm run dev:backend`, `npm run build:backend`, `npm run start:backend`.
+  * Đã build TypeScript và kiểm thử endpoint `/api/health` trả về HTTP 200 thành công.
+- [ ] **Task 7.2: Cấu hình Prisma ORM & Đồng bộ Schema với Supabase PostgreSQL**
+  * Cài đặt `prisma` và `@prisma/client`.
+  * Khởi tạo `prisma/schema.prisma` với 3 models: `User`, `MusicTrack`, `TodoItem`.
+  * Kết nối `DATABASE_URL` tới Supabase project `VibeSpace` (`ynqwfjqiiqjtizagokdt`) qua Supabase MCP và chạy migration `prisma db push` / `prisma migrate deploy`.
+- [ ] **Task 7.3: Hiện thực hóa Authentication API (Email/Password & Google OAuth)**
+  * Endpoint `POST /api/auth/register`: Validate input, hash mật khẩu bằng `bcryptjs`, tạo user, cấp token `JWT`.
+  * Endpoint `POST /api/auth/login`: Xác thực credentials, cấp token `JWT`.
+  * Endpoint `POST /api/auth/google`: Sử dụng `google-auth-library` verify Google ID token từ client, upsert user (tìm hoặc tạo tài khoản mới), cấp token `JWT`.
+  * Middleware `authMiddleware`: Xác thực Bearer JWT token và gán `req.user`.
+  * Endpoint `GET /api/auth/me`: Lấy thông tin tài khoản đang đăng nhập.
+- [ ] **Task 7.4: Hiện thực hóa Music Tracks Controller & Router**
+  * Endpoint `GET /api/tracks`: Lấy danh sách bài hát cá nhân; nếu user mới tạo rỗng danh sách thì tự động seed 6 bài Lofi mặc định.
+  * Endpoint `POST /api/tracks`: Thêm bài hát YouTube mới vào tài khoản.
+  * Endpoint `DELETE /api/tracks/:id`: Xóa bài hát khỏi playlist cá nhân.
+  * Endpoint `POST /api/tracks/restore-defaults`: Khôi phục playlist về 6 bài mặc định.
+- [ ] **Task 7.5: Hiện thực hóa Daily Todo Controller & Backend Daily Reset Engine**
+  * Endpoint `GET /api/todos`: Tự động so sánh `lastActiveDate` của user với ngày hôm nay:
+    * Nếu sang ngày mới: Tự động uncheck habits, dọn dẹp các task one-off đã xong trong database, cập nhật `lastActiveDate` = today.
+    * Trả về danh sách todo đã được reset chuẩn xác.
+  * Endpoint `POST /api/todos`: Thêm habit hoặc task mới.
+  * Endpoint `PATCH /api/todos/:id`: Đổi trạng thái hoàn thành / sửa tiêu đề.
+  * Endpoint `DELETE /api/todos/:id`: Xóa task/habit.
+  * Endpoint `POST /api/sync/merge`: Nhận danh sách local tracks và local todos từ frontend khi vừa đăng nhập để gộp vào tài khoản.
+- [ ] **Task 7.6: Xây dựng Giao diện Auth Modal Glassmorphism & Tích hợp Frontend**
+  * Xây dựng Component `AuthModal.tsx`: Chuyển đổi giữa Đăng nhập / Đăng ký (Email + Mật khẩu + Tên) và nút "Đăng nhập với Google" (Google Identity Services SDK).
+  * Cập nhật `Header.tsx`: Nút "Đăng nhập / Đăng ký" khi là Guest; hiển thị Avatar/Tên người dùng + Dropdown menu Đăng xuất khi đã login.
+  * Xây dựng `AuthContext.tsx` & API Service client trên Frontend quản lý trạng thái token và thông tin người dùng.
+- [ ] **Task 7.7: Tích hợp Cloud Sync cho `usePlaylists` và `TodoDrawer`**
+  * Nâng cấp hook `usePlaylists`: Khi đã đăng nhập thì gọi API backend; khi chưa đăng nhập dùng `localStorage`; khi login thành công tự động gọi `/api/sync/merge`.
+  * Nâng cấp `TodoDrawer`: Khi đã đăng nhập thì fetch và mutate dữ liệu qua API backend; giữ nguyên trải nghiệm mượt mà không độ trễ (Optimistic UI updates).
+- [ ] **Task 7.8: Triển khai Backend lên Render thông qua Render MCP**
+  * Tạo Web Service trên Render sử dụng Render MCP (`create_web_service`).
+  * Cấu hình Environment Variables trên Render: `DATABASE_URL`, `JWT_SECRET`, `NODE_ENV=production`, `PORT=10000`, `CORS_ORIGIN`.
+  * Kiểm tra build và deploy trên Render hoạt động thành công.
+- [ ] **Task 7.9: Kiểm thử E2E Toàn diện & Bàn giao**
+  * Kiểm thử luồng Đăng ký / Đăng nhập Email và Google OAuth.
+  * Kiểm thử Thêm / Xóa bài hát cá nhân và khôi phục mặc định.
+  * Kiểm thử Thêm / Xóa / Hoàn thành Todo và kịch bản Reset qua ngày trên database.
+  * Đảm bảo tính tương thích 100% với chế độ Guest offline-first.
 
 ---
 
@@ -206,3 +271,5 @@ Mục tiêu: Hiện thực hóa thiết kế từ Stitch thành ứng dụng web
 | **M3: Design Download & Mapping** | Trích xuất tokens & bóc tách layout thành component spec | **Hoàn thành (Done)** |
 | **M4: Core Implementation** | Chuyển đổi mã React, tích hợp Audio & YouTube, Todo Reset | **Hoàn thành (Done)** |
 | **M5: Launch Ready** | Kiểm thử hoàn chỉnh và sẵn sàng sử dụng thực tế | **Hoàn thành (Done)** |
+| **M6: Monorepo Architecture** | Tổ chức lại monorepo (`apps/frontend`, `apps/backend`) & npm workspaces | **Hoàn thành (Done)** |
+| **M7: Backend, Database & Sync** | Express.js + Prisma + Supabase Postgres + Render + Auth & Cloud Sync | **Chờ thực hiện (Next)** |

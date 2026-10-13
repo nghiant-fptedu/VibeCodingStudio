@@ -20,53 +20,40 @@ VibeSpace là ứng dụng web cá nhân hóa không gian làm việc trực tuy
 
 ### 1.4 Phạm vi Dự án (Scope of Work)
 
-#### 1.4.1 Thuộc phạm vi thực hiện (In-Scope - Phiên bản V1)
-* **Kiến trúc & Nền tảng**:
-  * Phát triển ứng dụng web Client-side Single Page Application (React 18 + TypeScript + Vite + Tailwind CSS).
-  * Trải nghiệm 100% Zero-login: Sử dụng ngay lập tức không cần đăng ký tài khoản, toàn bộ dữ liệu lưu trữ an toàn tại `localStorage`.
-  * Tối ưu hiển thị Responsive trên Desktop, Laptop và Tablet.
-* **Module Trình phát nhạc YouTube Lofi (FR-1)**:
-  * Tích hợp YouTube IFrame Player API.
-  * Thư viện Preset tuyển chọn gồm 6 kênh/bản nhạc Lofi nổi tiếng (Lofi Girl, Chillhop, Cozy Coffee Shop, Synthwave Focus, Peaceful Piano, Rainy Night Lofi).
-  * Tính năng dán link YouTube URL hoặc Video ID bất kỳ để nghe nhạc tùy biến.
-  * Thanh tìm kiếm nhanh / lọc trong danh mục Presets có sẵn.
-  * Điều khiển Play/Pause, chuyển đổi preset, thanh trượt âm lượng (0–100%) và nút Mute/Unmute.
-* **Module Bộ trộn âm thanh White Noise (FR-2)**:
-  * Bộ trộn đa kênh với 10 âm thanh môi trường loopable chất lượng cao (Mưa rào, Sấm sét, Lửa trại, Gió, Sóng biển, Suối rừng, Chim hót, Quán cafe, Bàn phím cơ, Tiếng ve đêm).
-  * Điều khiển Bật/Tắt và thanh chỉnh âm lượng độc lập cho từng kênh (0–100%).
-  * 4 Preset phối sẵn 1-click ("Đêm mưa bão", "Góc quán cafe", "Nhà gỗ mùa đông", "Bình minh trong rừng").
-  * Nút Master Mute để ngắt nhanh toàn bộ âm thanh môi trường.
-* **Module Kho hình nền 4K & Bộ lọc hiển thị (FR-3)**:
-  * Thư viện ảnh tĩnh 4K tuyển chọn theo 6 chủ đề thư giãn (Rừng thông, Hoàng hôn đại dương, Núi tuyết, Phòng lofi bên cửa sổ mưa, Quán cafe vintage, Bầu trời đêm).
-  * Bộ lọc tùy chỉnh độ tối (Darkness Overlay 0–80%) và độ mờ hậu cảnh (Blur 0–10px) chống chói mắt.
-  * Drawer/Popup xem trước thumbnail và chuyển đổi hình nền tức thì.
-* **Module Đồng hồ Pomodoro trung tâm (FR-4)**:
-  * Đồng hồ đếm giờ trung tâm màn hình phong cách tối giản với 3 chế độ: Focus (25m), Short Break (5m), Long Break (15m).
-  * Cho phép tùy chỉnh thời lượng phiên theo thói quen cá nhân.
-  * Phát chuông báo thiền (Zen chime) khi kết thúc phiên.
-  * Đếm số phiên Pomodoro hoàn thành trong ngày (`🍅 x / y`).
-  * Chế độ Zen Mode / Fullscreen ẩn toàn bộ widget phụ, chỉ để lại đồng hồ và hình nền.
-* **Module Quản lý công việc Daily Todo List (FR-5)**:
-  * Phân tách rõ ràng 2 nhóm công việc:
-    * *Daily Habits (Thói quen hàng ngày)*: Tự động bỏ tick (uncheck) sau 00:00 mỗi ngày để người dùng làm lại.
-    * *Daily Tasks (Việc trong ngày)*: Thêm mới trong ngày; sang ngày mới các việc đã hoàn thành tự động dọn dẹp/chuyển vào lịch sử lưu trữ, việc chưa xong được tự động giữ lại tiếp tục.
-  * Thao tác CRUD (Thêm, Sửa, Xóa, Đánh dấu hoàn thành) và thanh tiến độ trực quan (% Progress).
-  * Động cơ kiểm tra ngày mới (`Daily Reset Engine`) tự động thực thi khi mở tab hoặc qua ngày.
+#### 1.4.1 Đã thực hiện (In-Scope - Phiên bản V1: Client-Side Workspace) [HOÀN THÀNH]
+* **Kiến trúc & Nền tảng**: Client-side SPA (React 18, TypeScript, Vite, Tailwind CSS), lưu trữ `localStorage`.
+* **Trình phát nhạc Lofi YouTube (FR-1)**: Nhúng YouTube IFrame, 6 preset tuyển chọn, dán link tùy biến, dock mini player.
+* **Bộ trộn âm thanh White Noise (FR-2)**: 10 kênh synthesizer Web Audio API độc lập, 4 preset phối sẵn, master mute.
+* **Kho hình nền 4K & Bộ lọc (FR-3)**: Thư viện ảnh 4K, bộ lọc Darkness Overlay và Blur chống chói mắt.
+* **Đồng hồ Pomodoro trung tâm (FR-4)**: 3 chế độ 25/5/15, chuông thiền Solfeggio 528Hz, Zen Mode toàn màn hình.
+* **Quản lý công việc Daily Todo List (FR-5)**: Phân tách Daily Habits và Daily Tasks, logic tự động reset ngày mới.
 
-#### 1.4.2 Ngoại phạm vi (Out-of-Scope - Phiên bản V1)
-Các tính năng sau **không** thuộc phạm vi triển khai của phiên bản V1 nhằm đảm bảo tính gọn nhẹ, tức thì và bảo mật:
-* **Hệ thống Tài khoản & Xác thực (Auth/User Accounts)**: Không hỗ trợ đăng ký, đăng nhập tài khoản (bằng Email, Google, Facebook...).
-* **Lưu trữ Đám mây & Đồng bộ đa thiết bị (Cloud Storage & Sync)**: Không sử dụng backend database (Firebase, Supabase, PostgreSQL) để đồng bộ dữ liệu giữa các máy tính khác nhau.
-* **Tìm kiếm tự do toàn bộ YouTube qua YouTube Data API v3**: Không gọi trực tiếp YouTube Search API qua API Key để tránh rủi ro cạn kiệt hạn ngạch quota (10,000 units/ngày) và không cần xây backend proxy bảo mật key.
-* **Không gian làm việc nhóm trực tuyến (Multiplayer / Social Focus Rooms)**: Không hỗ trợ tính năng phòng học chung ảo (Study with Me), chat nhóm hoặc nhìn thấy bạn bè cùng học trong V1.
-* **Tải lên file cá nhân từ máy tính (Custom File Uploads)**: Không hỗ trợ upload file mp3/mp4 từ máy tính cá nhân lên ứng dụng (chỉ dùng kho tài nguyên có sẵn hoặc dán link YouTube/link ảnh web).
-* **Tích hợp bên thứ ba (Third-party Integrations)**: Chưa tích hợp các nền tảng như Spotify SDK, Apple Music, Notion, Google Calendar, Todoist.
+#### 1.4.2 Phạm vi Triển khai Phiên bản V2 (In-Scope - Milestone M7: Backend, Database & Cloud Sync) [TIẾP THEO]
+* **Kiến trúc Monorepo & Dịch vụ Backend (FR-6)**:
+  * Phát triển REST API backend tại `apps/backend` sử dụng **Express.js** + **TypeScript**.
+  * Quản trị cơ sở dữ liệu quan hệ **PostgreSQL (Supabase)** thông qua **Prisma ORM**.
+  * Triển khai dịch vụ backend lên nền tảng **Render** thông qua Render MCP; kết nối database qua Supabase MCP.
+* **Hệ thống Xác thực Người dùng (FR-7: Authentication)**:
+  * Đăng ký / Đăng nhập tài khoản truyền thống bằng Email và Mật khẩu (mã hóa an toàn bằng `bcrypt`, cấp phát `JWT` token).
+  * Đăng nhập 1-click bằng **Google OAuth** (tích hợp Google Identity Services trên Frontend, xác thực ID Token qua backend).
+  * Giao diện **Auth Modal** phong cách Glassmorphism mờ ảo hiện đại ngay trên trang chính, không chuyển trang gây gián đoạn.
+  * Hiển thị Avatar/Tên người dùng tại Header và chức năng Đăng xuất (Logout).
+* **Đồng bộ & Quản lý Danh sách Bài nhạc Cá nhân (FR-8: Music Cloud Sync)**:
+  * Mỗi tài khoản sở hữu danh sách bài hát độc lập trên PostgreSQL (khi đăng ký tài khoản mới được tự động seed 6 bài mặc định).
+  * Thao tác CRUD: Thêm bài hát từ link YouTube, Xóa bất kỳ bài hát nào trong playlist cá nhân, Khôi phục danh sách gốc (Restore defaults).
+* **Đồng bộ & Quản lý Công việc Daily Todo (FR-9: Todo Cloud Sync & Daily Reset)**:
+  * Lưu trữ và đồng bộ hóa hai danh mục `Daily Habits` và `Daily Tasks` lên PostgreSQL theo từng tài khoản.
+  * Thao tác CRUD: Thêm công việc, Đánh dấu hoàn thành (Toggle complete), Chỉnh sửa tiêu đề, Xóa công việc.
+  * **Backend-driven Daily Reset**: Lưu `lastActiveDate` của user; khi sang ngày mới, backend tự động uncheck thói quen và dọn dẹp task đã hoàn thành trong database trước khi trả về client.
+* **Cơ chế Lai (Hybrid Zero-Friction Data Sync - FR-10)**:
+  * Người dùng chưa đăng nhập (Guest) vẫn sử dụng bình thường 100% với `localStorage`.
+  * Khi người dùng bấm Đăng nhập/Đăng ký, toàn bộ dữ liệu bài hát và task hiện có trên máy (nếu có) sẽ được tự động đồng bộ (Merge) lên tài khoản trên server.
 
-#### 1.4.3 Kế hoạch Mở rộng Tương lai (Future Scope / Roadmap V2)
-* **Cloud Sync tùy chọn**: Tùy chọn đăng nhập bằng Google/GitHub để sao lưu Todo list và cấu hình mixer lên cloud nếu người dùng có nhu cầu lưu đa thiết bị.
-* **Phòng Pomodoro nhóm (Study with Me)**: Tạo và chia sẻ đường link phòng học để bạn bè cùng đếm ngược Pomodoro thời gian thực qua WebRTC.
-* **Spotify Web Playback SDK**: Cho phép người dùng đăng nhập tài khoản Spotify Premium để nghe nhạc trực tiếp từ playlist Spotify.
-* **Báo cáo Năng suất Nâng cao (Productivity Analytics)**: Biểu đồ thống kê số giờ tập trung và số task hoàn thành theo tuần/tháng với export dữ liệu CSV/JSON.
+#### 1.4.3 Ngoại phạm vi (Out-of-Scope - Phiên bản V2)
+* Quên mật khẩu qua gửi email SMTP (Reset password via email).
+* Phòng học chung ảo thời gian thực nhiều người (Multiplayer / WebRTC Study with Me).
+* Tích hợp Spotify Web Playback SDK / Apple Music.
+* Tìm kiếm tự do toàn bộ YouTube qua YouTube Data API v3 key (tránh tốn quota).
 
 ---
 
