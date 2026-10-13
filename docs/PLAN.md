@@ -233,11 +233,12 @@ Mục tiêu: Triển khai trọn vẹn dịch vụ Express.js backend, thiết l
   * Middleware `authMiddleware`: Xác thực Bearer JWT token qua `Authorization` header và gán `req.user`.
   * Endpoint `GET /api/auth/me`: Lấy thông tin tài khoản đang đăng nhập (Protected route).
   * Kiểm thử tự động tích hợp thành công 100% toàn bộ kịch bản đăng ký, đăng nhập sai/đúng, xác thực token và dọn dẹp test record trên Supabase.
-- [ ] **Task 7.4: Hiện thực hóa Music Tracks Controller & Router**
+- [x] **Task 7.4: Hiện thực hóa Music Tracks Controller & Router**
   * Endpoint `GET /api/tracks`: Lấy danh sách bài hát cá nhân; nếu user mới tạo rỗng danh sách thì tự động seed 6 bài Lofi mặc định.
-  * Endpoint `POST /api/tracks`: Thêm bài hát YouTube mới vào tài khoản.
-  * Endpoint `DELETE /api/tracks/:id`: Xóa bài hát khỏi playlist cá nhân.
+  * Endpoint `POST /api/tracks`: Thêm bài hát YouTube mới vào tài khoản kèm kiểm tra chống trùng lặp.
+  * Endpoint `DELETE /api/tracks/:id`: Xóa bài hát khỏi playlist cá nhân (bảo vệ quyền sở hữu của user).
   * Endpoint `POST /api/tracks/restore-defaults`: Khôi phục playlist về 6 bài mặc định.
+  * Kiểm thử tự động tích hợp thành công 100% các luồng GET, POST, Duplicate check, DELETE và Restore Defaults trên Supabase PostgreSQL.
 - [ ] **Task 7.5: Hiện thực hóa Daily Todo Controller & Backend Daily Reset Engine**
   * Endpoint `GET /api/todos`: Tự động so sánh `lastActiveDate` của user với ngày hôm nay:
     * Nếu sang ngày mới: Tự động uncheck habits, dọn dẹp các task one-off đã xong trong database, cập nhật `lastActiveDate` = today.

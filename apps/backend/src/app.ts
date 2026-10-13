@@ -2,6 +2,7 @@ import express, { type Request, type Response, type NextFunction } from 'express
 import cors from 'cors';
 
 import authRoutes from './routes/auth.routes.js';
+import tracksRoutes from './routes/tracks.routes.js';
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/tracks', tracksRoutes);
 
 // Health check endpoint
 app.get('/api/health', (_req: Request, res: Response) => {
