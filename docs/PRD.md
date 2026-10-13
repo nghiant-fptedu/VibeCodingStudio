@@ -65,6 +65,18 @@ VibeSpace là ứng dụng web cá nhân hóa không gian làm việc trực tuy
   * **Lưu trữ Cloud Database (Supabase PostgreSQL)**: Lưu trữ trọn bộ Visual Settings (`wallpaperId`, `darknessOverlay`, `blurAmount`) gắn liền với tài khoản người dùng.
   * **Cơ chế Tự động Lưu Ngầm (Auto-Save on Change)**: Khi người dùng chọn hình nền mới hoặc tinh chỉnh độ tối/mờ trong `BackgroundSelector`, hệ thống phản hồi tức thì trên UI (Optimistic UI) và tự động đồng bộ ngầm lên database API (kèm debounce tránh spam).
   * **Nạp & Gộp khi Đăng nhập**: Tự động khôi phục đúng không gian hình nền đã lưu khi đăng nhập trên bất kỳ thiết bị nào; tự động gộp hình nền từ Guest lên Cloud khi đăng ký tài khoản lần đầu.
+* **Bố cục Thanh Điều Hướng Trên Thiết Bị Di Động (FR-14: Mobile Responsive Navigation & Slide-in Drawer)**:
+  * **Thu gọn Top Header trên Mobile (< 768px)**: Tối giản thanh Header trên điện thoại, bên trái là Logo thương hiệu VibeSpace, bên phải chỉ gồm nút Zen Mode (bật nhanh chế độ tập trung 1 chạm) và nút Menu Hamburger ☰.
+  * **Slide-in Menu Drawer từ Cạnh Phải**: Khi bấm nút ☰, menu trượt ra từ cạnh phải với phong cách Glassmorphism mờ đục cao cấp, chiếm ~80% chiều rộng màn hình (tối đa 320px), có nút đóng "X" và lớp phủ backdrop mờ.
+  * **Tập hợp Trọn bộ Công cụ Tiện ích**:
+    * Khu vực Tài khoản / Đăng nhập (hiển thị Avatar, tên, trạng thái đồng bộ, nút Đăng xuất / Đăng nhập).
+    * Bộ trộn âm thanh White Noise (icon, nhãn, badge đếm số âm thanh đang phát).
+    * Danh sách công việc Todo List (icon, nhãn, badge % tiến độ hoàn thành).
+    * Đổi hình nền Wallpaper (icon, nhãn).
+    * Bật / Tắt âm toàn bộ Master Mute (icon, nhãn, trạng thái bật/tắt).
+    * Chuyển đổi ngôn ngữ VI / EN (Pill toggle mượt mà).
+  * **Tự động đóng Drawer khi kích hoạt công cụ**: Khi người dùng chạm chọn một công cụ (Mixer, Todo, Wallpaper, Đăng nhập), Menu Drawer tự động trượt đóng lại và mở ngay modal/drawer tương ứng, loại bỏ tình trạng chồng chéo popup trên màn hình nhỏ.
+  * **Bảo tồn Trải nghiệm Desktop (>= 768px)**: Giữ nguyên vẹn toàn bộ thanh điều hướng ngang trên màn hình máy tính.
 
 #### 1.4.3 Ngoại phạm vi (Out-of-Scope - Phiên bản V2)
 * Quên mật khẩu qua gửi email SMTP (Reset password via email).

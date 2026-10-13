@@ -325,6 +325,23 @@ Mục tiêu: Cho phép người dùng lưu lại hình nền đã chọn (`wallp
 
 ---
 
+### Giai đoạn 11: Tái Cấu Trúc Thanh Điều Hướng Di Động (Milestone M11) [HOÀN THÀNH]
+Mục tiêu: Tối ưu hóa thanh Header trên thiết bị di động (< 768px) theo phong cách tối giản (Logo + nút Zen Mode + nút Menu Hamburger ☰), tích hợp Slide-in Drawer chứa toàn bộ công cụ tiện ích với hiệu ứng Glassmorphism và cơ chế tự động đóng khi chọn công cụ.
+
+- [x] **Task 11.1: Cập nhật tài liệu kỹ thuật docs/PRD.md, docs/TECH_ARCHITECTURE.md và docs/PLAN.md**
+  * Đặc tả chi tiết yêu cầu FR-14 và kiến trúc điều hướng di động đa tầng.
+- [x] **Task 11.2: Nâng cấp Header.tsx với Mobile Minimalist Bar & Slide-in Drawer**
+  * Tách biệt chế độ hiển thị: Desktop (`hidden md:flex`) giữ nguyên vẹn thanh điều hướng hiện tại; Mobile (`md:hidden`) hiển thị nút Zen Mode + Menu Hamburger ☰.
+  * Xây dựng Mobile Drawer trượt từ phải sang với backdrop mờ, chứa Profile Card, Quick Tools (Mixer, Todo, Wallpaper, Mute) và Language Switcher.
+  * Đảm bảo cơ chế tự động đóng Drawer khi kích hoạt mở modal con.
+- [x] **Task 11.3: Kiểm thử Build Vite/TypeScript Frontend**
+  * Chạy `npm run build:frontend` pass 100% không cảnh báo/lỗi.
+- [x] **Task 11.4: Kiểm thử Trực quan Giao diện Mobile & Thao tác Đóng/Mở**
+  * Kiểm tra đầy đủ kịch bản trượt mở drawer, hiển thị thẻ người dùng, danh sách công cụ, đóng bằng nút X, backdrop và phím Escape.
+- [x] **Task 11.5: Cập nhật PLAN.md, Commit & Push GitHub Bàn giao Milestone M11**
+
+---
+
 ## 3. Các Mốc Hoàn thành (Milestones & Next Step)
 
 | Mốc | Mô tả | Trạng thái |
@@ -339,3 +356,4 @@ Mục tiêu: Cho phép người dùng lưu lại hình nền đã chọn (`wallp
 | **M8: Internationalization (i18n)** | Hỗ trợ 2 ngôn ngữ Tiếng Việt (VI) và Tiếng Anh (EN) | **Hoàn thành (Done)** |
 | **M9: Sign Out Audio Stop & Reset** | Tắt nhạc, tắt mixer, reset Pomodoro, modals và dữ liệu Guest khi Sign Out | **Hoàn thành (Done)** |
 | **M10: Wallpaper Persistence & Sync** | Lưu hình nền & visual settings lên Cloud DB, auto-save ngầm, bảo lưu khi Sign Out | **Hoàn thành (Done)** |
+| **M11: Mobile Responsive Navigation** | Thu gọn Top Header mobile, tích hợp Slide-in Drawer chứa toàn bộ công cụ | **Hoàn thành (Done)** |

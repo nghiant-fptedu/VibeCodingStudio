@@ -418,3 +418,20 @@ Tất cả các endpoint yêu cầu xác thực (`Protected`) sử dụng Header
    * **Cơ chế kích hoạt kép (Double-layer Trigger)**:
      * Kích hoạt trực tiếp qua hàm `handleSignOutReset()` khi người dùng click vào nút Đăng xuất trên `Header`.
      * Kích hoạt tự động qua `useEffect` theo dõi biến đổi `isAuthenticated` từ `true` sang `false` để xử lý các tình huống phiên hết hạn (Session expired / 401 Unauthorized).
+
+6. **Kiến trúc Điều Hướng Di Động Đa Tầng (Mobile Responsive Navigation Architecture - FR-14)**:
+   * **Phân định Breakpoint**: Sử dụng chuẩn Tailwind CSS `md:` (768px) làm mốc phân tách:
+     * `Screen >= 768px (Desktop/Tablet)`: Duy trì nguyên vẹn thanh điều hướng ngang với đầy đủ 7 nút công cụ trực quan.
+     * `Screen < 768px (Mobile Viewport)`: Tự động kích hoạt bố cục Header tối giản kết hợp Slide-in Menu Drawer.
+   * **Bố cục Top Header trên Mobile**:
+     * Trái: Logo VibeSpace (Sparkles icon + Gradient Brand text).
+     * Phải: Nút Zen Mode (kích hoạt nhanh 1 chạm) + Nút Hamburger Menu ☰ (icon `Menu` của Lucide).
+   * **Slide-in Mobile Menu Drawer**:
+     * Trượt mượt mà từ cạnh phải (`fixed inset-y-0 right-0 z-50 w-72 max-w-[85vw] glass-panel border-l border-white/15 shadow-2xl`).
+     * Lớp phủ nền mờ đục (`fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity`).
+     * **Hộp thoại người dùng & Công cụ**:
+       1. Header Drawer: Tiêu đề "Menu" và nút đóng "X".
+       2. User Profile Card: Hiển thị avatar, tên, email, trạng thái đồng bộ cloud, nút Đăng xuất (hoặc nút Đăng nhập / Đăng ký nếu là Guest).
+       3. Quick Tools List: Danh sách các công cụ (Mixer có badge số lượng âm đang mở, Todo List có badge % hoàn thành, Wallpaper Selector, Master Mute toggle).
+       4. Language Switcher: Bộ chuyển đổi Tiếng Việt / Tiếng Anh dạng Pill trực quan.
+   * **Trải nghiệm tương tác đơn tầng (Single-level Focus)**: Khi người dùng chạm chọn một công cụ (Mixer, Todo, Wallpaper, Đăng nhập), Menu Drawer tự động trượt đóng lại và mở ngay modal/drawer của tính năng đó, tránh tình trạng nhiều lớp popup chồng đè lên nhau gây rối mắt trên điện thoại.
