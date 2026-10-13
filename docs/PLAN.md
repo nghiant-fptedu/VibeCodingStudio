@@ -64,7 +64,8 @@ Mục tiêu: Sử dụng công cụ Google Stitch (qua StitchMCP) để sinh cá
   * **Screen ID**: `3fc492be343d49dc9ad20fb45c2f91ee`
   * **Title**: `VibeSpace - Lofi Focus Workspace`
   * **Kích thước**: Desktop 2560x2048 (16:9 view)
-  * **Screenshot Preview**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1XmBoy-HiPVsSw1q196Q3fPj20Lca4cpEYxOB9oKcCDICfHuUJnUBdP7pFSe3FowUnShneBGNwW0-svbUSXl-vI19yTl_sINrK5yeg87eJ5F4Nnpjc1wRx_-jWfFD2NjVdqSYaSur9MjTeRYUbdzaQXTCdHS7WWKCVhCCO5KkwOyt-lj5Jc7ouBucfRHTjAVhtSfOAvG4Jw0oSG57aE_8d-cVQJjF5CNsjQxYp0FjjjI7bNyHGIt-OmCug)
+  * **Ảnh thiết kế (Local)**: [`stitch-designs/screens/screen-1-main-dashboard.png`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/screens/screen-1-main-dashboard.png)
+  * **Screenshot Preview (Web)**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1XmBoy-HiPVsSw1q196Q3fPj20Lca4cpEYxOB9oKcCDICfHuUJnUBdP7pFSe3FowUnShneBGNwW0-svbUSXl-vI19yTl_sINrK5yeg87eJ5F4Nnpjc1wRx_-jWfFD2NjVdqSYaSur9MjTeRYUbdzaQXTCdHS7WWKCVhCCO5KkwOyt-lj5Jc7ouBucfRHTjAVhtSfOAvG4Jw0oSG57aE_8d-cVQJjF5CNsjQxYp0FjjjI7bNyHGIt-OmCug)
   * **Component React ánh xạ**:
     * `src/components/common/Header.tsx` (Logo, quote, clock, toggle Zen Mode)
     * `src/components/pomodoro/PomodoroTimer.tsx` (Đồng hồ đếm giờ 25:00, circular progress, Focus/Break tabs, nút Start amber glow)
@@ -77,7 +78,8 @@ Mục tiêu: Sử dụng công cụ Google Stitch (qua StitchMCP) để sinh cá
   * **Screen ID**: `1c869128fba241db9e5116c79279724b`
   * **Title**: `VibeSpace - Sound Mixer Modal & Task Drawer`
   * **Kích thước**: Desktop 2560x2048
-  * **Screenshot Preview**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1X3gIdQKd_Ype6gaFpKU-nrG7WZErLF1qGoKoh4jgTcGs1CctBdSQiEKhwVZYEWCIEL8PCUH1OYavbD4WOK0oayQTBzw25djKpLrfmbxc_YQZzCg6tD16pBa1dujgzAOnH5EOZ--zihfQTDyuqSseHK5cFU8qBziqVHBiQENMvXIi3SWFv8W7ywIqufDgz9gym2DpcnSqSar5x8DBXRDiYIMnJprcwwXMJOuoUxWdRJnDHkblXt7xO0yuY)
+  * **Ảnh thiết kế (Local)**: [`stitch-designs/screens/screen-2-modals-drawers.png`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/screens/screen-2-modals-drawers.png)
+  * **Screenshot Preview (Web)**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1X3gIdQKd_Ype6gaFpKU-nrG7WZErLF1qGoKoh4jgTcGs1CctBdSQiEKhwVZYEWCIEL8PCUH1OYavbD4WOK0oayQTBzw25djKpLrfmbxc_YQZzCg6tD16pBa1dujgzAOnH5EOZ--zihfQTDyuqSseHK5cFU8qBziqVHBiQENMvXIi3SWFv8W7ywIqufDgz9gym2DpcnSqSar5x8DBXRDiYIMnJprcwwXMJOuoUxWdRJnDHkblXt7xO0yuY)
   * **Component React ánh xạ**:
     * `src/components/mixer/SoundMixerModal.tsx` (Modal hòa âm 10 kênh, Master volume, Mute all)
     * `src/components/mixer/SoundChannelCard.tsx` (Card âm thanh độc lập với icon, toggle, slider âm lượng)
@@ -92,7 +94,8 @@ Mục tiêu: Sử dụng công cụ Google Stitch (qua StitchMCP) để sinh cá
   * **Screen ID**: `e95bd016ecf64506964d0dc2d18e34ae`
   * **Title**: `VibeSpace - Minimalist Zen Mode`
   * **Kích thước**: Desktop 2560x2048
-  * **Screenshot Preview**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1U3wKQFh9wMXiVOe8QFMpAQ9EBee-ytnE9O35ltTKOIp1bMgi69Hl37zfVQC2augBuPHzW7FPb8J4IVYW2XuNArMcXOn_N7vGe3oqPoK4CP_TrbZOUcGZ6weVKMUl0wxKgwJY3KXl95u5lIPqFR4i9pCOihcg15O6u5g9RgqdiPl4jRQRPEzq3BK8PwoeUb--I2omWDoulGR2sGoxlHKKCKnsCoYfT0SODmVL5fxrowDshC2agCaYXAKQ)
+  * **Ảnh thiết kế (Local)**: [`stitch-designs/screens/screen-3-zen-mode.png`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/screens/screen-3-zen-mode.png)
+  * **Screenshot Preview (Web)**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1U3wKQFh9wMXiVOe8QFMpAQ9EBee-ytnE9O35ltTKOIp1bMgi69Hl37zfVQC2augBuPHzW7FPb8J4IVYW2XuNArMcXOn_N7vGe3oqPoK4CP_TrbZOUcGZ6weVKMUl0wxKgwJY3KXl95u5lIPqFR4i9pCOihcg15O6u5g9RgqdiPl4jRQRPEzq3BK8PwoeUb--I2omWDoulGR2sGoxlHKKCKnsCoYfT0SODmVL5fxrowDshC2agCaYXAKQ)
   * **Component React ánh xạ**:
     * `src/components/pomodoro/ZenPomodoro.tsx` (Đồng hồ đếm ngược tối giản 24:38, vòng progress thanh thoát)
     * `src/components/common/ZenModeToggle.tsx` (Nút thoát chế độ Zen Mode thu nhỏ ở góc trên phải)
@@ -101,6 +104,7 @@ Mục tiêu: Sử dụng công cụ Google Stitch (qua StitchMCP) để sinh cá
 * **Wallpaper Asset đi kèm**:
   * **Screen ID**: `323cac25fc104f738346fae07e77b679`
   * **Title**: `Cinematic high-resolution photograph of a serene misty pine forest at deep twilight`
+  * **Ảnh nền (Local)**: [`stitch-designs/screens/screen-wallpaper-pine-forest.png`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/screens/screen-wallpaper-pine-forest.png)
   * **Image URL**: [Tải ảnh 4K](https://lh3.googleusercontent.com/aida/AEtjO1U_DTq0YgEStLBcMJfjJuPhd30BWKEFy1iCYSrIuC1aMWNFyHZeGIFV1bvBOzJt2j2iPwmVSu3deUPrfWb-FGQqCGVBhxJY5fbfKG9E-xOm59wstqLpTVLCUwztqIeCXQydcWT2p1dkGLCwZLSA01-Tp4czuCBHwpdd-viNT_i8KgCxdmmATg1TBbKst8Cc9kCaMCyPPUak3oeZqSd7RFGM8npXMoEGv7Ng3S5OHUEh_ebWqc2g0IBSfxM)
 
 #### Bảng Tổng hợp Ánh xạ Screen và React Components
