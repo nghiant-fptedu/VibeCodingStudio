@@ -64,7 +64,8 @@ Mục tiêu: Sử dụng công cụ Google Stitch (qua StitchMCP) để sinh cá
   * **Screen ID**: `3fc492be343d49dc9ad20fb45c2f91ee`
   * **Title**: `VibeSpace - Lofi Focus Workspace`
   * **Kích thước**: Desktop 2560x2048 (16:9 view)
-  * **Screenshot Preview**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1XmBoy-HiPVsSw1q196Q3fPj20Lca4cpEYxOB9oKcCDICfHuUJnUBdP7pFSe3FowUnShneBGNwW0-svbUSXl-vI19yTl_sINrK5yeg87eJ5F4Nnpjc1wRx_-jWfFD2NjVdqSYaSur9MjTeRYUbdzaQXTCdHS7WWKCVhCCO5KkwOyt-lj5Jc7ouBucfRHTjAVhtSfOAvG4Jw0oSG57aE_8d-cVQJjF5CNsjQxYp0FjjjI7bNyHGIt-OmCug)
+  * **Ảnh thiết kế (Local)**: [`stitch-designs/screens/screen-1-main-dashboard.png`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/screens/screen-1-main-dashboard.png)
+  * **Screenshot Preview (Web)**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1XmBoy-HiPVsSw1q196Q3fPj20Lca4cpEYxOB9oKcCDICfHuUJnUBdP7pFSe3FowUnShneBGNwW0-svbUSXl-vI19yTl_sINrK5yeg87eJ5F4Nnpjc1wRx_-jWfFD2NjVdqSYaSur9MjTeRYUbdzaQXTCdHS7WWKCVhCCO5KkwOyt-lj5Jc7ouBucfRHTjAVhtSfOAvG4Jw0oSG57aE_8d-cVQJjF5CNsjQxYp0FjjjI7bNyHGIt-OmCug)
   * **Component React ánh xạ**:
     * `src/components/common/Header.tsx` (Logo, quote, clock, toggle Zen Mode)
     * `src/components/pomodoro/PomodoroTimer.tsx` (Đồng hồ đếm giờ 25:00, circular progress, Focus/Break tabs, nút Start amber glow)
@@ -77,7 +78,8 @@ Mục tiêu: Sử dụng công cụ Google Stitch (qua StitchMCP) để sinh cá
   * **Screen ID**: `1c869128fba241db9e5116c79279724b`
   * **Title**: `VibeSpace - Sound Mixer Modal & Task Drawer`
   * **Kích thước**: Desktop 2560x2048
-  * **Screenshot Preview**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1X3gIdQKd_Ype6gaFpKU-nrG7WZErLF1qGoKoh4jgTcGs1CctBdSQiEKhwVZYEWCIEL8PCUH1OYavbD4WOK0oayQTBzw25djKpLrfmbxc_YQZzCg6tD16pBa1dujgzAOnH5EOZ--zihfQTDyuqSseHK5cFU8qBziqVHBiQENMvXIi3SWFv8W7ywIqufDgz9gym2DpcnSqSar5x8DBXRDiYIMnJprcwwXMJOuoUxWdRJnDHkblXt7xO0yuY)
+  * **Ảnh thiết kế (Local)**: [`stitch-designs/screens/screen-2-modals-drawers.png`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/screens/screen-2-modals-drawers.png)
+  * **Screenshot Preview (Web)**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1X3gIdQKd_Ype6gaFpKU-nrG7WZErLF1qGoKoh4jgTcGs1CctBdSQiEKhwVZYEWCIEL8PCUH1OYavbD4WOK0oayQTBzw25djKpLrfmbxc_YQZzCg6tD16pBa1dujgzAOnH5EOZ--zihfQTDyuqSseHK5cFU8qBziqVHBiQENMvXIi3SWFv8W7ywIqufDgz9gym2DpcnSqSar5x8DBXRDiYIMnJprcwwXMJOuoUxWdRJnDHkblXt7xO0yuY)
   * **Component React ánh xạ**:
     * `src/components/mixer/SoundMixerModal.tsx` (Modal hòa âm 10 kênh, Master volume, Mute all)
     * `src/components/mixer/SoundChannelCard.tsx` (Card âm thanh độc lập với icon, toggle, slider âm lượng)
@@ -92,7 +94,8 @@ Mục tiêu: Sử dụng công cụ Google Stitch (qua StitchMCP) để sinh cá
   * **Screen ID**: `e95bd016ecf64506964d0dc2d18e34ae`
   * **Title**: `VibeSpace - Minimalist Zen Mode`
   * **Kích thước**: Desktop 2560x2048
-  * **Screenshot Preview**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1U3wKQFh9wMXiVOe8QFMpAQ9EBee-ytnE9O35ltTKOIp1bMgi69Hl37zfVQC2augBuPHzW7FPb8J4IVYW2XuNArMcXOn_N7vGe3oqPoK4CP_TrbZOUcGZ6weVKMUl0wxKgwJY3KXl95u5lIPqFR4i9pCOihcg15O6u5g9RgqdiPl4jRQRPEzq3BK8PwoeUb--I2omWDoulGR2sGoxlHKKCKnsCoYfT0SODmVL5fxrowDshC2agCaYXAKQ)
+  * **Ảnh thiết kế (Local)**: [`stitch-designs/screens/screen-3-zen-mode.png`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/screens/screen-3-zen-mode.png)
+  * **Screenshot Preview (Web)**: [Xem ảnh chụp](https://lh3.googleusercontent.com/aida/AEtjO1U3wKQFh9wMXiVOe8QFMpAQ9EBee-ytnE9O35ltTKOIp1bMgi69Hl37zfVQC2augBuPHzW7FPb8J4IVYW2XuNArMcXOn_N7vGe3oqPoK4CP_TrbZOUcGZ6weVKMUl0wxKgwJY3KXl95u5lIPqFR4i9pCOihcg15O6u5g9RgqdiPl4jRQRPEzq3BK8PwoeUb--I2omWDoulGR2sGoxlHKKCKnsCoYfT0SODmVL5fxrowDshC2agCaYXAKQ)
   * **Component React ánh xạ**:
     * `src/components/pomodoro/ZenPomodoro.tsx` (Đồng hồ đếm ngược tối giản 24:38, vòng progress thanh thoát)
     * `src/components/common/ZenModeToggle.tsx` (Nút thoát chế độ Zen Mode thu nhỏ ở góc trên phải)
@@ -101,6 +104,7 @@ Mục tiêu: Sử dụng công cụ Google Stitch (qua StitchMCP) để sinh cá
 * **Wallpaper Asset đi kèm**:
   * **Screen ID**: `323cac25fc104f738346fae07e77b679`
   * **Title**: `Cinematic high-resolution photograph of a serene misty pine forest at deep twilight`
+  * **Ảnh nền (Local)**: [`stitch-designs/screens/screen-wallpaper-pine-forest.png`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/screens/screen-wallpaper-pine-forest.png)
   * **Image URL**: [Tải ảnh 4K](https://lh3.googleusercontent.com/aida/AEtjO1U_DTq0YgEStLBcMJfjJuPhd30BWKEFy1iCYSrIuC1aMWNFyHZeGIFV1bvBOzJt2j2iPwmVSu3deUPrfWb-FGQqCGVBhxJY5fbfKG9E-xOm59wstqLpTVLCUwztqIeCXQydcWT2p1dkGLCwZLSA01-Tp4czuCBHwpdd-viNT_i8KgCxdmmATg1TBbKst8Cc9kCaMCyPPUak3oeZqSd7RFGM8npXMoEGv7Ng3S5OHUEh_ebWqc2g0IBSfxM)
 
 #### Bảng Tổng hợp Ánh xạ Screen và React Components
@@ -111,6 +115,68 @@ Mục tiêu: Sử dụng công cụ Google Stitch (qua StitchMCP) để sinh cá
 | `1c869128fba241db9e5116c79279724b` | VibeSpace - Sound Mixer Modal & Task Drawer | Overlay Modals & Drawers | `SoundMixerModal`, `SoundChannelCard`, `PresetCombos`, `TodoDrawer`, `HabitList`, `DailyTaskList`, `TodoProgressBar`, `BackgroundSelector` |
 | `e95bd016ecf64506964d0dc2d18e34ae` | VibeSpace - Minimalist Zen Mode | Chế độ tập trung thuần túy | `ZenPomodoro`, `ZenModeToggle`, `ZenAudioIndicator`, `BackgroundContainer` |
 | `323cac25fc104f738346fae07e77b679` | Serene Misty Pine Forest at Twilight | 4K Wallpaper Asset | `BackgroundContainer` (Default Wallpaper) |
+
+---
+
+### Giai đoạn 3: Download & Trích xuất Design từ Google Stitch [HOÀN THÀNH]
+Mục tiêu: Tải thiết kế chi tiết về workspace local và bóc tách cấu trúc để chuẩn bị code.
+
+* **Thư mục thiết kế local**: [`stitch-designs/`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs)
+  * Screen 1: [`stitch-designs/screen-1-main-dashboard.html`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/screen-1-main-dashboard.html) (38KB)
+  * Screen 2: [`stitch-designs/screen-2-modals-drawers.html`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/screen-2-modals-drawers.html) (39KB)
+  * Screen 3: [`stitch-designs/screen-3-zen-mode.html`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/screen-3-zen-mode.html) (15KB)
+  * Wallpaper 4K: [`stitch-designs/wallpapers/pine-forest-twilight.jpg`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/wallpapers/pine-forest-twilight.jpg) (35KB)
+* **File Design Tokens**: [`stitch-designs/design-tokens.json`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/design-tokens.json)
+* **Tài liệu đặc tả Component**: [`docs/COMPONENT_SPECS.md`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/docs/COMPONENT_SPECS.md)
+
+- [x] **Task 3.1: Tải mã nguồn giao diện từ StitchMCP**
+  * Đã tải toàn bộ mã HTML, CSS, và hình ảnh 4K của 3 màn hình từ Stitch về thư mục `stitch-designs/`.
+- [x] **Task 3.2: Bóc tách Design Tokens**
+  * Đã trích xuất đầy đủ bảng màu Glassmorphism, độ mờ backdrop, bóng đổ glow amber/indigo/teal và font typography vào `stitch-designs/design-tokens.json`.
+- [x] **Task 3.3: Lập bản đồ Component Mapping**
+  * Đã biên soạn tài liệu đặc tả cấu trúc 8 module React component chi tiết với props, state, Tailwind classes tương ứng trong `docs/COMPONENT_SPECS.md`.
+
+---
+
+### Giai đoạn 4: Code & Chuyển đổi sang React Components
+Mục tiêu: Hiện thực hóa thiết kế từ Stitch thành ứng dụng web React hoạt động hoàn chỉnh 100%.
+
+* [ ] **Task 4.1: Khởi tạo Cấu trúc Dự án React**
+  * Khởi tạo template Vite + React + TypeScript.
+  * Cài đặt các thư viện bổ trợ: `lucide-react`, `canvas-confetti` (hiệu ứng khi xong việc), và Tailwind CSS.
+* [ ] **Task 4.2: Xây dựng Layout Nền & Theme Engine**
+  * Hiện thực hóa `BackgroundContainer` với các bộ lọc `filter: blur(...)` và lớp phủ tối `brightness(...)`.
+  * Xây dựng `ZenModeController` điều khiển bật/tắt toàn màn hình.
+* [ ] **Task 4.3: Xây dựng Module Đồng hồ Pomodoro**
+  * Hiện thực hóa hook `usePomodoro`: đếm ngược, chuyển đổi Focus (25m) / Short Break (5m) / Long Break (15m).
+  * Tích hợp âm thanh chuông báo thiền (Zen chime) khi hết phiên.
+  * Lưu trữ thống kê số phiên hoàn thành trong ngày vào `localStorage`.
+* [ ] **Task 4.4: Xây dựng Module YouTube Lofi Player**
+  * Tích hợp thư viện preset các kênh Lofi nổi tiếng (Lofi Girl, Chillhop...).
+  * Xây dựng trình trích xuất link YouTube URL tùy chỉnh.
+  * Tích hợp IFrame API điều khiển Play/Pause/Volume.
+* [ ] **Task 4.5: Xây dựng Module White Noise Mixer**
+  * Chuẩn bị và tích hợp 10 file âm thanh môi trường chất lượng cao (mưa, sấm, lửa trại, gió, sóng...).
+  * Xây dựng hệ thống điều khiển âm lượng độc lập cho từng kênh qua Web Audio API.
+  * Cài đặt các preset phối sẵn 1-click ("Đêm mưa bão", "Nhà gỗ mùa đông"...).
+* [ ] **Task 4.6: Xây dựng Module Daily Todo List & Reset Engine**
+  * Xây dựng giao diện Drawer công việc đẹp mắt, phân loại `Habit` và `One-off Task`.
+  * Hiện thực hóa `useDailyReset`: tự động uncheck thói quen và dọn dẹp task cũ khi bước sang ngày mới.
+  * Thanh tiến độ trực quan (% hoàn thành trong ngày).
+* [ ] **Task 4.7: Đồng bộ & Lưu trữ LocalStorage**
+  * Đảm bảo toàn bộ cài đặt của người dùng được tự động lưu lại và phục hồi hoàn hảo khi F5/tải lại trang.
+
+---
+
+### Giai đoạn 5: Kiểm thử, Tinh chỉnh & Bàn giao (Testing & Polish)
+* [ ] **Task 5.1: Kiểm thử trải nghiệm âm thanh**
+  * Kiểm tra hiện tượng Autoplay trên trình duyệt và xử lý mượt mà khi người dùng tương tác lần đầu.
+  * Đảm bảo không bị rè hay xung đột khi phát đồng thời nhạc YouTube và 3-4 kênh White Noise.
+* [ ] **Task 5.2: Kiểm thử kịch bản Reset ngày mới**
+  * Giả lập thay đổi ngày hệ thống trong `localStorage` để kiểm chứng logic reset thói quen và dọn task đã hoàn thành.
+* [ ] **Task 5.3: Tối ưu hóa tải trang & Responsive**
+  * Kiểm tra hiển thị trên các kích thước màn hình phổ biến.
+  * Đảm bảo trải nghiệm trực quan, mượt mà và thư giãn nhất.
 
 ---
 
