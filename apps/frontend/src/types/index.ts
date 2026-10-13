@@ -91,7 +91,11 @@ export interface User {
   id: string;
   email: string;
   name: string;
+  avatar?: string | null;
   avatarUrl?: string | null;
+  wallpaperId?: string;
+  darknessOverlay?: number;
+  blurAmount?: number;
   createdAt: string;
 }
 

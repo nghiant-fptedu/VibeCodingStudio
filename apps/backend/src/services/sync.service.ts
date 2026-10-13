@@ -16,6 +16,11 @@ export interface LocalSyncPayload {
     completed?: boolean;
     completedAt?: string;
   }>;
+  visualSettings?: {
+    wallpaperId?: string;
+    darknessOverlay?: number;
+    blurAmount?: number;
+  };
   clientDate?: string;
 }
 
@@ -78,13 +83,58 @@ export class SyncService {
       }
     }
 
-    // 3. Trả về state hoàn chỉnh mới nhất sau khi merge
+    // 3. Merge visualSettings nếu user trên DB đang ở mặc định 'pine-forest' và local có cài đặt khác
+    if (payload.visualSettings) {
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { wallpaperId: true },
+      });
+
+      if (
+        user &&
+        user.wallpaperId === 'pine-forest' &&
+        payload.visualSettings.wallpaperId &&
+        payload.visualSettings.wallpaperId !== 'pine-forest'
+      ) {
+        await prisma.user.update({
+          where: { id: userId },
+          data: {
+            wallpaperId: payload.visualSettings.wallpaperId.trim(),
+            darknessOverlay:
+              typeof payload.visualSettings.darknessOverlay === 'number'
+                ? Math.round(payload.visualSettings.darknessOverlay)
+                : undefined,
+            blurAmount:
+              typeof payload.visualSettings.blurAmount === 'number'
+                ? Math.round(payload.visualSettings.blurAmount)
+                : undefined,
+          },
+        });
+      }
+    }
+
+    // 4. Trả về state hoàn chỉnh mới nhất sau khi merge
     const mergedTracks = await TracksService.getTracks(userId);
     const mergedTodos = await TodosService.getTodos(userId, clientDate);
+    const latestUser = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        wallpaperId: true,
+        darknessOverlay: true,
+        blurAmount: true,
+      },
+    });
 
     return {
       tracks: mergedTracks,
       todos: mergedTodos,
+      visualSettings: latestUser
+        ? {
+            wallpaperId: latestUser.wallpaperId,
+            darknessOverlay: latestUser.darknessOverlay,
+            blurAmount: latestUser.blurAmount,
+          }
+        : undefined,
     };
   }
 }

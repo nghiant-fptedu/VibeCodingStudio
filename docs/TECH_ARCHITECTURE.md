@@ -277,6 +277,9 @@ model User {
   avatar         String?
   googleId       String?      @unique
   lastActiveDate String?      // Định dạng "YYYY-MM-DD" phục vụ Daily Reset
+  wallpaperId    String       @default("pine-forest") @map("wallpaper_id")
+  darknessOverlay Int         @default(35) @map("darkness_overlay")
+  blurAmount     Int          @default(0) @map("blur_amount")
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
 
@@ -391,6 +394,7 @@ Tất cả các endpoint yêu cầu xác thực (`Protected`) sử dụng Header
 | `PATCH` | `/api/todos/:id` | Protected | Cập nhật trạng thái completed hoặc đổi tiêu đề |
 | `DELETE` | `/api/todos/:id` | Protected | Xóa task/habit theo ID |
 | `POST` | `/api/sync/merge` | Protected | Đồng bộ gộp (merge) dữ liệu từ localStorage lên tài khoản sau khi login |
+| `PATCH` | `/api/auth/visual-settings` | Protected | Cập nhật hình nền và độ tối/mờ lên tài khoản (wallpaperId, darknessOverlay, blurAmount) |
 
 ---
 
@@ -406,7 +410,7 @@ Tất cả các endpoint yêu cầu xác thực (`Protected`) sử dụng Header
      1. `setIsPlayingMusic(false)` & nạp lại bài hát đầu tiên trong playlist mặc định.
      2. `mixer.muteAll()`: Tắt toàn bộ 10 kênh âm thanh thiên nhiên White Noise.
      3. `pomodoro.changeMode('focus')`: Dừng đếm ngược và đặt lại thời gian về 25:00.
-     4. `setVisualSettings`: Khôi phục `isZenMode: false`, hình nền `pine-forest`, độ tối 35%, độ mờ 0%.
+     4. `setVisualSettings`: Thoát Zen Mode (`isZenMode: false`) nhưng bảo lưu hình nền và độ tối/mờ hiện tại tại máy cục bộ để duy trì không gian thị giác người dùng yêu thích.
      5. Đóng toàn bộ Modals/Drawers (`isWallpaperModalOpen`, `isMixerModalOpen`, `isTodoDrawerOpen`, `isPlaylistModalOpen`, `isUserMenuOpen`).
      6. `playlist.resetToGuestDefaults()`: Gán lại 6 bài hát Lofi gốc và cập nhật `localStorage`.
      7. `todo.resetToGuestDefaults()`: Gán lại 5 việc/thói quen mẫu ban đầu và cập nhật `localStorage`.

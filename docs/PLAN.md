@@ -303,6 +303,28 @@ Mục tiêu: Đảm bảo khi người dùng lựa chọn Sign Out, hệ thống
 
 ---
 
+### Giai đoạn 10: Lưu Trữ & Đồng Bộ Hình Nền Đã Chọn (Milestone M10) [HOÀN THÀNH]
+Mục tiêu: Cho phép người dùng lưu lại hình nền đã chọn (`wallpaperId`, `darknessOverlay`, `blurAmount`) đồng bộ lên Cloud Database PostgreSQL khi đăng nhập, tự động nạp lại trên mọi thiết bị và bảo tồn hình nền tại máy cục bộ khi Sign Out.
+
+- [x] **Task 10.1: Cập nhật tài liệu kỹ thuật docs/PRD.md, docs/TECH_ARCHITECTURE.md và docs/PLAN.md**
+  * Định nghĩa tính năng FR-13, quy định schema `users` mở rộng và API contract `PATCH /api/auth/visual-settings`.
+- [x] **Task 10.2: Cập nhật Prisma Schema & Đồng bộ DDL lên Supabase PostgreSQL**
+  * Thêm 3 trường `wallpaperId`, `darknessOverlay`, `blurAmount` vào model `User` trong `prisma/schema.prisma`.
+  * Thực thi migration DDL trên Supabase PostgreSQL và chạy `prisma generate`.
+- [x] **Task 10.3: Hiện thực hóa Backend API Endpoint `PATCH /api/auth/visual-settings` & Update Auth/Merge Controllers**
+  * Viết controller và router cập nhật visual settings vào database cho user đang đăng nhập.
+  * Cập nhật `POST /api/auth/register`, `login`, `google`, `GET /me` trả về thông tin visual settings.
+  * Cập nhật `POST /api/sync/merge` hỗ trợ gộp visual settings từ guest lên tài khoản mới.
+- [x] **Task 10.4: Tích hợp Frontend Auto-Save & Local Persistence khi Sign Out**
+  * Bổ sung API client `authApi.updateVisualSettings(...)` trong `api.ts`.
+  * Nâng cấp `BackgroundSelector.tsx` và `App.tsx`: Tự động đồng bộ ngầm khi đổi hình nền hoặc kéo thanh trượt (kèm debounce).
+  * Tinh chỉnh `handleSignOutReset` trong `App.tsx`: Giữ nguyên hình nền và độ tối/mờ hiện tại tại máy cục bộ khi đăng xuất.
+- [x] **Task 10.5: Kiểm thử E2E Toàn diện & Commit/Push GitHub Bàn giao Milestone M10**
+  * Viết và chạy thành công script kiểm thử end-to-end cho luồng đăng ký -> đổi hình nền -> kiểm tra database -> đăng nhập lại -> merge guest data.
+  * Kiểm tra build Vite/TypeScript frontend pass 100%.
+
+---
+
 ## 3. Các Mốc Hoàn thành (Milestones & Next Step)
 
 | Mốc | Mô tả | Trạng thái |
@@ -316,3 +338,4 @@ Mục tiêu: Đảm bảo khi người dùng lựa chọn Sign Out, hệ thống
 | **M7: Backend, Database & Sync** | Express.js + Prisma + Supabase Postgres + Render + Auth & Cloud Sync | **Hoàn thành (Done)** |
 | **M8: Internationalization (i18n)** | Hỗ trợ 2 ngôn ngữ Tiếng Việt (VI) và Tiếng Anh (EN) | **Hoàn thành (Done)** |
 | **M9: Sign Out Audio Stop & Reset** | Tắt nhạc, tắt mixer, reset Pomodoro, modals và dữ liệu Guest khi Sign Out | **Hoàn thành (Done)** |
+| **M10: Wallpaper Persistence & Sync** | Lưu hình nền & visual settings lên Cloud DB, auto-save ngầm, bảo lưu khi Sign Out | **Hoàn thành (Done)** |

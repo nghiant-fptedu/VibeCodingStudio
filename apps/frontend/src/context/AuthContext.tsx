@@ -30,11 +30,23 @@ const mergeGuestDataIfAny = async (userId: string) => {
     const localTracks = JSON.parse(localStorage.getItem('vibespace_playlists_v1') || '[]');
     const localTodoState = JSON.parse(localStorage.getItem('vibespace_todos_v1') || '{}');
     const localTodos = localTodoState.items || [];
+    const localVisual = JSON.parse(localStorage.getItem('vibespace_visual_v1') || '{}');
 
-    if (localTracks.length > 0 || localTodos.length > 0) {
+    if (
+      localTracks.length > 0 ||
+      localTodos.length > 0 ||
+      (localVisual.currentWallpaperId && localVisual.currentWallpaperId !== 'pine-forest')
+    ) {
       await syncApi.merge({
         tracks: localTracks,
         todos: localTodos,
+        visualSettings: localVisual.currentWallpaperId
+          ? {
+              wallpaperId: localVisual.currentWallpaperId,
+              darknessOverlay: localVisual.darknessOverlay,
+              blurAmount: localVisual.blurAmount,
+            }
+          : undefined,
         clientDate: getTodayFormatted(),
       });
     }

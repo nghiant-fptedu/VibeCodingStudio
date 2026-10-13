@@ -18,6 +18,7 @@ import { usePlaylists } from './hooks/usePlaylists';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useI18n } from './context/I18nContext';
 import { useAuth } from './context/AuthContext';
+import { authApi } from './services/api';
 
 import type { VisualSettings } from './types';
 import { DEFAULT_WALLPAPERS } from './data/defaultWallpapers';
@@ -63,6 +64,73 @@ export default function App() {
   });
 
   const { language, t } = useI18n();
+  const { user, isAuthenticated } = useAuth();
+
+  // 1. Hydrate Visual Settings từ Cloud khi người dùng đăng nhập thành công
+  const prevUserIdRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (user && user.id !== prevUserIdRef.current) {
+      prevUserIdRef.current = user.id;
+      if (user.wallpaperId) {
+        setVisualSettings((prev) => ({
+          ...prev,
+          currentWallpaperId: user.wallpaperId || prev.currentWallpaperId,
+          darknessOverlay:
+            typeof user.darknessOverlay === 'number'
+              ? user.darknessOverlay
+              : prev.darknessOverlay,
+          blurAmount:
+            typeof user.blurAmount === 'number'
+              ? user.blurAmount
+              : prev.blurAmount,
+        }));
+      }
+    } else if (!user) {
+      prevUserIdRef.current = null;
+    }
+  }, [user, setVisualSettings]);
+
+  // 2. Tự động đồng bộ (Auto-sync ngầm với Debounce) Visual Settings lên Cloud khi người dùng thay đổi
+  const syncTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (!isAuthenticated || !user) return;
+
+    // Kiểm tra xem visualSettings hiện tại có khác với user trên cloud không
+    const hasChanged =
+      visualSettings.currentWallpaperId !== user.wallpaperId ||
+      visualSettings.darknessOverlay !== user.darknessOverlay ||
+      visualSettings.blurAmount !== user.blurAmount;
+
+    if (!hasChanged) return;
+
+    if (syncTimerRef.current) {
+      clearTimeout(syncTimerRef.current);
+    }
+
+    syncTimerRef.current = setTimeout(async () => {
+      try {
+        await authApi.updateVisualSettings({
+          wallpaperId: visualSettings.currentWallpaperId,
+          darknessOverlay: visualSettings.darknessOverlay,
+          blurAmount: visualSettings.blurAmount,
+        });
+      } catch (err) {
+        console.warn('Lỗi tự động lưu visual settings lên cloud:', err);
+      }
+    }, 500);
+
+    return () => {
+      if (syncTimerRef.current) {
+        clearTimeout(syncTimerRef.current);
+      }
+    };
+  }, [
+    visualSettings.currentWallpaperId,
+    visualSettings.darknessOverlay,
+    visualSettings.blurAmount,
+    isAuthenticated,
+    user,
+  ]);
 
   // Cập nhật tiêu đề tab trình duyệt theo thời gian thực đếm ngược
   useEffect(() => {
@@ -102,8 +170,7 @@ export default function App() {
     'Custom Lofi Stream';
 
   // Handler xử lý Đăng xuất: Tắt nhạc, tắt mixer, reset Pomodoro, modals và dữ liệu Guest
-  const { isAuthenticated } = useAuth();
-
+  // QUAN TRỌNG (Milestone M10): Giữ nguyên hình nền và độ tối/mờ đã lựa chọn tại máy cục bộ!
   const handleSignOutReset = useCallback(() => {
     // 1. Tắt nhạc YouTube Lofi & đưa về bài đầu tiên
     setIsPlayingMusic(false);
@@ -117,13 +184,11 @@ export default function App() {
     // 3. Dừng Pomodoro & reset về Focus 25:00
     pomodoro.changeMode('focus');
 
-    // 4. Thoát Zen Mode và khôi phục cài đặt hình nền về mặc định ban đầu
-    setVisualSettings({
-      currentWallpaperId: 'pine-forest',
-      darknessOverlay: 35,
-      blurAmount: 0,
+    // 4. Thoát Zen Mode nếu đang bật, GIỮ NGUYÊN hình nền và độ tối/mờ đã lựa chọn
+    setVisualSettings((prev) => ({
+      ...prev,
       isZenMode: false,
-    });
+    }));
 
     // 5. Đóng toàn bộ Modals & Drawers
     setIsWallpaperModalOpen(false);

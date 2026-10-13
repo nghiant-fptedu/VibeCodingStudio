@@ -95,6 +95,19 @@ export const authApi = {
     if (!res.data?.user) throw new Error('Không thể lấy thông tin người dùng');
     return res.data.user;
   },
+
+  async updateVisualSettings(settings: {
+    wallpaperId?: string;
+    darknessOverlay?: number;
+    blurAmount?: number;
+  }): Promise<User> {
+    const res = await request<ApiResponse<{ user: User }>>('/api/auth/visual-settings', {
+      method: 'PATCH',
+      body: JSON.stringify(settings),
+    });
+    if (!res.data?.user) throw new Error('Cập nhật cài đặt hình nền thất bại');
+    return res.data.user;
+  },
 };
 
 // 2. Tracks API
@@ -170,9 +183,32 @@ export const syncApi = {
   async merge(payload: {
     tracks: Array<{ title: string; curator: string; videoId: string; category?: string }>;
     todos: Array<{ title: string; type: TaskType; completed: boolean; createdAt: string; completedAt?: string }>;
+    visualSettings?: {
+      wallpaperId?: string;
+      darknessOverlay?: number;
+      blurAmount?: number;
+    };
     clientDate?: string;
-  }): Promise<{ tracks: YouTubeTrack[]; todos: TodoItem[] }> {
-    const res = await request<ApiResponse<{ tracks: YouTubeTrack[]; todos: TodoItem[] }>>('/api/sync/merge', {
+  }): Promise<{
+    tracks: YouTubeTrack[];
+    todos: TodoItem[];
+    visualSettings?: {
+      wallpaperId: string;
+      darknessOverlay: number;
+      blurAmount: number;
+    };
+  }> {
+    const res = await request<
+      ApiResponse<{
+        tracks: YouTubeTrack[];
+        todos: TodoItem[];
+        visualSettings?: {
+          wallpaperId: string;
+          darknessOverlay: number;
+          blurAmount: number;
+        };
+      }>
+    >('/api/sync/merge', {
       method: 'POST',
       body: JSON.stringify(payload),
     });

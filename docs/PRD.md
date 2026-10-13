@@ -59,8 +59,12 @@ VibeSpace là ứng dụng web cá nhân hóa không gian làm việc trực tuy
     * **Pomodoro & Zen Mode**: Dừng đếm ngược và đặt lại Pomodoro về chế độ Focus 25:00; tự động thoát khỏi Zen Mode nếu đang kích hoạt.
     * **Cửa sổ hiển thị**: Đóng toàn bộ các modal/drawer đang mở (*Wallpaper Selector, Sound Mixer, Todo Drawer, Playlist Modal, User Menu*).
     * **Dữ liệu Guest**: Khôi phục danh sách bài hát về 6 bài mặc định (`CURATED_PLAYLISTS`) và danh sách Todo về 5 mục mẫu ban đầu (`DEFAULT_TODO_STATE`) để bảo vệ dữ liệu riêng tư của tài khoản vừa đăng xuất.
-    * **Hình nền & Hiển thị**: Khôi phục về hình nền gốc (Rừng thông tuyết `pine-forest`, độ tối 35%, độ mờ 0%).
+    * **Hình nền & Hiển thị**: Bảo tồn hình nền và độ tối/mờ hiện tại tại máy cục bộ để duy trì không gian thị giác người dùng yêu thích.
     * **Ngôn ngữ**: Giữ nguyên tùy chọn ngôn ngữ (`VI` hoặc `EN`) hiện tại của người dùng.
+* **Lưu trữ & Đồng bộ Hình nền Cá nhân hóa (FR-13: Wallpaper Cloud Persistence & Visual Settings Sync)**:
+  * **Lưu trữ Cloud Database (Supabase PostgreSQL)**: Lưu trữ trọn bộ Visual Settings (`wallpaperId`, `darknessOverlay`, `blurAmount`) gắn liền với tài khoản người dùng.
+  * **Cơ chế Tự động Lưu Ngầm (Auto-Save on Change)**: Khi người dùng chọn hình nền mới hoặc tinh chỉnh độ tối/mờ trong `BackgroundSelector`, hệ thống phản hồi tức thì trên UI (Optimistic UI) và tự động đồng bộ ngầm lên database API (kèm debounce tránh spam).
+  * **Nạp & Gộp khi Đăng nhập**: Tự động khôi phục đúng không gian hình nền đã lưu khi đăng nhập trên bất kỳ thiết bị nào; tự động gộp hình nền từ Guest lên Cloud khi đăng ký tài khoản lần đầu.
 
 #### 1.4.3 Ngoại phạm vi (Out-of-Scope - Phiên bản V2)
 * Quên mật khẩu qua gửi email SMTP (Reset password via email).

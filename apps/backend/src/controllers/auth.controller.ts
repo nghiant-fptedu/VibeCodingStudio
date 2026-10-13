@@ -71,6 +71,9 @@ export class AuthController {
             avatar: req.user.avatar,
             googleId: req.user.googleId,
             lastActiveDate: req.user.lastActiveDate,
+            wallpaperId: req.user.wallpaperId,
+            darknessOverlay: req.user.darknessOverlay,
+            blurAmount: req.user.blurAmount,
             createdAt: req.user.createdAt,
           },
         },
@@ -79,6 +82,35 @@ export class AuthController {
       res.status(500).json({
         success: false,
         error: err.message || 'Lỗi lấy thông tin tài khoản',
+      });
+    }
+  }
+
+  static async updateVisualSettings(req: AuthenticatedRequest, res: Response): Promise<void> {
+    try {
+      if (!req.user) {
+        res.status(401).json({ success: false, error: 'Unauthorized' });
+        return;
+      }
+
+      const { wallpaperId, darknessOverlay, blurAmount } = req.body || {};
+      const updatedUser = await AuthService.updateVisualSettings(req.user.id, {
+        wallpaperId,
+        darknessOverlay,
+        blurAmount,
+      });
+
+      res.status(200).json({
+        success: true,
+        message: 'Cập nhật hình nền và cài đặt hiển thị thành công',
+        data: {
+          user: updatedUser,
+        },
+      });
+    } catch (err: any) {
+      res.status(400).json({
+        success: false,
+        error: err.message || 'Lỗi khi cập nhật cài đặt hình nền',
       });
     }
   }

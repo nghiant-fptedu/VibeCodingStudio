@@ -16,6 +16,9 @@ export interface AuthResponse {
     avatar: string | null;
     googleId: string | null;
     lastActiveDate: string | null;
+    wallpaperId: string;
+    darknessOverlay: number;
+    blurAmount: number;
     createdAt: Date;
   };
 }
@@ -28,6 +31,9 @@ function sanitizeUser(user: User): AuthResponse['user'] {
     avatar: user.avatar,
     googleId: user.googleId,
     lastActiveDate: user.lastActiveDate,
+    wallpaperId: user.wallpaperId,
+    darknessOverlay: user.darknessOverlay,
+    blurAmount: user.blurAmount,
     createdAt: user.createdAt,
   };
 }
@@ -221,5 +227,48 @@ export class AuthService {
 
     const token = generateToken({ userId: user.id, email: user.email });
     return { token, user: sanitizeUser(user) };
+  }
+
+  /**
+   * Cập nhật visual settings (hình nền, độ tối, độ mờ) của người dùng
+   */
+  static async updateVisualSettings(
+    userId: string,
+    settings: {
+      wallpaperId?: string;
+      darknessOverlay?: number;
+      blurAmount?: number;
+    }
+  ): Promise<AuthResponse['user']> {
+    const dataToUpdate: {
+      wallpaperId?: string;
+      darknessOverlay?: number;
+      blurAmount?: number;
+    } = {};
+
+    if (typeof settings.wallpaperId === 'string' && settings.wallpaperId.trim()) {
+      dataToUpdate.wallpaperId = settings.wallpaperId.trim();
+    }
+    if (
+      typeof settings.darknessOverlay === 'number' &&
+      settings.darknessOverlay >= 0 &&
+      settings.darknessOverlay <= 100
+    ) {
+      dataToUpdate.darknessOverlay = Math.round(settings.darknessOverlay);
+    }
+    if (
+      typeof settings.blurAmount === 'number' &&
+      settings.blurAmount >= 0 &&
+      settings.blurAmount <= 20
+    ) {
+      dataToUpdate.blurAmount = Math.round(settings.blurAmount);
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: dataToUpdate,
+    });
+
+    return sanitizeUser(updatedUser);
   }
 }
