@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VibeSpace — Deep Focus &amp; Ambience Studio</title>
+<!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary": "#57e1ce",
+            "secondary": "#c0c1ff",
+            "on-secondary": "#1000a9",
+            "surface-container-lowest": "#060e20",
+            "on-primary-container": "#613b00",
+            "inverse-primary": "#855300",
+            "secondary-fixed": "#e1e0ff",
+            "surface-bright": "#31394d",
+            "error-container": "#93000a",
+            "outline": "#a08e7a",
+            "inverse-on-surface": "#283044",
+            "on-tertiary-fixed-variant": "#005048",
+            "secondary-fixed-dim": "#c0c1ff",
+            "surface-tint": "#ffb95f",
+            "surface-variant": "#2d3449",
+            "surface-container-high": "#222a3d",
+            "primary": "#ffc174",
+            "on-primary-fixed-variant": "#653e00",
+            "on-primary": "#472a00",
+            "primary-container": "#f59e0b",
+            "inverse-surface": "#dae2fd",
+            "tertiary-fixed-dim": "#4fdbc8",
+            "surface": "#0b1326",
+            "primary-fixed-dim": "#ffb95f",
+            "primary-fixed": "#ffddb8",
+            "surface-container": "#171f33",
+            "surface-container-low": "#131b2e",
+            "on-secondary-fixed": "#07006c",
+            "surface-container-highest": "#2d3449",
+            "secondary-container": "#3131c0",
+            "background": "#0b1326",
+            "on-tertiary-fixed": "#00201c",
+            "tertiary-fixed": "#71f8e4",
+            "error": "#ffb4ab",
+            "on-tertiary-container": "#004d44",
+            "on-secondary-fixed-variant": "#2f2ebe",
+            "on-primary-fixed": "#2a1700",
+            "tertiary-container": "#30c5b3",
+            "on-surface-variant": "#d8c3ad",
+            "on-tertiary": "#003731",
+            "on-background": "#dae2fd",
+            "on-error": "#690005",
+            "on-error-container": "#ffdad6",
+            "on-secondary-container": "#b0b2ff",
+            "outline-variant": "#534434",
+            "surface-dim": "#0b1326",
+            "on-surface": "#dae2fd"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "margin": "2rem",
+            "space-sm": "0.5rem",
+            "gutter": "1.25rem",
+            "space-xs": "0.25rem",
+            "gutter-sm": "0.75rem",
+            "space-xl": "2.5rem",
+            "margin-mobile": "1rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "label-md": ["JetBrains Mono"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "display-timer-mobile": ["JetBrains Mono"],
+            "label-sm": ["JetBrains Mono"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "display-timer": ["JetBrains Mono"],
+            "label-lg": ["JetBrains Mono"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "label-md": ["11px", {"lineHeight": "16px", "fontWeight": "500"}],
+            "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+            "headline-md": ["22px", {"lineHeight": "30px", "fontWeight": "600"}],
+            "display-timer-mobile": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+            "label-sm": ["10px", {"lineHeight": "14px", "fontWeight": "400"}],
+            "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+            "display-timer": ["64px", {"lineHeight": "72px", "fontWeight": "400"}],
+            "label-lg": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+            "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+            "body-md": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+            "headline-sm": ["18px", {"lineHeight": "26px", "fontWeight": "600"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Custom subtle glass glow accents */
+    .glow-amber {
+      box-shadow: 0 0 24px -2px rgba(245, 158, 11, 0.35), inset 0 0 12px 0 rgba(245, 158, 11, 0.12);
+    }
+    .glow-indigo {
+      box-shadow: 0 0 22px -2px rgba(99, 102, 241, 0.35), inset 0 0 10px 0 rgba(99, 102, 241, 0.10);
+    }
+    .glow-teal {
+      box-shadow: 0 0 16px -2px rgba(87, 225, 206, 0.4);
+    }
+    .progress-ring-circle {
+      transition: stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+    /* Animated Sound Bar effect */
+    @keyframes barPulse {
+      0%, 100% { height: 4px; }
+      50% { height: 16px; }
+    }
+    .sound-bar-1 { animation: barPulse 1.2s infinite ease-in-out; }
+    .sound-bar-2 { animation: barPulse 0.9s infinite ease-in-out 0.2s; }
+    .sound-bar-3 { animation: barPulse 1.4s infinite ease-in-out 0.4s; }
+    .sound-bar-4 { animation: barPulse 1.0s infinite ease-in-out 0.1s; }
+
+    /* Custom range slider styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      height: 4px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.15);
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 12px;
+      width: 12px;
+      border-radius: 50%;
+      background: #ffc174;
+      margin-top: -4px;
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+    }
+  </style>
+</head>
+<body class="relative w-screen h-screen overflow-hidden bg-surface text-on-surface select-none font-body-md antialiased">
+<!-- Cinematic Background Layer: Twilight Pine Forest with Atmospheric Vignette -->
+<div class="absolute inset-0 z-0 overflow-hidden">
+<img alt="Atmospheric misty pine forest at twilight" class="w-full h-full object-cover object-center scale-105 transition-transform duration-[12000ms] ease-out pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmc9yHwcCtqpp2MUB-0XpCu0mg3haFbisYmRvPCIV1pzRcMra6livEjYdDjLUZnYCHYXEoMWZ8T6DQ2lllTDqF3yzKzVrJSqvDoMzwIN6idhE4ZdtpnNEodrjZ8sZzCQDn0VlIKeueBS2PKFfn6iec1omdaIi0q7RCMPznm62h_oAKX_uZoXCn1eMigpeuAGFKBkhdZ3w-JgBVGKLhHdYoGtFZgVFQD5XDQ0TS4leWkfVmH_0BUHH74gAfnuEArEeswCy6vQTxfGs"/>
+<!-- Darkening vignettes and color grade gradients -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/90 via-surface-container-lowest/60 to-surface-container-lowest/80 backdrop-blur-[1px]"></div>
+<div class="absolute inset-0 bg-radial from-transparent via-surface-container-lowest/40 to-surface-container-lowest/95 pointer-events-none"></div>
+</div>
+<!-- ========================================================================= -->
+<!-- TOP NAVIGATION BAR (Fixed Floating Header)                                -->
+<!-- ========================================================================= -->
+<header class="fixed top-0 left-0 w-full z-50 px-margin py-space-sm bg-surface-container-low/70 backdrop-blur-xl border-b border-outline-variant/20 shadow-2xl flex justify-between items-center transition-all">
+<!-- Brand / Logo -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-primary shadow-[0_0_12px_rgba(255,193,116,0.3)]">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="graphic_eq">graphic_eq</span>
+</div>
+<span class="text-headline-md font-headline-md font-bold tracking-tight text-primary">VibeSpace</span>
+</div>
+<div class="hidden sm:flex items-center gap-1.5 pl-3 border-l border-outline-variant/30">
+<span class="text-body-sm font-body-sm italic text-on-surface-variant/80">"Find your flow"</span>
+</div>
+</div>
+<!-- Center Navigation Links (from JSON) -->
+<nav class="hidden md:flex items-center gap-space-lg">
+<a class="text-primary font-medium border-b-2 border-primary pb-1 font-label-md text-label-md flex items-center gap-1.5" href="#focus">
+<span class="material-symbols-outlined text-[16px]" data-icon="timer">timer</span>
+        Focus
+      </a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-high/40 rounded-full px-3 py-1 transition-all font-label-md text-label-md flex items-center gap-1.5" href="#soundscapes">
+<span class="material-symbols-outlined text-[16px]" data-icon="graphic_eq">graphic_eq</span>
+        Soundscapes
+      </a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-high/40 rounded-full px-3 py-1 transition-all font-label-md text-label-md flex items-center gap-1.5" href="#analytics">
+<span class="material-symbols-outlined text-[16px]" data-icon="analytics">analytics</span>
+        Analytics
+      </a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-high/40 rounded-full px-3 py-1 transition-all font-label-md text-label-md flex items-center gap-1.5" href="#rooms">
+<span class="material-symbols-outlined text-[16px]" data-icon="groups">groups</span>
+        Rooms
+      </a>
+</nav>
+<!-- Right Quick Controls -->
+<div class="flex items-center gap-space-sm">
+<!-- Live Clock Badge -->
+<div class="px-space-md py-1 rounded-full bg-surface-container/60 border border-outline-variant/30 font-label-md text-label-md text-on-surface flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+<span id="header-clock">10:42 PM</span>
+</div>
+<!-- Wallpaper action -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-variant/40 hover:bg-surface-container-high/70 border border-outline-variant/30 text-on-surface-variant hover:text-primary transition-all text-body-sm font-body-sm active:scale-95" title="Change Wallpaper">
+<span class="material-symbols-outlined text-[18px]" data-icon="wallpaper">wallpaper</span>
+<span class="hidden lg:inline text-label-md font-label-md">Wallpaper</span>
+</button>
+<!-- Master Audio Toggle -->
+<button class="p-2 rounded-full bg-surface-variant/40 hover:bg-surface-container-high/70 border border-outline-variant/30 text-on-surface-variant hover:text-primary transition-all active:scale-95 flex items-center justify-center" id="master-mute-btn" title="Master Audio">
+<span class="material-symbols-outlined text-[18px]" data-icon="volume_up">volume_up</span>
+</button>
+<!-- Zen Mode Button -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 hover:bg-primary/20 border border-primary/30 text-primary transition-all text-label-md font-label-md active:scale-95 shadow-[0_0_10px_rgba(255,193,116,0.15)]" id="zen-mode-toggle" title="Zen Mode">
+<span class="material-symbols-outlined text-[18px]" data-icon="fullscreen">fullscreen</span>
+<span class="hidden sm:inline">Zen Mode</span>
+</button>
+<!-- Quick Settings -->
+<button class="p-2 rounded-full hover:bg-surface-container-high/40 text-on-surface-variant hover:text-primary transition-all active:scale-95" title="Settings">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- MAIN WORKSPACE VIEWPORT (Desktop Responsive Canvas)                       -->
+<!-- ========================================================================= -->
+<main class="relative z-10 w-full h-full pt-20 pb-28 px-margin flex items-center justify-between pointer-events-none">
+<!-- ======================================================================= -->
+<!-- LEFT WIDGET: AMBIENT SOUND MIXER PANEL (Interactive Glass Dock)          -->
+<!-- ======================================================================= -->
+<aside class="pointer-events-auto hidden xl:flex flex-col w-72 bg-surface-container/65 backdrop-blur-2xl border border-outline-variant/25 rounded-2xl shadow-2xl p-space-md transition-all duration-300 hover:border-outline-variant/40">
+<!-- Panel Header -->
+<div class="flex items-center justify-between pb-space-sm mb-space-sm border-b border-outline-variant/20">
+<div class="flex items-center gap-space-sm">
+<div class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_#57e1ce]"></div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Sound Mixer</h2>
+</div>
+<span class="text-label-sm font-label-sm text-tertiary bg-tertiary/10 px-2 py-0.5 rounded-full border border-tertiary/30">3 ACTIVE</span>
+</div>
+<!-- Ambience Track Items -->
+<div class="space-y-space-md py-1">
+<!-- Track 1: Rain -->
+<div class="group bg-surface-container-high/40 hover:bg-surface-container-high/70 p-2.5 rounded-xl border border-outline-variant/20 transition-all">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="rainy">rainy</span>
+<span class="text-body-sm font-body-sm text-on-surface font-medium">Night Rain</span>
+</div>
+<span class="text-label-sm font-label-sm text-secondary">70%</span>
+</div>
+<input class="w-full accent-secondary cursor-pointer" max="100" min="0" type="range" value="70"/>
+</div>
+<!-- Track 2: Campfire -->
+<div class="group bg-surface-container-high/40 hover:bg-surface-container-high/70 p-2.5 rounded-xl border border-outline-variant/20 transition-all">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="local_fire_department">local_fire_department</span>
+<span class="text-body-sm font-body-sm text-on-surface font-medium">Campfire Hearth</span>
+</div>
+<span class="text-label-sm font-label-sm text-primary">45%</span>
+</div>
+<input class="w-full accent-primary cursor-pointer" max="100" min="0" type="range" value="45"/>
+</div>
+<!-- Track 3: Forest Wind -->
+<div class="group bg-surface-container-high/40 hover:bg-surface-container-high/70 p-2.5 rounded-xl border border-outline-variant/20 transition-all">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]" data-icon="air">air</span>
+<span class="text-body-sm font-body-sm text-on-surface font-medium">Forest Pines</span>
+</div>
+<span class="text-label-sm font-label-sm text-tertiary">30%</span>
+</div>
+<input class="w-full accent-tertiary cursor-pointer" max="100" min="0" type="range" value="30"/>
+</div>
+<!-- Track 4: Coffee Shop (Muted) -->
+<div class="group opacity-60 hover:opacity-100 bg-surface-container-low/40 p-2.5 rounded-xl border border-outline-variant/15 transition-all">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="coffee">coffee</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Lofi Cafe Hum</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">OFF</span>
+</div>
+<input class="w-full cursor-pointer" max="100" min="0" type="range" value="0"/>
+</div>
+</div>
+<!-- Mixer Footer Actions -->
+<div class="mt-space-md pt-space-sm border-t border-outline-variant/20 flex items-center justify-between">
+<button class="w-full py-2 px-3 rounded-full bg-surface-container-highest/50 hover:bg-surface-container-highest border border-outline-variant/30 text-on-surface text-label-md font-label-md flex items-center justify-center gap-1.5 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[16px]" data-icon="tune">tune</span>
+          Add Ambience
+        </button>
+</div>
+</aside>
+<!-- ======================================================================= -->
+<!-- CENTER HERO WIDGET: THE POMODORO TIMER CARD                             -->
+<!-- ======================================================================= -->
+<div class="pointer-events-auto mx-auto flex flex-col items-center">
+<!-- Frosted Hero Container -->
+<div class="relative w-[360px] sm:w-[440px] p-8 rounded-3xl bg-surface-container/70 backdrop-blur-2xl border border-outline-variant/30 shadow-[0_16px_48px_rgba(0,0,0,0.65)] flex flex-col items-center transition-all hover:border-outline-variant/45">
+<!-- Ambient Inner Glow Halo -->
+<div class="absolute -inset-0.5 bg-gradient-to-b from-primary/15 via-transparent to-secondary/10 rounded-3xl -z-10 blur-xl pointer-events-none"></div>
+<!-- Timer Mode Selector Tabs -->
+<div class="flex items-center gap-1.5 p-1 rounded-full bg-surface-container-lowest/60 border border-outline-variant/25 mb-6">
+<button class="px-4 py-1.5 rounded-full bg-primary/20 border border-primary/50 text-primary font-label-md text-label-md shadow-[0_0_12px_rgba(245,158,11,0.25)] transition-all" id="tab-focus">
+            Focus (25m)
+          </button>
+<button class="px-3 py-1.5 rounded-full text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" id="tab-short">
+            Short Break (5m)
+          </button>
+<button class="px-3 py-1.5 rounded-full text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" id="tab-long">
+            Long Break (15m)
+          </button>
+</div>
+<!-- Giant Circular Display Housing -->
+<div class="relative w-64 h-64 flex items-center justify-center mb-6">
+<!-- Circular SVG Progress Ring -->
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 240 240">
+<!-- Background Track -->
+<circle cx="120" cy="120" fill="transparent" r="102" stroke="rgba(255, 255, 255, 0.08)" stroke-width="6"></circle>
+<!-- Active Amber Glow Progress -->
+<circle class="progress-ring-circle drop-shadow-[0_0_10px_rgba(255,193,116,0.6)]" cx="120" cy="120" fill="transparent" id="progress-circle" r="102" stroke="#ffc174" stroke-dasharray="640.88" stroke-dashoffset="140" stroke-linecap="round" stroke-width="7"></circle>
+</svg>
+<!-- Central Digital Timer Display -->
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display-timer text-display-timer font-semibold tracking-tighter text-on-surface select-none drop-shadow-[0_0_16px_rgba(255,193,116,0.25)]" id="timer-display">
+              25:00
+            </span>
+<div class="flex items-center gap-1.5 mt-1 text-on-surface-variant/70 font-label-sm text-label-sm uppercase tracking-wider">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+              DEEP WORK BLOCK
+            </div>
+</div>
+</div>
+<!-- Primary Action Controls -->
+<div class="flex items-center gap-4 mb-6">
+<!-- Reset Button -->
+<button class="w-11 h-11 rounded-full bg-surface-container-high/50 hover:bg-surface-container-high border border-outline-variant/30 text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-all active:scale-95 shadow-md" id="timer-reset" title="Reset Session">
+<span class="material-symbols-outlined text-[20px]" data-icon="replay">replay</span>
+</button>
+<!-- Main Play/Pause Button -->
+<button class="px-8 py-3.5 rounded-full bg-gradient-to-r from-primary via-primary-container to-surface-tint text-on-primary font-body-md font-bold tracking-wide flex items-center gap-2 shadow-[0_0_24px_rgba(245,158,11,0.4)] hover:shadow-[0_0_32px_rgba(245,158,11,0.6)] hover:brightness-110 active:scale-95 transition-all" id="timer-toggle">
+<span class="material-symbols-outlined text-[22px]" data-icon="play_arrow" id="timer-icon">play_arrow</span>
+<span id="timer-btn-text">Start</span>
+</button>
+<!-- Skip Step Button -->
+<button class="w-11 h-11 rounded-full bg-surface-container-high/50 hover:bg-surface-container-high border border-outline-variant/30 text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-all active:scale-95 shadow-md" id="timer-skip" title="Skip to Next">
+<span class="material-symbols-outlined text-[20px]" data-icon="skip_next">skip_next</span>
+</button>
+</div>
+<!-- Chime Toggle & Session Counter Footer -->
+<div class="w-full pt-4 border-t border-outline-variant/20 flex items-center justify-between text-body-sm font-body-sm">
+<!-- Daily Streak Indicator -->
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="text-base">🍅</span>
+<span class="font-label-sm text-label-sm text-on-surface">3 of 8 today</span>
+<div class="flex items-center gap-1 ml-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="w-2 h-2 rounded-full bg-outline-variant/40"></span>
+<span class="w-2 h-2 rounded-full bg-outline-variant/40"></span>
+</div>
+</div>
+<!-- Chime Bell Pill -->
+<button class="p-1.5 px-2.5 rounded-full bg-surface-variant/40 hover:bg-surface-variant/70 border border-outline-variant/25 text-on-surface-variant hover:text-primary transition-all flex items-center gap-1 text-label-sm font-label-sm" title="Notification Chime Active">
+<span class="material-symbols-outlined text-[16px]" data-icon="notifications_active">notifications_active</span>
+<span>Chime</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ======================================================================= -->
+<!-- RIGHT WIDGET: DAILY TASKS DRAWER (Interactive Todo Glass Dock)           -->
+<!-- ======================================================================= -->
+<aside class="pointer-events-auto hidden xl:flex flex-col w-80 bg-surface-container/65 backdrop-blur-2xl border border-outline-variant/25 rounded-2xl shadow-2xl p-space-md transition-all duration-300 hover:border-outline-variant/40">
+<!-- Tasks Header -->
+<div class="flex items-center justify-between pb-space-sm mb-space-sm border-b border-outline-variant/20">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="checklist">checklist</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Daily Tasks</h2>
+</div>
+<div class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-container/40 border border-secondary/30 text-secondary text-label-sm font-label-sm">
+<span>4/6 Done (67%)</span>
+</div>
+</div>
+<!-- Mini Progress Bar -->
+<div class="w-full bg-surface-container-highest/60 rounded-full h-1.5 mb-4 overflow-hidden">
+<div class="bg-gradient-to-r from-primary to-tertiary h-1.5 rounded-full transition-all duration-500" style="width: 67%"></div>
+</div>
+<!-- Task Items List -->
+<div class="space-y-2 py-1 max-h-60 overflow-y-auto pr-1">
+<!-- Task Item 1: Completed -->
+<label class="flex items-start gap-3 p-2.5 rounded-xl bg-surface-container-high/30 hover:bg-surface-container-high/50 border border-outline-variant/15 transition-all cursor-pointer group">
+<input checked="" class="mt-0.5 rounded-[5px] bg-tertiary/20 border-tertiary/60 text-tertiary focus:ring-0 cursor-pointer" type="checkbox"/>
+<div class="flex-1">
+<span class="text-body-sm font-body-sm line-through text-outline transition-colors">Finish UI component spec</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="text-label-sm font-label-sm text-outline/80">#Design</span>
+<span class="text-label-sm font-label-sm text-outline/80">2 Pomodoros</span>
+</div>
+</div>
+</label>
+<!-- Task Item 2: Completed -->
+<label class="flex items-start gap-3 p-2.5 rounded-xl bg-surface-container-high/30 hover:bg-surface-container-high/50 border border-outline-variant/15 transition-all cursor-pointer group">
+<input checked="" class="mt-0.5 rounded-[5px] bg-tertiary/20 border-tertiary/60 text-tertiary focus:ring-0 cursor-pointer" type="checkbox"/>
+<div class="flex-1">
+<span class="text-body-sm font-body-sm line-through text-outline transition-colors">Review design tokens</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="text-label-sm font-label-sm text-outline/80">#System</span>
+</div>
+</div>
+</label>
+<!-- Task Item 3: In Progress (Active) -->
+<label class="flex items-start gap-3 p-2.5 rounded-xl bg-primary/10 hover:bg-primary/15 border border-primary/30 transition-all cursor-pointer group">
+<input class="mt-0.5 rounded-[5px] bg-transparent border-outline-variant text-primary focus:ring-0 cursor-pointer" type="checkbox"/>
+<div class="flex-1">
+<span class="text-body-sm font-body-sm text-on-surface font-medium transition-colors">Write documentation draft</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="text-label-sm font-label-sm text-primary">In Progress</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">45m spent</span>
+</div>
+</div>
+</label>
+<!-- Task Item 4: Pending -->
+<label class="flex items-start gap-3 p-2.5 rounded-xl bg-surface-container-high/30 hover:bg-surface-container-high/50 border border-outline-variant/15 transition-all cursor-pointer group">
+<input class="mt-0.5 rounded-[5px] bg-transparent border-outline-variant text-primary focus:ring-0 cursor-pointer" type="checkbox"/>
+<div class="flex-1">
+<span class="text-body-sm font-body-sm text-on-surface-variant transition-colors">Sync with nocturnal squad</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="text-label-sm font-label-sm text-outline-variant">Tonight 11:30 PM</span>
+</div>
+</div>
+</label>
+</div>
+<!-- Quick Add Task Input -->
+<div class="mt-space-md pt-space-sm border-t border-outline-variant/20">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-surface-container-lowest/50 border border-outline-variant/30 focus-within:border-primary/50">
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="add">add</span>
+<input class="w-full bg-transparent border-none p-0 text-body-sm font-body-sm text-on-surface placeholder:text-outline/70 focus:ring-0" placeholder="Add new focus task..." type="text"/>
+</div>
+</div>
+</aside>
+</main>
+<!-- ========================================================================= -->
+<!-- BOTTOM FLOATING DOCK: LOFI MUSIC PLAYER                                   -->
+<!-- ========================================================================= -->
+<footer class="fixed bottom-space-md left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-5xl rounded-2xl bg-surface-container-low/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] px-5 py-3 transition-all flex flex-col md:flex-row items-center justify-between gap-4">
+<!-- Left: Track Metadata & Live State -->
+<div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start">
+<div class="relative w-11 h-11 rounded-xl bg-surface-container-highest flex items-center justify-center overflow-hidden border border-white/10 shadow-inner group">
+<!-- Vinyl Record / Animated Visualizer Icon -->
+<span class="material-symbols-outlined text-primary text-[24px] group-hover:rotate-45 transition-transform duration-500" data-icon="album">album</span>
+<!-- Animated bars in corner -->
+<div class="absolute bottom-1 right-1 flex items-end gap-0.5 h-3">
+<span class="w-0.5 bg-tertiary sound-bar-1 rounded-full"></span>
+<span class="w-0.5 bg-tertiary sound-bar-2 rounded-full"></span>
+<span class="w-0.5 bg-tertiary sound-bar-3 rounded-full"></span>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="text-body-md font-body-md font-semibold text-on-surface truncate max-w-[210px]">Lofi Girl - beats to relax/study to</span>
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-error-container/60 border border-error/30 text-error font-label-sm text-[9px] uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span>
+            LIVE
+          </span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant truncate">ChilledCow Records • Ambient Stream</span>
+</div>
+</div>
+<!-- Center: Player Controls & Scrubbing / Presets -->
+<div class="flex flex-col items-center gap-2 w-full md:w-auto">
+<!-- Primary Playback buttons -->
+<div class="flex items-center gap-4">
+<!-- Prev Track -->
+<button class="text-on-surface-variant hover:text-on-surface transition-colors p-1" title="Previous Stream">
+<span class="material-symbols-outlined text-[20px]" data-icon="skip_previous">skip_previous</span>
+</button>
+<!-- Play / Pause Glowing Action -->
+<button class="w-9 h-9 rounded-full bg-primary/20 hover:bg-primary/30 border border-primary/50 text-primary flex items-center justify-center shadow-[0_0_14px_rgba(245,158,11,0.3)] transition-all active:scale-95" id="player-play-btn">
+<span class="material-symbols-outlined text-[22px]" data-icon="pause">pause</span>
+</button>
+<!-- Next Track -->
+<button class="text-on-surface-variant hover:text-on-surface transition-colors p-1" title="Next Stream">
+<span class="material-symbols-outlined text-[20px]" data-icon="skip_next">skip_next</span>
+</button>
+<!-- Embedded Mini Volume Bar -->
+<div class="hidden sm:flex items-center gap-2 pl-3 border-l border-outline-variant/30">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant" data-icon="volume_up">volume_up</span>
+<input class="w-16 accent-primary cursor-pointer" max="100" min="0" type="range" value="65"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">65%</span>
+</div>
+</div>
+<!-- Station Preset Switcher Pills -->
+<div class="flex items-center gap-1.5 overflow-x-auto max-w-full pb-0.5">
+<button class="px-2.5 py-0.5 rounded-full bg-secondary-container/50 border border-secondary/40 text-secondary font-label-sm text-label-sm flex items-center gap-1 shadow-[0_0_8px_rgba(99,102,241,0.2)]">
+<span class="material-symbols-outlined text-[13px]" data-icon="radio">radio</span>
+          Chillhop
+        </button>
+<button class="px-2.5 py-0.5 rounded-full bg-surface-container/60 hover:bg-surface-container-high border border-outline-variant/20 text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all">
+          Rainy Lofi
+        </button>
+<button class="px-2.5 py-0.5 rounded-full bg-surface-container/60 hover:bg-surface-container-high border border-outline-variant/20 text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all">
+          Cozy Cafe
+        </button>
+<button class="px-2.5 py-0.5 rounded-full bg-surface-container/60 hover:bg-surface-container-high border border-outline-variant/20 text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all">
+          Piano Focus
+        </button>
+</div>
+</div>
+<!-- Right: Custom YouTube Stream URL Trigger -->
+<div class="hidden md:flex items-center gap-2">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-variant/40 hover:bg-surface-container-high border border-outline-variant/30 text-on-surface-variant hover:text-primary transition-all text-label-md font-label-md active:scale-95" title="Load Custom Stream">
+<span class="material-symbols-outlined text-[16px]" data-icon="link">link</span>
+<span>Paste YouTube URL</span>
+</button>
+</div>
+</footer>
+<!-- ========================================================================= -->
+<!-- LIGHTWEIGHT INTERACTIVITY SCRIPT (Timer logic & Micro-interactions)       -->
+<!-- ========================================================================= -->
+<script>
+    // Live Clock Updater
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const timeStr = `${hours}:${minutes} ${ampm}`;
+      const clockEl = document.getElementById('header-clock');
+      if (clockEl) clockEl.innerText = timeStr;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Pomodoro Timer State
+    let isRunning = false;
+    let totalSeconds = 25 * 60;
+    let initialSeconds = 25 * 60;
+    let timerInterval = null;
+
+    const timerDisplay = document.getElementById('timer-display');
+    const timerToggleBtn = document.getElementById('timer-toggle');
+    const timerIcon = document.getElementById('timer-icon');
+    const timerBtnText = document.getElementById('timer-btn-text');
+    const timerResetBtn = document.getElementById('timer-reset');
+    const timerSkipBtn = document.getElementById('timer-skip');
+    const progressCircle = document.getElementById('progress-circle');
+
+    const totalCircumference = 2 * Math.PI * 102; // 640.88
+
+    function renderTime() {
+      const mins = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+      const secs = (totalSeconds % 60).toString().padStart(2, '0');
+      timerDisplay.innerText = `${mins}:${secs}`;
+
+      // Update ring offset
+      const progressFraction = (initialSeconds - totalSeconds) / initialSeconds;
+      const offset = totalCircumference * (1 - progressFraction);
+      progressCircle.style.strokeDashoffset = offset;
+    }
+
+    function toggleTimer() {
+      if (isRunning) {
+        clearInterval(timerInterval);
+        isRunning = false;
+        timerIcon.innerText = 'play_arrow';
+        timerBtnText.innerText = 'Start';
+      } else {
+        isRunning = true;
+        timerIcon.innerText = 'pause';
+        timerBtnText.innerText = 'Pause';
+        timerInterval = setInterval(() => {
+          if (totalSeconds > 0) {
+            totalSeconds--;
+            renderTime();
+          } else {
+            clearInterval(timerInterval);
+            isRunning = false;
+            timerIcon.innerText = 'play_arrow';
+            timerBtnText.innerText = 'Start';
+          }
+        }, 1000);
+      }
+    }
+
+    timerToggleBtn.addEventListener('click', toggleTimer);
+
+    timerResetBtn.addEventListener('click', () => {
+      clearInterval(timerInterval);
+      isRunning = false;
+      totalSeconds = initialSeconds;
+      timerIcon.innerText = 'play_arrow';
+      timerBtnText.innerText = 'Start';
+      renderTime();
+    });
+
+    timerSkipBtn.addEventListener('click', () => {
+      clearInterval(timerInterval);
+      isRunning = false;
+      totalSeconds = 5 * 60;
+      initialSeconds = 5 * 60;
+      timerIcon.innerText = 'play_arrow';
+      timerBtnText.innerText = 'Start';
+      renderTime();
+    });
+
+    // Timer Mode Tab Switching
+    const tabFocus = document.getElementById('tab-focus');
+    const tabShort = document.getElementById('tab-short');
+    const tabLong = document.getElementById('tab-long');
+
+    function setActiveTab(activeBtn, durationMins) {
+      [tabFocus, tabShort, tabLong].forEach(btn => {
+        btn.className = "px-3 py-1.5 rounded-full text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all";
+      });
+      activeBtn.className = "px-4 py-1.5 rounded-full bg-primary/20 border border-primary/50 text-primary font-label-md text-label-md shadow-[0_0_12px_rgba(245,158,11,0.25)] transition-all";
+      clearInterval(timerInterval);
+      isRunning = false;
+      timerIcon.innerText = 'play_arrow';
+      timerBtnText.innerText = 'Start';
+      initialSeconds = durationMins * 60;
+      totalSeconds = initialSeconds;
+      renderTime();
+    }
+
+    tabFocus.addEventListener('click', () => setActiveTab(tabFocus, 25));
+    tabShort.addEventListener('click', () => setActiveTab(tabShort, 5));
+    tabLong.addEventListener('click', () => setActiveTab(tabLong, 15));
+
+    // Zen Mode Fullscreen Toggle
+    const zenToggle = document.getElementById('zen-mode-toggle');
+    zenToggle.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    });
+
+    // Player Play/Pause button toggle
+    const playerPlayBtn = document.getElementById('player-play-btn');
+    let musicPlaying = true;
+    playerPlayBtn.addEventListener('click', () => {
+      musicPlaying = !musicPlaying;
+      const icon = playerPlayBtn.querySelector('span');
+      if (musicPlaying) {
+        icon.innerText = 'pause';
+      } else {
+        icon.innerText = 'play_arrow';
+      }
+    });
+
+    // Master Mute Button toggle
+    const masterMuteBtn = document.getElementById('master-mute-btn');
+    let isMuted = false;
+    masterMuteBtn.addEventListener('click', () => {
+      isMuted = !isMuted;
+      const icon = masterMuteBtn.querySelector('span');
+      if (isMuted) {
+        icon.innerText = 'volume_off';
+        masterMuteBtn.classList.add('text-error');
+      } else {
+        icon.innerText = 'volume_up';
+        masterMuteBtn.classList.remove('text-error');
+      }
+    });
+
+    // Initial render
+    renderTime();
+  </script>
+</body></html>

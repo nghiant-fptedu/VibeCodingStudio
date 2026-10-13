@@ -17,14 +17,14 @@ $$\text{Planning} \longrightarrow \text{Design (Google Stitch)} \longrightarrow 
 |  - Xuất bộ tài liệu PRD.md, TECH_ARCHITECTURE.md, PLAN.md                       [HOÀN THÀNH]    |
 |                                                                                                 |
 |  [Giai đoạn 2: DESIGN VỚI GOOGLE STITCH]                                                        |
-|  - Khởi tạo dự án trên StitchMCP (create_project)                                [SẮP TỚI]      |
-|  - Tạo các màn hình giao diện (Main Workspace, Zen Mode, Sound Mixer, Todo)                     |
+|  - Khởi tạo dự án trên StitchMCP (create_project)                                [HOÀN THÀNH]   |
+|  - Tạo các màn hình giao diện (Main Workspace, Zen Mode, Sound Mixer, Todo)      [HOÀN THÀNH]   |
 |                                                                                                 |
 |  [Giai đoạn 3: DOWNLOAD DESIGN TỪ GOOGLE STITCH]                                                |
-|  - Trích xuất HTML, CSS, Design Tokens và Asset references từ StitchMCP                          |
-|  - Phân tích cấu trúc phân rã giao diện thành các React Component Specs                         |
+|  - Trích xuất HTML, CSS, Design Tokens và Asset references từ StitchMCP         [HOÀN THÀNH]   |
+|  - Phân tích cấu trúc phân rã giao diện thành các React Component Specs          [HOÀN THÀNH]   |
 |                                                                                                 |
-|  [Giai đoạn 4: CODE & CHUYỂN ĐỔI SANG REACT COMPONENTS]                                         |
+|  [Giai đoạn 4: CODE & CHUYỂN ĐỔI SANG REACT COMPONENTS]                         [SẮP TỚI]      |
 |  - Khởi tạo project React 18 + TypeScript + Vite + Tailwind CSS                                 |
 |  - Cài đặt Theme, Glassmorphism, CSS variables từ Design Tokens của Stitch                      |
 |  - Xây dựng các Modules (Pomodoro, YouTube, White Noise, Todo, Background)                      |
@@ -114,16 +114,23 @@ Mục tiêu: Sử dụng công cụ Google Stitch (qua StitchMCP) để sinh cá
 
 ---
 
-### Giai đoạn 3: Download & Trích xuất Design từ Google Stitch
+### Giai đoạn 3: Download & Trích xuất Design từ Google Stitch [HOÀN THÀNH]
 Mục tiêu: Tải thiết kế chi tiết về workspace local và bóc tách cấu trúc để chuẩn bị code.
 
-* [ ] **Task 3.1: Tải mã nguồn giao diện từ StitchMCP**
-  * Sử dụng `get_screen` để lấy mã HTML/CSS, cấu trúc DOM, màu sắc và typography đã sinh từ Stitch.
-* [ ] **Task 3.2: Bóc tách Design Tokens**
-  * Trích xuất các biến màu sắc (Glassmorphism border, background opacity, glow effects, text contrast).
-  * Cấu hình các giá trị này vào file cấu hình Tailwind CSS (`tailwind.config.js`) và CSS Variables (`index.css`).
-* [ ] **Task 3.3: Lập bản đồ Component Mapping**
-  * Phân rã mã HTML thành danh sách các component React độc lập, tái sử dụng được.
+* **Thư mục thiết kế local**: [`stitch-designs/`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs)
+  * Screen 1: [`stitch-designs/screen-1-main-dashboard.html`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/screen-1-main-dashboard.html) (38KB)
+  * Screen 2: [`stitch-designs/screen-2-modals-drawers.html`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/screen-2-modals-drawers.html) (39KB)
+  * Screen 3: [`stitch-designs/screen-3-zen-mode.html`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/screen-3-zen-mode.html) (15KB)
+  * Wallpaper 4K: [`stitch-designs/wallpapers/pine-forest-twilight.jpg`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/wallpapers/pine-forest-twilight.jpg) (35KB)
+* **File Design Tokens**: [`stitch-designs/design-tokens.json`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/stitch-designs/design-tokens.json)
+* **Tài liệu đặc tả Component**: [`docs/COMPONENT_SPECS.md`](file:///c:/Users/NGHIA/MyData/Workspaces/Antigravity/demo-vibecodespace/docs/COMPONENT_SPECS.md)
+
+- [x] **Task 3.1: Tải mã nguồn giao diện từ StitchMCP**
+  * Đã tải toàn bộ mã HTML, CSS, và hình ảnh 4K của 3 màn hình từ Stitch về thư mục `stitch-designs/`.
+- [x] **Task 3.2: Bóc tách Design Tokens**
+  * Đã trích xuất đầy đủ bảng màu Glassmorphism, độ mờ backdrop, bóng đổ glow amber/indigo/teal và font typography vào `stitch-designs/design-tokens.json`.
+- [x] **Task 3.3: Lập bản đồ Component Mapping**
+  * Đã biên soạn tài liệu đặc tả cấu trúc 8 module React component chi tiết với props, state, Tailwind classes tương ứng trong `docs/COMPONENT_SPECS.md`.
 
 ---
 

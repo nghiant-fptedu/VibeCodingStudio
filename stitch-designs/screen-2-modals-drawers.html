@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VibeSpace Studio | Soundscapes &amp; Focus</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-container": "#613b00",
+            "on-tertiary-fixed-variant": "#005048",
+            "secondary-fixed": "#e1e0ff",
+            "error-container": "#93000a",
+            "tertiary-container": "#30c5b3",
+            "surface-container-low": "#131b2e",
+            "surface-container-high": "#222a3d",
+            "on-error": "#690005",
+            "surface-container": "#171f33",
+            "on-tertiary": "#003731",
+            "error": "#ffb4ab",
+            "primary-fixed-dim": "#ffb95f",
+            "on-primary": "#472a00",
+            "surface-container-lowest": "#060e20",
+            "tertiary": "#57e1ce",
+            "inverse-primary": "#855300",
+            "secondary-fixed-dim": "#c0c1ff",
+            "background": "#0b1326",
+            "surface-tint": "#ffb95f",
+            "primary-fixed": "#ffddb8",
+            "on-secondary-fixed": "#07006c",
+            "on-tertiary-fixed": "#00201c",
+            "tertiary-fixed": "#71f8e4",
+            "on-secondary": "#1000a9",
+            "on-secondary-container": "#b0b2ff",
+            "tertiary-fixed-dim": "#4fdbc8",
+            "inverse-surface": "#dae2fd",
+            "surface-variant": "#2d3449",
+            "surface": "#0b1326",
+            "surface-container-highest": "#2d3449",
+            "primary-container": "#f59e0b",
+            "on-surface": "#dae2fd",
+            "on-tertiary-container": "#004d44",
+            "outline": "#a08e7a",
+            "secondary-container": "#3131c0",
+            "on-primary-fixed": "#2a1700",
+            "surface-bright": "#31394d",
+            "on-surface-variant": "#d8c3ad",
+            "primary": "#ffc174",
+            "on-error-container": "#ffdad6",
+            "inverse-on-surface": "#283044",
+            "surface-dim": "#0b1326",
+            "secondary": "#c0c1ff",
+            "on-background": "#dae2fd",
+            "on-secondary-fixed-variant": "#2f2ebe",
+            "on-primary-fixed-variant": "#653e00",
+            "outline-variant": "#534434"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "margin": "2rem",
+            "gutter": "1.25rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "gutter-sm": "0.75rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2.5rem"
+          },
+          "fontFamily": {
+            "label-md": ["JetBrains Mono"],
+            "label-sm": ["JetBrains Mono"],
+            "display-timer-mobile": ["JetBrains Mono"],
+            "display-timer": ["JetBrains Mono"],
+            "body-md": ["Plus Jakarta Sans"],
+            "label-lg": ["JetBrains Mono"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "label-md": ["11px", { "lineHeight": "16px", "fontWeight": "500" }],
+            "label-sm": ["10px", { "lineHeight": "14px", "fontWeight": "400" }],
+            "display-timer-mobile": ["40px", { "lineHeight": "48px", "fontWeight": "400" }],
+            "display-timer": ["64px", { "lineHeight": "72px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "label-lg": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    /* Subtle custom glowing pulse for audio indicators */
+    @keyframes audio-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.25); opacity: 1; }
+    }
+    .animate-pulse-glow {
+      animation: audio-pulse 2.2s infinite ease-in-out;
+    }
+    /* Amber and teal atmospheric shadows */
+    .glow-amber-box {
+      box-shadow: 0 0 20px -2px rgba(245, 158, 11, 0.35), inset 0 0 12px 0 rgba(245, 158, 11, 0.10);
+    }
+    .glow-teal-box {
+      box-shadow: 0 0 20px -2px rgba(87, 225, 206, 0.35), inset 0 0 12px 0 rgba(87, 225, 206, 0.10);
+    }
+    /* Custom styling for range input track */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 14px;
+      width: 14px;
+      border-radius: 9999px;
+      background: #ffc174;
+      border: 2px solid #ffffff;
+      cursor: pointer;
+      margin-top: -4px;
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.8);
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 6px;
+      cursor: pointer;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="relative w-screen h-screen overflow-hidden bg-background font-body-md text-on-surface antialiased select-none">
+<!-- Background Wallpaper Container -->
+<div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+<img alt="Twilight pine forest background" class="w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out" src="https://lh3.googleusercontent.com/aida/AEtjO1U_DTq0YgEStLBcMJfjJuPhd30BWKEFy1iCYSrIuC1aMWNFyHZeGIFV1bvBOzJt2j2iPwmVSu3deUPrfWb-FGQqCGVBhxJY5fbfKG9E-xOm59wstqLpTVLCUwztqIeCXQydcWT2p1dkGLCwZLSA01-Tp4czuCBHwpdd-viNT_i8KgCxdmmATg1TBbKst8Cc9kCaMCyPPUak3oeZqSd7RFGM8npXMoEGv7Ng3S5OHUEh_ebWqc2g0IBSfxM"/>
+<!-- Atmospheric Ambient Tint Overlays -->
+<div class="absolute inset-0 bg-background/55 backdrop-blur-[2px]"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-surface-container-lowest/40"></div>
+</div>
+<!-- 1. TopNavBar (Executed strictly from Shared Components JSON) -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface-container-low/70 dark:bg-surface-container-low/70 backdrop-blur-xl shadow-2xl">
+<div class="flex justify-between items-center w-full px-margin py-space-sm">
+<!-- Left: Brand Logo & Tagline -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs cursor-pointer active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined text-primary fill-icon text-headline-md" data-icon="graphic_eq">graphic_eq</span>
+<span class="text-headline-md font-headline-md font-bold tracking-tight text-primary dark:text-primary">VibeSpace</span>
+</div>
+<div class="hidden sm:flex items-center px-space-sm py-0.5 rounded-full bg-surface-container-high/40 border border-outline-variant/30 text-on-surface-variant font-label-sm text-label-sm">
+          "Find your flow"
+        </div>
+</div>
+<!-- Center: Navigation Links (Soundscapes Active) -->
+<nav class="hidden md:flex items-center gap-space-lg">
+<button class="text-on-surface-variant dark:text-on-surface-variant transition-colors duration-200 hover:text-primary dark:hover:text-primary hover:bg-surface-container-high/40 dark:hover:bg-surface-container-high/40 px-space-md py-space-xs rounded-full font-label-md text-label-md active:scale-95">Focus</button>
+<!-- Active Nav: Soundscapes -->
+<button class="text-primary dark:text-primary font-medium border-b-2 border-primary pb-1 font-label-md text-label-md px-space-xs active:scale-95">Soundscapes</button>
+<button class="text-on-surface-variant dark:text-on-surface-variant transition-colors duration-200 hover:text-primary dark:hover:text-primary hover:bg-surface-container-high/40 dark:hover:bg-surface-container-high/40 px-space-md py-space-xs rounded-full font-label-md text-label-md active:scale-95">Analytics</button>
+<button class="text-on-surface-variant dark:text-on-surface-variant transition-colors duration-200 hover:text-primary dark:hover:text-primary hover:bg-surface-container-high/40 dark:hover:bg-surface-container-high/40 px-space-md py-space-xs rounded-full font-label-md text-label-md active:scale-95">Rooms</button>
+</nav>
+<!-- Right: Clock & Trailing Actions -->
+<div class="flex items-center gap-space-sm">
+<div class="hidden xl:flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-high/50 border border-white/5 font-label-md text-label-md text-on-surface">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span>1:21 AM</span>
+</div>
+<button class="hidden lg:flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-highest/40 hover:bg-surface-container-highest text-on-surface border border-outline-variant/30 text-label-md font-label-md transition-all active:scale-95">
+<span class="material-symbols-outlined text-[16px]" data-icon="wallpaper">wallpaper</span>
+<span>Wallpaper</span>
+</button>
+<div class="flex items-center gap-1">
+<button class="w-9 h-9 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container-high/40 transition-all active:scale-95" title="Volume">
+<span class="material-symbols-outlined text-[19px]" data-icon="volume_up">volume_up</span>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container-high/40 transition-all active:scale-95" title="Fullscreen">
+<span class="material-symbols-outlined text-[19px]" data-icon="fullscreen">fullscreen</span>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container-high/40 transition-all active:scale-95" title="Settings">
+<span class="material-symbols-outlined text-[19px]" data-icon="settings">settings</span>
+</button>
+</div>
+<!-- Trailing Primary Action: Zen Mode -->
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-gradient-to-r from-primary-container to-amber-600 text-on-primary-container font-headline-sm text-label-md font-semibold shadow-lg hover:shadow-primary-container/20 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[16px]" data-icon="spa">spa</span>
+<span>Zen Mode</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Canvas: Screen Composition (Desktop Split Focus) -->
+<main class="relative z-10 w-full h-full pt-16 pb-20 px-margin flex items-center justify-between gap-gutter pointer-events-none">
+<!-- 2. Center-Left Modal: 'Ambient Sound Mixer' -->
+<section class="pointer-events-auto max-w-[700px] w-full max-h-[calc(100vh-140px)] flex flex-col rounded-lg bg-surface-container/75 dark:bg-surface-container/75 backdrop-blur-2xl border border-white/10 shadow-2xl p-space-lg glow-amber-box/20 transition-all overflow-hidden my-auto">
+<!-- Modal Header -->
+<div class="flex items-start justify-between pb-space-md border-b border-white/10">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-headline-sm" data-icon="graphic_eq">graphic_eq</span>
+<h2 class="text-headline-md font-headline-md text-on-surface font-semibold tracking-tight">Soundscapes &amp; Ambience</h2>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Mix and balance your perfect focus audio</p>
+</div>
+<!-- Header Actions: Master Volume & Mute All -->
+<div class="flex items-center gap-space-md">
+<div class="hidden sm:flex items-center gap-space-xs bg-surface-container-high/60 px-space-md py-1.5 rounded-full border border-white/5">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="volume_up">volume_up</span>
+<div class="w-20 h-1.5 bg-white/10 rounded-full relative flex items-center">
+<div class="h-full bg-gradient-to-r from-primary-container to-primary rounded-full w-[78%]"></div>
+<div class="absolute left-[78%] -translate-x-1/2 w-3 h-3 rounded-full bg-primary border-2 border-white shadow-md"></div>
+</div>
+<span class="font-label-sm text-label-sm text-primary ml-1">78%</span>
+</div>
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-highest/50 hover:bg-surface-container-highest text-on-surface border border-white/10 text-label-md font-label-md transition-all active:scale-95">
+<span class="material-symbols-outlined text-tertiary text-[16px]" data-icon="volume_off">volume_off</span>
+<span>Mute All</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+</button>
+</div>
+</div>
+<!-- Quick 1-Click Preset Combos -->
+<div class="pt-space-md pb-space-sm flex items-center gap-space-xs overflow-x-auto no-scrollbar">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mr-1">Presets:</span>
+<!-- Active Preset: Stormy Night -->
+<button class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-primary-container/20 border border-primary text-primary font-label-md text-label-md shadow-sm glow-amber-box">
+<span>⚡ Stormy Night</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-high/40 hover:bg-surface-container-high border border-white/5 text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all">
+<span>🔥 Cozy Fireplace</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-high/40 hover:bg-surface-container-high border border-white/5 text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all">
+<span>☕ Coffee Shop</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-high/40 hover:bg-surface-container-high border border-white/5 text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all">
+<span>🌲 Forest Dawn</span>
+</button>
+</div>
+<!-- Grid of 10 Ambient Sound Cards (2 cols x 5 rows) -->
+<div class="grid grid-cols-2 gap-space-sm py-space-sm overflow-y-auto pr-1 flex-1 max-h-[380px]">
+<!-- Sound 1: Heavy Rain (Active) -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-high/50 border border-primary/40 shadow-sm relative overflow-hidden group">
+<div class="flex items-center gap-space-sm min-w-[130px]">
+<div class="relative w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="water_drop">water_drop</span>
+<span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-tertiary animate-pulse-glow"></span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-semibold text-on-surface leading-tight">Heavy Rain</p>
+<span class="font-label-sm text-label-sm text-tertiary">Playing</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-1 max-w-[140px] ml-2">
+<div class="w-full h-1.5 bg-white/10 rounded-full relative">
+<div class="h-full bg-gradient-to-r from-tertiary to-primary-container rounded-full w-[70%]"></div>
+<div class="absolute left-[70%] -translate-x-1/2 -top-1 w-3.5 h-3.5 rounded-full bg-primary border border-white shadow"></div>
+</div>
+<span class="font-label-sm text-label-sm text-primary w-7 text-right">70%</span>
+</div>
+</div>
+<!-- Sound 2: Distant Thunder (Active) -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-high/50 border border-primary/40 shadow-sm relative overflow-hidden group">
+<div class="flex items-center gap-space-sm min-w-[130px]">
+<div class="relative w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="bolt">bolt</span>
+<span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-tertiary animate-pulse-glow"></span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-semibold text-on-surface leading-tight">Distant Thunder</p>
+<span class="font-label-sm text-label-sm text-tertiary">Playing</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-1 max-w-[140px] ml-2">
+<div class="w-full h-1.5 bg-white/10 rounded-full relative">
+<div class="h-full bg-gradient-to-r from-tertiary to-primary-container rounded-full w-[40%]"></div>
+<div class="absolute left-[40%] -translate-x-1/2 -top-1 w-3.5 h-3.5 rounded-full bg-primary border border-white shadow"></div>
+</div>
+<span class="font-label-sm text-label-sm text-primary w-7 text-right">40%</span>
+</div>
+</div>
+<!-- Sound 3: Campfire / Hearth (Active) -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-high/50 border border-primary/40 shadow-sm relative overflow-hidden group">
+<div class="flex items-center gap-space-sm min-w-[130px]">
+<div class="relative w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="local_fire_department">local_fire_department</span>
+<span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-tertiary animate-pulse-glow"></span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-semibold text-on-surface leading-tight">Campfire Hearth</p>
+<span class="font-label-sm text-label-sm text-tertiary">Playing</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-1 max-w-[140px] ml-2">
+<div class="w-full h-1.5 bg-white/10 rounded-full relative">
+<div class="h-full bg-gradient-to-r from-tertiary to-primary-container rounded-full w-[55%]"></div>
+<div class="absolute left-[55%] -translate-x-1/2 -top-1 w-3.5 h-3.5 rounded-full bg-primary border border-white shadow"></div>
+</div>
+<span class="font-label-sm text-label-sm text-primary w-7 text-right">55%</span>
+</div>
+</div>
+<!-- Sound 4: Gentle Wind (Active) -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-high/50 border border-primary/40 shadow-sm relative overflow-hidden group">
+<div class="flex items-center gap-space-sm min-w-[130px]">
+<div class="relative w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="air">air</span>
+<span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-tertiary animate-pulse-glow"></span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-semibold text-on-surface leading-tight">Gentle Wind</p>
+<span class="font-label-sm text-label-sm text-tertiary">Playing</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-1 max-w-[140px] ml-2">
+<div class="w-full h-1.5 bg-white/10 rounded-full relative">
+<div class="h-full bg-gradient-to-r from-tertiary to-primary-container rounded-full w-[30%]"></div>
+<div class="absolute left-[30%] -translate-x-1/2 -top-1 w-3.5 h-3.5 rounded-full bg-primary border border-white shadow"></div>
+</div>
+<span class="font-label-sm text-label-sm text-primary w-7 text-right">30%</span>
+</div>
+</div>
+<!-- Sound 5: Ocean Waves (Muted) -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-high/20 border border-white/5 opacity-60 hover:opacity-90 transition-opacity">
+<div class="flex items-center gap-space-sm min-w-[130px]">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest/40 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="waves">waves</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-medium text-on-surface-variant leading-tight">Ocean Waves</p>
+<span class="font-label-sm text-label-sm text-on-surface-variant/60">Muted</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-1 max-w-[140px] ml-2">
+<div class="w-full h-1.5 bg-white/5 rounded-full"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/60 w-7 text-right">0%</span>
+</div>
+</div>
+<!-- Sound 6: Forest Stream (Muted) -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-high/20 border border-white/5 opacity-60 hover:opacity-90 transition-opacity">
+<div class="flex items-center gap-space-sm min-w-[130px]">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest/40 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="water">water</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-medium text-on-surface-variant leading-tight">Forest Stream</p>
+<span class="font-label-sm text-label-sm text-on-surface-variant/60">Muted</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-1 max-w-[140px] ml-2">
+<div class="w-full h-1.5 bg-white/5 rounded-full"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/60 w-7 text-right">0%</span>
+</div>
+</div>
+<!-- Sound 7: Bird Song (Muted) -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-high/20 border border-white/5 opacity-60 hover:opacity-90 transition-opacity">
+<div class="flex items-center gap-space-sm min-w-[130px]">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest/40 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="flutter_dash">flutter_dash</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-medium text-on-surface-variant leading-tight">Bird Song</p>
+<span class="font-label-sm text-label-sm text-on-surface-variant/60">Muted</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-1 max-w-[140px] ml-2">
+<div class="w-full h-1.5 bg-white/5 rounded-full"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/60 w-7 text-right">0%</span>
+</div>
+</div>
+<!-- Sound 8: Coffee Shop Ambience (Active) -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-high/50 border border-primary/40 shadow-sm relative overflow-hidden group">
+<div class="flex items-center gap-space-sm min-w-[130px]">
+<div class="relative w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="coffee">coffee</span>
+<span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-tertiary animate-pulse-glow"></span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-semibold text-on-surface leading-tight">Coffee Shop</p>
+<span class="font-label-sm text-label-sm text-tertiary">Playing</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-1 max-w-[140px] ml-2">
+<div class="w-full h-1.5 bg-white/10 rounded-full relative">
+<div class="h-full bg-gradient-to-r from-tertiary to-primary-container rounded-full w-[60%]"></div>
+<div class="absolute left-[60%] -translate-x-1/2 -top-1 w-3.5 h-3.5 rounded-full bg-primary border border-white shadow"></div>
+</div>
+<span class="font-label-sm text-label-sm text-primary w-7 text-right">60%</span>
+</div>
+</div>
+<!-- Sound 9: Mechanical Keyboard (Active) -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-high/50 border border-primary/40 shadow-sm relative overflow-hidden group">
+<div class="flex items-center gap-space-sm min-w-[130px]">
+<div class="relative w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="keyboard">keyboard</span>
+<span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-tertiary animate-pulse-glow"></span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-semibold text-on-surface leading-tight">Mech Keyboard</p>
+<span class="font-label-sm text-label-sm text-tertiary">Playing</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-1 max-w-[140px] ml-2">
+<div class="w-full h-1.5 bg-white/10 rounded-full relative">
+<div class="h-full bg-gradient-to-r from-tertiary to-primary-container rounded-full w-[25%]"></div>
+<div class="absolute left-[25%] -translate-x-1/2 -top-1 w-3.5 h-3.5 rounded-full bg-primary border border-white shadow"></div>
+</div>
+<span class="font-label-sm text-label-sm text-primary w-7 text-right">25%</span>
+</div>
+</div>
+<!-- Sound 10: Night Crickets (Muted) -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-high/20 border border-white/5 opacity-60 hover:opacity-90 transition-opacity">
+<div class="flex items-center gap-space-sm min-w-[130px]">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest/40 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="pest_control">pest_control</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-medium text-on-surface-variant leading-tight">Night Crickets</p>
+<span class="font-label-sm text-label-sm text-on-surface-variant/60">Muted</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-1 max-w-[140px] ml-2">
+<div class="w-full h-1.5 bg-white/5 rounded-full"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/60 w-7 text-right">0%</span>
+</div>
+</div>
+</div>
+<!-- Footer action inside modal -->
+<div class="pt-space-md mt-space-xs border-t border-white/10 flex items-center justify-between">
+<!-- Binaural beats toggle -->
+<div class="flex items-center gap-space-sm bg-surface-container-high/40 px-space-md py-1.5 rounded-full border border-white/5">
+<div class="w-3.5 h-3.5 rounded-full bg-tertiary shadow-sm glow-teal-box flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-container-lowest"></span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Binaural Beats (40Hz Gamma Focus)</span>
+</div>
+<button class="flex items-center gap-space-xs px-space-lg py-1.5 rounded-full bg-surface-container-highest/60 hover:bg-surface-container-highest text-primary border border-primary/30 font-label-md text-label-md transition-all active:scale-95 shadow-md">
+<span class="material-symbols-outlined text-[16px]" data-icon="save">save</span>
+<span>Save Custom Preset</span>
+</button>
+</div>
+</section>
+<!-- 3. Right Sliding Drawer Panel: 'Daily Tasks & Habits' -->
+<aside class="pointer-events-auto fixed top-16 right-0 bottom-0 w-96 bg-surface-container-lowest/85 dark:bg-surface-container-lowest/85 backdrop-blur-2xl border-l border-white/10 shadow-2xl p-space-lg flex flex-col z-40">
+<!-- Drawer Header -->
+<div class="flex items-center justify-between pb-space-sm border-b border-white/10">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-headline-sm" data-icon="checklist">checklist</span>
+<h3 class="text-headline-sm font-headline-sm text-on-surface font-semibold">Daily Checklist</h3>
+</div>
+<span class="inline-block mt-0.5 px-space-sm py-0.5 rounded-full bg-surface-container-high/60 font-label-sm text-label-sm text-on-surface-variant border border-white/5">
+            Tuesday, Oct 13
+          </span>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-white/10 transition-colors" title="Collapse Drawer">
+<span class="material-symbols-outlined text-[20px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<!-- Visual Progress Bar -->
+<div class="py-space-md">
+<div class="flex justify-between items-center mb-1.5">
+<span class="text-body-sm font-body-sm text-on-surface-variant">Focus Completion</span>
+<span class="font-label-md text-label-md text-primary font-semibold">5 of 7 completed (71%)</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-high/80 overflow-hidden p-0.5 border border-white/5">
+<div class="h-full rounded-full bg-gradient-to-r from-tertiary via-tertiary-container to-primary-container w-[71%] shadow-sm"></div>
+</div>
+</div>
+<!-- Scrollable Task List Sections -->
+<div class="flex-1 overflow-y-auto space-y-space-md pr-1">
+<!-- Tab/Section 1: Daily Habits -->
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant">Daily Habits</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant/60">Midnight reset</span>
+</div>
+<div class="space-y-space-xs">
+<!-- Habit 1: checked -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-high/30 border border-white/5 hover:border-white/10 transition-all">
+<div class="flex items-center gap-space-sm">
+<div class="w-5 h-5 rounded-[6px] bg-tertiary-container/30 border border-tertiary flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-tertiary" data-icon="check">check</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant line-through">💧 Drink 2L water</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/50">09:30 AM</span>
+</div>
+<!-- Habit 2: checked -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-high/30 border border-white/5 hover:border-white/10 transition-all">
+<div class="flex items-center gap-space-sm">
+<div class="w-5 h-5 rounded-[6px] bg-tertiary-container/30 border border-tertiary flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-tertiary" data-icon="check">check</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant line-through">📖 Read 20 pages</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/50">11:15 AM</span>
+</div>
+<!-- Habit 3: unchecked -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-high/40 border border-white/10 hover:border-primary/40 transition-all cursor-pointer group">
+<div class="flex items-center gap-space-sm">
+<div class="w-5 h-5 rounded-[6px] border border-white/30 group-hover:border-primary flex items-center justify-center transition-colors"></div>
+<span class="text-body-sm font-body-sm text-on-surface group-hover:text-primary transition-colors">🧘 Morning meditation</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary-fixed-dim bg-primary-container/10 px-1.5 py-0.5 rounded">Pending</span>
+</div>
+</div>
+</div>
+<!-- Tab/Section 2: Today's Tasks -->
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant">Today's Tasks</span>
+<span class="text-label-sm font-label-sm text-tertiary">3 remaining</span>
+</div>
+<div class="space-y-space-xs">
+<!-- Task 1: checked -->
+<div class="p-space-sm rounded-lg bg-surface-container-high/30 border border-white/5 space-y-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-5 h-5 rounded-[6px] bg-tertiary-container/30 border border-tertiary flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-tertiary" data-icon="check">check</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant line-through">Complete architecture spec</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs ml-7">
+<span class="text-[10px] font-label-sm px-1.5 rounded bg-surface-container-highest/60 text-secondary">#Work</span>
+<span class="text-[10px] font-label-sm text-on-surface-variant/60">2 pomodoros</span>
+</div>
+</div>
+<!-- Task 2: checked -->
+<div class="p-space-sm rounded-lg bg-surface-container-high/30 border border-white/5 space-y-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-5 h-5 rounded-[6px] bg-tertiary-container/30 border border-tertiary flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-tertiary" data-icon="check">check</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant line-through">Generate Stitch UI screens</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs ml-7">
+<span class="text-[10px] font-label-sm px-1.5 rounded bg-surface-container-highest/60 text-primary">#Design</span>
+<span class="text-[10px] font-label-sm text-on-surface-variant/60">3 pomodoros</span>
+</div>
+</div>
+<!-- Task 3: unchecked (In progress) -->
+<div class="p-space-sm rounded-lg bg-surface-container-high/60 border border-primary/40 shadow-sm space-y-1 group">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-5 h-5 rounded-[6px] border border-primary flex items-center justify-center bg-primary/10">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface font-medium">Convert components to React</span>
+</div>
+</div>
+<div class="flex items-center justify-between ml-7">
+<span class="text-[10px] font-label-sm px-1.5 rounded bg-secondary-container/40 text-secondary">#Dev</span>
+<span class="text-[10px] font-label-sm text-primary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="timer">timer</span>
+                  In progress - 45m
+                </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Add Task Input Bar -->
+<div class="pt-space-md border-t border-white/10 mt-auto">
+<div class="flex items-center gap-1.5 p-1 rounded-lg bg-surface-container-high/70 border border-white/10 focus-within:border-primary/50 focus-within:glow-amber-box transition-all">
+<input class="bg-transparent border-0 text-body-sm font-body-sm text-on-surface placeholder:text-on-surface-variant/50 focus:ring-0 px-space-sm flex-1" placeholder="+ Add a new focus task..." type="text"/>
+<div class="flex items-center gap-1 pr-1">
+<span class="font-label-sm text-[10px] px-1.5 py-0.5 rounded bg-surface-container-highest/60 text-on-surface-variant cursor-pointer hover:text-on-surface">
+              Task
+            </span>
+<button class="w-6 h-6 rounded-md bg-primary-container text-on-primary-container flex items-center justify-center hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[14px]" data-icon="keyboard_return">keyboard_return</span>
+</button>
+</div>
+</div>
+</div>
+</aside>
+</main>
+<!-- 4. Bottom Floating Bar / Pill: 'Wallpaper Gallery & Display Filters' -->
+<div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 max-w-4xl w-[92%] sm:w-auto">
+<div class="flex flex-wrap items-center justify-between gap-space-md px-space-lg py-2.5 rounded-full bg-surface-container/85 dark:bg-surface-container/85 backdrop-blur-2xl border border-white/10 shadow-2xl">
+<!-- Mini Preview Pills of Wallpapers -->
+<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-0.5">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mr-1">Wallpaper:</span>
+<!-- Active: Pine Forest -->
+<button class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-primary-container/20 border-2 border-primary text-primary font-label-md text-label-md shadow-sm glow-amber-box">
+<span>🌲 Pine Forest</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-high/40 hover:bg-surface-container-high border border-white/5 text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all">
+<span>🌅 Sunset Ocean</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-high/40 hover:bg-surface-container-high border border-white/5 text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all">
+<span>🏔️ Snowy Mountains</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-high/40 hover:bg-surface-container-high border border-white/5 text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all hidden md:flex">
+<span>☕ Cozy Cafe</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-high/40 hover:bg-surface-container-high border border-white/5 text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all hidden md:flex">
+<span>🌧️ Rainy Window</span>
+</button>
+</div>
+<!-- Divider -->
+<div class="hidden lg:block w-px h-6 bg-white/10"></div>
+<!-- Display Filter Controls: Darkness & Blur -->
+<div class="flex items-center gap-space-lg">
+<!-- Darkness Slider -->
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="brightness_medium">brightness_medium</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Darkness</span>
+<div class="w-16 h-1.5 bg-white/10 rounded-full relative flex items-center ml-1">
+<div class="h-full bg-primary rounded-full w-[40%]"></div>
+<div class="absolute left-[40%] -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-white shadow"></div>
+</div>
+<span class="font-label-sm text-label-sm text-primary w-6 text-right">40%</span>
+</div>
+<!-- Blur Slider -->
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="blur_on">blur_on</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Blur</span>
+<div class="w-16 h-1.5 bg-white/10 rounded-full relative flex items-center ml-1">
+<div class="h-full bg-tertiary rounded-full w-[25%]"></div>
+<div class="absolute left-[25%] -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-white shadow"></div>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary w-6 text-right">2px</span>
+</div>
+</div>
+</div>
+</div>
+</body></html>
