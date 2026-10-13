@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BackgroundContainer } from './components/background/BackgroundContainer';
 import { BackgroundSelector } from './components/background/BackgroundSelector';
 import { Header } from './components/common/Header';
@@ -16,6 +16,7 @@ import { useLocalStorage } from './hooks/useLocalStorage';
 import type { VisualSettings } from './types';
 import { DEFAULT_WALLPAPERS } from './data/defaultWallpapers';
 import { CURATED_PLAYLISTS } from './data/curatedPlaylists';
+import { formatTime } from './utils/timeFormatter';
 
 export default function App() {
   // Visual & Wallpaper State
@@ -49,6 +50,16 @@ export default function App() {
   const pomodoro = usePomodoro();
   const mixer = useAudioMixer();
   const todo = useDailyReset();
+
+  // Cập nhật tiêu đề tab trình duyệt theo thời gian thực đếm ngược
+  useEffect(() => {
+    if (pomodoro.isRunning) {
+      const modeLabel = pomodoro.mode === 'focus' ? '🍅 Tập trung' : '☕ Nghỉ ngơi';
+      document.title = `(${formatTime(pomodoro.timeLeft)}) ${modeLabel} — VibeSpace`;
+    } else {
+      document.title = 'VibeSpace — Personalized Aesthetic Focus Workspace';
+    }
+  }, [pomodoro.isRunning, pomodoro.timeLeft, pomodoro.mode]);
 
   // Active Wallpaper Image URL
   const activeWallpaper =

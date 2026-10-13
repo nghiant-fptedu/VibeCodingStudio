@@ -18,9 +18,17 @@ class WebAudioAmbientEngine {
     if (!AudioContextClass) return;
 
     this.ctx = new AudioContextClass();
+    const compressor = this.ctx.createDynamicsCompressor();
+    compressor.threshold.setValueAtTime(-18, this.ctx.currentTime);
+    compressor.knee.setValueAtTime(12, this.ctx.currentTime);
+    compressor.ratio.setValueAtTime(6, this.ctx.currentTime);
+    compressor.attack.setValueAtTime(0.003, this.ctx.currentTime);
+    compressor.release.setValueAtTime(0.25, this.ctx.currentTime);
+
     this.masterGain = this.ctx.createGain();
     this.masterGain.gain.setValueAtTime(1, this.ctx.currentTime);
-    this.masterGain.connect(this.ctx.destination);
+    this.masterGain.connect(compressor);
+    compressor.connect(this.ctx.destination);
 
     this.createNoiseBuffers();
   }
@@ -222,6 +230,23 @@ export function useAudioMixer() {
 
   useEffect(() => {
     engineRef.current = new WebAudioAmbientEngine();
+
+    const unlockAudio = () => {
+      engineRef.current?.resume();
+      window.removeEventListener('click', unlockAudio);
+      window.removeEventListener('keydown', unlockAudio);
+      window.removeEventListener('touchstart', unlockAudio);
+    };
+
+    window.addEventListener('click', unlockAudio);
+    window.addEventListener('keydown', unlockAudio);
+    window.addEventListener('touchstart', unlockAudio);
+
+    return () => {
+      window.removeEventListener('click', unlockAudio);
+      window.removeEventListener('keydown', unlockAudio);
+      window.removeEventListener('touchstart', unlockAudio);
+    };
   }, []);
 
   // Đồng bộ trạng thái audio engine khi channels hoặc mute thay đổi
