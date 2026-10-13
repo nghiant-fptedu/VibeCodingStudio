@@ -3,6 +3,8 @@ import cors from 'cors';
 
 import authRoutes from './routes/auth.routes.js';
 import tracksRoutes from './routes/tracks.routes.js';
+import todosRoutes from './routes/todos.routes.js';
+import syncRoutes from './routes/sync.routes.js';
 
 const app = express();
 
@@ -18,6 +20,8 @@ app.use(express.json());
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/tracks', tracksRoutes);
+app.use('/api/todos', todosRoutes);
+app.use('/api/sync', syncRoutes);
 
 // Health check endpoint
 app.get('/api/health', (_req: Request, res: Response) => {

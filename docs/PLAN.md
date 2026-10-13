@@ -239,7 +239,7 @@ Mục tiêu: Triển khai trọn vẹn dịch vụ Express.js backend, thiết l
   * Endpoint `DELETE /api/tracks/:id`: Xóa bài hát khỏi playlist cá nhân (bảo vệ quyền sở hữu của user).
   * Endpoint `POST /api/tracks/restore-defaults`: Khôi phục playlist về 6 bài mặc định.
   * Kiểm thử tự động tích hợp thành công 100% các luồng GET, POST, Duplicate check, DELETE và Restore Defaults trên Supabase PostgreSQL.
-- [ ] **Task 7.5: Hiện thực hóa Daily Todo Controller & Backend Daily Reset Engine**
+- [x] **Task 7.5: Hiện thực hóa Daily Todo Controller & Backend Daily Reset Engine**
   * Endpoint `GET /api/todos`: Tự động so sánh `lastActiveDate` của user với ngày hôm nay:
     * Nếu sang ngày mới: Tự động uncheck habits, dọn dẹp các task one-off đã xong trong database, cập nhật `lastActiveDate` = today.
     * Trả về danh sách todo đã được reset chuẩn xác.
@@ -247,6 +247,7 @@ Mục tiêu: Triển khai trọn vẹn dịch vụ Express.js backend, thiết l
   * Endpoint `PATCH /api/todos/:id`: Đổi trạng thái hoàn thành / sửa tiêu đề.
   * Endpoint `DELETE /api/todos/:id`: Xóa task/habit.
   * Endpoint `POST /api/sync/merge`: Nhận danh sách local tracks và local todos từ frontend khi vừa đăng nhập để gộp vào tài khoản.
+  * Kiểm thử tự động tích hợp thành công 100% logic Backend Daily Reset (uncheck habits, xóa completed tasks, giữ incomplete tasks) và merge sync trên Supabase PostgreSQL.
 - [ ] **Task 7.6: Xây dựng Giao diện Auth Modal Glassmorphism & Tích hợp Frontend**
   * Xây dựng Component `AuthModal.tsx`: Chuyển đổi giữa Đăng nhập / Đăng ký (Email + Mật khẩu + Tên) và nút "Đăng nhập với Google" (Google Identity Services SDK).
   * Cập nhật `Header.tsx`: Nút "Đăng nhập / Đăng ký" khi là Guest; hiển thị Avatar/Tên người dùng + Dropdown menu Đăng xuất khi đã login.
