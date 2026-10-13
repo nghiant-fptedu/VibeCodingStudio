@@ -182,6 +182,6 @@ Mục tiêu: Hiện thực hóa thiết kế từ Stitch thành ứng dụng web
 | :--- | :--- | :--- |
 | **M1: Specification & Planning** | Hoàn thành PRD.md, TECH_ARCHITECTURE.md, PLAN.md | **Hoàn thành (Done)** |
 | **M2: Google Stitch UI Design** | Sinh và duyệt các màn hình trên StitchMCP (3 screens + wallpaper) | **Hoàn thành (Done)** |
-| **M3: Design Download & Mapping** | Trích xuất tokens & bóc tách layout thành component spec | **Sẵn sàng thực hiện** |
-| **M4: Core Implementation** | Chuyển đổi mã React, tích hợp Audio & YouTube, Todo Reset | Chờ M3 |
+| **M3: Design Download & Mapping** | Trích xuất tokens & bóc tách layout thành component spec | **Hoàn thành (Done)** |
+| **M4: Core Implementation** | Chuyển đổi mã React, tích hợp Audio & YouTube, Todo Reset | **Sẵn sàng thực hiện** |
 | **M5: Launch Ready** | Kiểm thử hoàn chỉnh và sẵn sàng sử dụng thực tế | Chờ M4 |
