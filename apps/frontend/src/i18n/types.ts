@@ -131,4 +131,21 @@ export interface Translations {
     switchRegister: string;
     switchLogin: string;
   };
+  player: {
+    prevTrack: string;
+    nextTrack: string;
+    playMusic: string;
+    pauseMusic: string;
+    openPlaylist: string;
+    quickAddTitle: string;
+    quickAddHeading: string;
+    volumeLabel: string;
+    addBtn: string;
+    addedSuccess: string;
+    invalidVideoError: string;
+    restrictedVideoNotice: string;
+  };
+  clock: {
+    tooltip: string;
+  };
 }

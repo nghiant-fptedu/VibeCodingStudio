@@ -12,6 +12,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import type { YouTubeTrack } from '../../types';
+import { useI18n } from '../../context/I18nContext';
 
 interface YouTubePlayerProps {
   currentVideoId: string;
@@ -46,6 +47,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
   onOpenPlaylistModal,
   onAddTrack,
 }) => {
+  const { t } = useI18n();
   const [showQuickAdd, setShowQuickAdd] = useState(false);
   const [customInput, setCustomInput] = useState('');
   const [isLoadingMetadata, setIsLoadingMetadata] = useState(false);
@@ -122,7 +124,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
           // Mã lỗi 100/101/150: Video riêng tư hoặc chặn phát nhúng -> tự động chuyển bài tiếp theo
           setStatusMessage({
             type: 'error',
-            text: 'Bài hát bị giới hạn bản quyền nhúng, đang chuyển bài kế tiếp...',
+            text: t.player.restrictedVideoNotice,
           });
           setTimeout(() => {
             setStatusMessage(null);
@@ -183,7 +185,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
       setCustomInput('');
       setStatusMessage({
         type: 'success',
-        text: `Đã thêm: "${res.track?.title}"`,
+        text: `${t.player.addedSuccess} "${res.track?.title}"`,
       });
       setTimeout(() => {
         setStatusMessage(null);
@@ -192,7 +194,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
     } else {
       setStatusMessage({
         type: 'error',
-        text: res.error || 'Không tìm thấy video hợp lệ.',
+        text: res.error || t.player.invalidVideoError,
       });
     }
   };
@@ -215,7 +217,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
           <button
             onClick={handlePrevTrack}
             className="w-7 h-7 flex items-center justify-center rounded-full text-slate-400 hover:text-white hover:bg-white/5 active:scale-95 transition-all shrink-0"
-            title="Bài trước"
+            title={t.player.prevTrack}
           >
             <SkipBack className="w-3.5 h-3.5" />
           </button>
@@ -224,7 +226,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
           <button
             onClick={onTogglePlay}
             className="w-10 h-10 shrink-0 rounded-full flex items-center justify-center bg-gradient-to-tr from-primary to-amber-500 hover:brightness-110 active:scale-95 text-slate-950 font-bold shadow-lg shadow-amber-500/25 transition-all"
-            aria-label={isPlaying ? 'Tạm dừng nhạc' : 'Phát nhạc Lofi'}
+            aria-label={isPlaying ? t.player.pauseMusic : t.player.playMusic}
           >
             {isPlaying ? (
               <Pause className="w-4 h-4 fill-slate-950" />
@@ -237,7 +239,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
           <button
             onClick={handleNextTrack}
             className="w-7 h-7 flex items-center justify-center rounded-full text-slate-400 hover:text-white hover:bg-white/5 active:scale-95 transition-all shrink-0"
-            title="Bài tiếp theo"
+            title={t.player.nextTrack}
           >
             <SkipForward className="w-3.5 h-3.5" />
           </button>
@@ -268,7 +270,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
           <button
             onClick={onOpenPlaylistModal}
             className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-medium text-slate-300 hover:text-white transition-all"
-            title="Mở danh sách bài hát (Xem & Quản lý)"
+            title={t.player.openPlaylist}
           >
             <ListMusic className="w-3.5 h-3.5 text-primary" />
             <span className="hidden sm:inline font-mono text-[11px]">{tracks.length}</span>
@@ -281,7 +283,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
               ? 'bg-primary/20 border-primary text-primary'
               : 'bg-white/5 border-white/5 text-slate-400 hover:text-white hover:bg-white/10'
               }`}
-            title="Thêm bài hát mới bằng link YouTube"
+            title={t.player.quickAddTitle}
           >
             <Plus className="w-3.5 h-3.5" />
           </button>
@@ -301,7 +303,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
               value={volume}
               onChange={(e) => onVolumeChange(Number(e.target.value))}
               className="w-16 md:w-20 accent-primary"
-              aria-label="Âm lượng nhạc Lofi"
+              aria-label={t.player.volumeLabel}
             />
           </div>
         </div>
@@ -313,7 +315,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
           <form onSubmit={handleQuickAddSubmit} className="flex flex-col gap-2.5">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-white flex items-center gap-1.5">
-                <Plus className="w-3.5 h-3.5 text-primary" /> Thêm bài hát vào danh sách phát
+                <Plus className="w-3.5 h-3.5 text-primary" /> {t.player.quickAddHeading}
               </span>
               <button
                 type="button"
@@ -341,7 +343,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
                 {isLoadingMetadata ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
                 ) : (
-                  <span>Thêm</span>
+                  <span>{t.player.addBtn}</span>
                 )}
               </button>
             </div>

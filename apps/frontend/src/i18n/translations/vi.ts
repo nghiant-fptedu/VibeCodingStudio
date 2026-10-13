@@ -148,4 +148,21 @@ export const vi: Translations = {
     switchRegister: 'Đăng ký ngay',
     switchLogin: 'Đăng nhập',
   },
+  player: {
+    prevTrack: 'Bài trước',
+    nextTrack: 'Bài tiếp theo',
+    playMusic: 'Phát nhạc Lofi',
+    pauseMusic: 'Tạm dừng nhạc',
+    openPlaylist: 'Mở danh sách bài hát (Xem & Quản lý)',
+    quickAddTitle: 'Thêm bài hát mới bằng link YouTube',
+    quickAddHeading: 'Thêm bài hát vào danh sách phát',
+    volumeLabel: 'Âm lượng nhạc Lofi',
+    addBtn: 'Thêm',
+    addedSuccess: 'Đã thêm:',
+    invalidVideoError: 'Không tìm thấy video hợp lệ.',
+    restrictedVideoNotice: 'Bài hát bị giới hạn bản quyền nhúng, đang chuyển bài kế tiếp...',
+  },
+  clock: {
+    tooltip: 'Thời gian thực hệ thống',
+  },
 };

@@ -148,4 +148,21 @@ export const en: Translations = {
     switchRegister: 'Sign up now',
     switchLogin: 'Sign in',
   },
+  player: {
+    prevTrack: 'Previous track',
+    nextTrack: 'Next track',
+    playMusic: 'Play Lofi music',
+    pauseMusic: 'Pause music',
+    openPlaylist: 'Open playlist (View & Manage)',
+    quickAddTitle: 'Add new song with YouTube link',
+    quickAddHeading: 'Add song to playlist',
+    volumeLabel: 'Lofi music volume',
+    addBtn: 'Add',
+    addedSuccess: 'Added:',
+    invalidVideoError: 'Valid YouTube video not found.',
+    restrictedVideoNotice: 'Playback restricted by video owner, skipping to next track...',
+  },
+  clock: {
+    tooltip: 'Real-time system clock',
+  },
 };
