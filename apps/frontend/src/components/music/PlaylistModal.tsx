@@ -11,6 +11,7 @@ import {
   Music2,
 } from 'lucide-react';
 import type { YouTubeTrack } from '../../types';
+import { useAuth } from '../../context/AuthContext';
 
 interface PlaylistModalProps {
   isOpen: boolean;
@@ -37,6 +38,7 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
   onAddTrack,
   onRestoreDefaults,
 }) => {
+  const { isAuthenticated } = useAuth();
   const [newInput, setNewInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'error' | 'success'; text: string } | null>(
@@ -86,7 +88,12 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
                   {tracks.length} bài
                 </span>
               </div>
-              <p className="text-xs text-slate-400">Xem, phát, thêm mới và quản lý bài hát</p>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <span className={`w-1.5 h-1.5 rounded-full ${isAuthenticated ? 'bg-emerald-400 animate-pulse' : 'bg-slate-400'}`} />
+                <span className="text-[11px] text-slate-400">
+                  {isAuthenticated ? 'Đồng bộ Cloud tự động' : 'Lưu trữ cục bộ (Guest)'}
+                </span>
+              </div>
             </div>
           </div>
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, CheckSquare, Plus, Trash2, Repeat, CalendarCheck } from 'lucide-react';
 import type { TodoItem } from '../../types';
+import { useAuth } from '../../context/AuthContext';
 
 interface TodoDrawerProps {
   isOpen: boolean;
@@ -27,6 +28,7 @@ export const TodoDrawer: React.FC<TodoDrawerProps> = ({
   onAddItem,
   onDeleteItem,
 }) => {
+  const { isAuthenticated } = useAuth();
   const [newTitle, setNewTitle] = useState('');
   const [newType, setNewType] = useState<'habit' | 'one_off'>('one_off');
 
@@ -50,7 +52,12 @@ export const TodoDrawer: React.FC<TodoDrawerProps> = ({
             </div>
             <div>
               <h2 className="text-lg font-bold tracking-tight text-white">Kế hoạch & Thói quen</h2>
-              <p className="text-xs text-slate-400">Tự động dọn dẹp và làm mới mỗi ngày</p>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <span className={`w-1.5 h-1.5 rounded-full ${isAuthenticated ? 'bg-emerald-400 animate-pulse' : 'bg-slate-400'}`} />
+                <span className="text-[11px] text-slate-400">
+                  {isAuthenticated ? 'Đồng bộ Cloud tự động' : 'Lưu trữ cục bộ (Guest)'}
+                </span>
+              </div>
             </div>
           </div>
           <button

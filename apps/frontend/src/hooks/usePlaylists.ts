@@ -1,18 +1,68 @@
-import { useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import type { YouTubeTrack } from '../types';
 import { CURATED_PLAYLISTS } from '../data/curatedPlaylists';
-import { useLocalStorage } from './useLocalStorage';
 import { extractYouTubeVideoId } from '../utils/youtubeParser';
 import { fetchYouTubeMetadata } from '../utils/youtubeMetadata';
+import { useAuth } from '../context/AuthContext';
+import { tracksApi } from '../services/api';
+
+const LOCAL_STORAGE_KEY = 'vibespace_playlists_v1';
+
+const getStoredTracks = (): YouTubeTrack[] => {
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : CURATED_PLAYLISTS;
+  } catch {
+    return CURATED_PLAYLISTS;
+  }
+};
+
+const saveStoredTracks = (tracks: YouTubeTrack[]): void => {
+  try {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tracks));
+  } catch (err) {
+    console.warn('Lưu playlist vào localStorage thất bại:', err);
+  }
+};
 
 export function usePlaylists(
   currentVideoId: string,
   onSelectVideo: (videoId: string) => void
 ) {
-  const [tracks, setTracks] = useLocalStorage<YouTubeTrack[]>(
-    'vibespace_playlists_v1',
-    CURATED_PLAYLISTS
-  );
+  const { isAuthenticated, user } = useAuth();
+  const [tracks, setTracks] = useState<YouTubeTrack[]>(getStoredTracks);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const initialLoadDoneRef = useRef(false);
+
+  // Đồng bộ danh sách bài hát từ Cloud khi người dùng đăng nhập
+  useEffect(() => {
+    if (!isAuthenticated) {
+      // Khi là Guest hoặc Đăng xuất: nạp lại từ localStorage
+      setTracks(getStoredTracks());
+      initialLoadDoneRef.current = false;
+      return;
+    }
+
+    const fetchCloudTracks = async () => {
+      setIsLoading(true);
+      try {
+        const cloudTracks = await tracksApi.getTracks();
+        if (cloudTracks && cloudTracks.length > 0) {
+          setTracks(cloudTracks);
+        } else {
+          // Nếu user mới chưa có track trên cloud, khởi tạo với danh sách mặc định
+          setTracks(CURATED_PLAYLISTS);
+        }
+      } catch (err) {
+        console.warn('Lấy tracks từ cloud thất bại, sử dụng cache:', err);
+      } finally {
+        setIsLoading(false);
+        initialLoadDoneRef.current = true;
+      }
+    };
+
+    fetchCloudTracks();
+  }, [isAuthenticated, user?.id]);
 
   const addTrack = useCallback(
     async (
@@ -39,8 +89,9 @@ export function usePlaylists(
       const title = meta?.title || `YouTube Track (${videoId})`;
       const curator = meta?.curator || 'Người dùng thêm';
 
+      const tempId = `custom-${Date.now()}-${videoId}`;
       const newTrack: YouTubeTrack = {
-        id: `custom-${Date.now()}-${videoId}`,
+        id: tempId,
         title,
         curator,
         videoId,
@@ -48,16 +99,39 @@ export function usePlaylists(
         isCustom: true,
       };
 
+      // Cập nhật Optimistic UI ngay lập tức
       setTracks((prev) => [newTrack, ...prev]);
       onSelectVideo(newTrack.videoId);
 
+      if (isAuthenticated) {
+        try {
+          const savedTrack = await tracksApi.addTrack({
+            title,
+            curator,
+            videoId,
+            category: 'custom',
+          });
+          // Cập nhật lại ID thật từ database
+          setTracks((prev) =>
+            prev.map((t) => (t.id === tempId ? { ...t, id: savedTrack.id } : t))
+          );
+        } catch (err) {
+          console.error('Lỗi khi lưu bài hát lên cloud:', err);
+        }
+      } else {
+        // Lưu offline
+        const updated = [newTrack, ...tracks];
+        saveStoredTracks(updated);
+      }
+
       return { success: true, track: newTrack };
     },
-    [onSelectVideo, setTracks, tracks]
+    [isAuthenticated, onSelectVideo, tracks]
   );
 
   const removeTrack = useCallback(
-    (id: string) => {
+    async (id: string) => {
+      // Optimistic UI update
       setTracks((prev) => {
         const remaining = prev.filter((t) => t.id !== id);
         // Nếu bài hát đang phát bị xóa, chuyển sang bài đầu tiên còn lại
@@ -65,21 +139,45 @@ export function usePlaylists(
         if (deletedTrack && deletedTrack.videoId === currentVideoId && remaining.length > 0) {
           onSelectVideo(remaining[0].videoId);
         }
+        if (!isAuthenticated) {
+          saveStoredTracks(remaining);
+        }
         return remaining;
       });
+
+      if (isAuthenticated) {
+        try {
+          await tracksApi.deleteTrack(id);
+        } catch (err) {
+          console.error('Lỗi khi xóa bài hát trên cloud:', err);
+        }
+      }
     },
-    [currentVideoId, onSelectVideo, setTracks]
+    [currentVideoId, isAuthenticated, onSelectVideo]
   );
 
-  const restoreDefaults = useCallback(() => {
+  const restoreDefaults = useCallback(async () => {
+    // Optimistic UI update
     setTracks(CURATED_PLAYLISTS);
     if (CURATED_PLAYLISTS.length > 0) {
       onSelectVideo(CURATED_PLAYLISTS[0].videoId);
     }
-  }, [onSelectVideo, setTracks]);
+
+    if (isAuthenticated) {
+      try {
+        const resetTracks = await tracksApi.restoreDefaults();
+        setTracks(resetTracks);
+      } catch (err) {
+        console.error('Lỗi khi khôi phục playlist trên cloud:', err);
+      }
+    } else {
+      saveStoredTracks(CURATED_PLAYLISTS);
+    }
+  }, [isAuthenticated, onSelectVideo]);
 
   return {
     tracks,
+    isLoading,
     addTrack,
     removeTrack,
     restoreDefaults,

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import type { User } from '../types';
-import { authApi, getAuthToken, removeAuthToken } from '../services/api';
+import { authApi, syncApi, getAuthToken, removeAuthToken } from '../services/api';
+import { getTodayFormatted } from '../utils/dateHelper';
 
 interface AuthContextType {
   user: User | null;
@@ -20,6 +21,29 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Tự động gộp dữ liệu khách (Guest offline) vào tài khoản cloud khi đăng nhập lần đầu
+const mergeGuestDataIfAny = async (userId: string) => {
+  const syncKey = `vibespace_synced_${userId}`;
+  if (localStorage.getItem(syncKey)) return;
+
+  try {
+    const localTracks = JSON.parse(localStorage.getItem('vibespace_playlists_v1') || '[]');
+    const localTodoState = JSON.parse(localStorage.getItem('vibespace_todos_v1') || '{}');
+    const localTodos = localTodoState.items || [];
+
+    if (localTracks.length > 0 || localTodos.length > 0) {
+      await syncApi.merge({
+        tracks: localTracks,
+        todos: localTodos,
+        clientDate: getTodayFormatted(),
+      });
+    }
+    localStorage.setItem(syncKey, 'true');
+  } catch (err) {
+    console.warn('Lỗi khi merge dữ liệu khách lên cloud:', err);
+  }
+};
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(getAuthToken());
@@ -38,6 +62,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       try {
         const currentUser = await authApi.getMe();
+        await mergeGuestDataIfAny(currentUser.id);
         setUser(currentUser);
         setToken(storedToken);
       } catch (err) {
@@ -55,6 +80,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = useCallback(async (credentials: { email: string; password: string }) => {
     const res = await authApi.login(credentials);
+    await mergeGuestDataIfAny(res.user.id);
     setUser(res.user);
     setToken(res.token);
     setIsAuthModalOpen(false);
@@ -62,6 +88,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const register = useCallback(async (data: { email: string; password: string; name: string }) => {
     const res = await authApi.register(data);
+    await mergeGuestDataIfAny(res.user.id);
     setUser(res.user);
     setToken(res.token);
     setIsAuthModalOpen(false);
@@ -69,6 +96,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const loginWithGoogle = useCallback(async (credential: string) => {
     const res = await authApi.loginWithGoogle(credential);
+    await mergeGuestDataIfAny(res.user.id);
     setUser(res.user);
     setToken(res.token);
     setIsAuthModalOpen(false);

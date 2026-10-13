@@ -253,9 +253,10 @@ Mục tiêu: Triển khai trọn vẹn dịch vụ Express.js backend, thiết l
   * Cập nhật `Header.tsx`: Nút "Đăng nhập" khi là Guest; hiển thị Avatar/Tên người dùng + Dropdown menu Đăng xuất và trạng thái Cloud Sync khi đã login.
   * Xây dựng `AuthContext.tsx` & API Service client `api.ts` trên Frontend quản lý trạng thái token và thông tin người dùng.
   * Đã build kiểm thử Vite & TypeScript frontend pass 100%.
-- [ ] **Task 7.7: Tích hợp Cloud Sync cho `usePlaylists` và `TodoDrawer`**
-  * Nâng cấp hook `usePlaylists`: Khi đã đăng nhập thì gọi API backend; khi chưa đăng nhập dùng `localStorage`; khi login thành công tự động gọi `/api/sync/merge`.
-  * Nâng cấp `TodoDrawer`: Khi đã đăng nhập thì fetch và mutate dữ liệu qua API backend; giữ nguyên trải nghiệm mượt mà không độ trễ (Optimistic UI updates).
+- [x] **Task 7.7: Tích hợp Cloud Sync cho `usePlaylists` và `TodoDrawer`**
+  * Nâng cấp hook `usePlaylists`: Khi đã đăng nhập thì đồng bộ với `/api/tracks`; hỗ trợ optimistic UI khi thêm, xóa, khôi phục playlist mặc định; khi đăng nhập lần đầu tự động merge bài hát từ local lên cloud qua `/api/sync/merge`.
+  * Nâng cấp `useDailyReset` & `TodoDrawer`: Khi đã đăng nhập thì fetch và mutate dữ liệu qua `/api/todos` kết hợp Backend Daily Reset Engine; hiển thị badge trạng thái Cloud Sync / Guest; giữ nguyên trải nghiệm mượt mà không độ trễ (Optimistic UI updates).
+  * Đã build kiểm thử Vite & TypeScript frontend pass 100%.
 - [ ] **Task 7.8: Triển khai Backend lên Render thông qua Render MCP**
   * Tạo Web Service trên Render sử dụng Render MCP (`create_web_service`).
   * Cấu hình Environment Variables trên Render: `DATABASE_URL`, `JWT_SECRET`, `NODE_ENV=production`, `PORT=10000`, `CORS_ORIGIN`.
