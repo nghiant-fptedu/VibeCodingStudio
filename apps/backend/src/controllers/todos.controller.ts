@@ -10,7 +10,12 @@ export class TodosController {
         return;
       }
 
-      const clientDate = typeof req.query.today === 'string' ? req.query.today : undefined;
+      const clientDate =
+        typeof req.query.today === 'string'
+          ? req.query.today
+          : typeof req.query.date === 'string'
+          ? req.query.date
+          : undefined;
       const result = await TodosService.getTodos(req.user.id, clientDate);
 
       res.status(200).json({
@@ -32,13 +37,13 @@ export class TodosController {
         return;
       }
 
-      const { title, type } = req.body;
+      const { title, type } = (req as any).body || {};
       const todo = await TodosService.createTodo(req.user.id, { title, type });
 
       res.status(201).json({
         success: true,
         message: 'Thêm công việc thành công',
-        data: { todo },
+        data: { todo, item: todo },
       });
     } catch (err: any) {
       res.status(400).json({
@@ -61,13 +66,13 @@ export class TodosController {
         return;
       }
 
-      const { title, completed } = req.body;
+      const { title, completed } = (req as any).body || {};
       const updated = await TodosService.updateTodo(req.user.id, id, { title, completed });
 
       res.status(200).json({
         success: true,
         message: 'Cập nhật công việc thành công',
-        data: { todo: updated },
+        data: { todo: updated, item: updated },
       });
     } catch (err: any) {
       res.status(400).json({

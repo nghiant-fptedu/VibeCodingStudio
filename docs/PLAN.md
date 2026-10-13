@@ -257,15 +257,16 @@ Mục tiêu: Triển khai trọn vẹn dịch vụ Express.js backend, thiết l
   * Nâng cấp hook `usePlaylists`: Khi đã đăng nhập thì đồng bộ với `/api/tracks`; hỗ trợ optimistic UI khi thêm, xóa, khôi phục playlist mặc định; khi đăng nhập lần đầu tự động merge bài hát từ local lên cloud qua `/api/sync/merge`.
   * Nâng cấp `useDailyReset` & `TodoDrawer`: Khi đã đăng nhập thì fetch và mutate dữ liệu qua `/api/todos` kết hợp Backend Daily Reset Engine; hiển thị badge trạng thái Cloud Sync / Guest; giữ nguyên trải nghiệm mượt mà không độ trễ (Optimistic UI updates).
   * Đã build kiểm thử Vite & TypeScript frontend pass 100%.
-- [ ] **Task 7.8: Triển khai Backend lên Render thông qua Render MCP**
-  * Tạo Web Service trên Render sử dụng Render MCP (`create_web_service`).
-  * Cấu hình Environment Variables trên Render: `DATABASE_URL`, `JWT_SECRET`, `NODE_ENV=production`, `PORT=10000`, `CORS_ORIGIN`.
-  * Kiểm tra build và deploy trên Render hoạt động thành công.
-- [ ] **Task 7.9: Kiểm thử E2E Toàn diện & Bàn giao**
-  * Kiểm thử luồng Đăng ký / Đăng nhập Email và Google OAuth.
-  * Kiểm thử Thêm / Xóa bài hát cá nhân và khôi phục mặc định.
-  * Kiểm thử Thêm / Xóa / Hoàn thành Todo và kịch bản Reset qua ngày trên database.
-  * Đảm bảo tính tương thích 100% với chế độ Guest offline-first.
+- [x] **Task 7.8: Triển khai Backend lên Render thông qua Render MCP**
+  * Tạo Web Service trên Render sử dụng Render MCP (`create_web_service`): `srv-db75qobrjlhs73a1ds30`, URL: `https://vibespace-backend-xg9z.onrender.com`.
+  * Cấu hình Environment Variables trên Render: `DATABASE_URL`, `JWT_SECRET`, `NODE_ENV=production`, `PORT=10000`, `CORS_ORIGIN=*`.
+  * Kiểm tra build và deploy trên Render hoạt động thành công (Trạng thái deploy: `live`).
+- [x] **Task 7.9: Kiểm thử E2E Toàn diện & Bàn giao**
+  * Kiểm thử luồng Đăng ký / Đăng nhập Email và Google OAuth (nhận JWT và profile).
+  * Kiểm thử Thêm / Xóa bài hát cá nhân và khôi phục mặc định trên database Supabase PostgreSQL.
+  * Kiểm thử Thêm / Xóa / Hoàn thành Todo và kịch bản Reset qua ngày với Backend Daily Reset Engine.
+  * Kiểm thử gộp dữ liệu khách (Guest offline merge) qua endpoint `/api/sync/merge`.
+  * Đảm bảo tính tương thích 100% giữa chế độ Guest offline-first và chế độ Cloud synced.
 
 ---
 
@@ -279,4 +280,4 @@ Mục tiêu: Triển khai trọn vẹn dịch vụ Express.js backend, thiết l
 | **M4: Core Implementation** | Chuyển đổi mã React, tích hợp Audio & YouTube, Todo Reset | **Hoàn thành (Done)** |
 | **M5: Launch Ready** | Kiểm thử hoàn chỉnh và sẵn sàng sử dụng thực tế | **Hoàn thành (Done)** |
 | **M6: Monorepo Architecture** | Tổ chức lại monorepo (`apps/frontend`, `apps/backend`) & npm workspaces | **Hoàn thành (Done)** |
-| **M7: Backend, Database & Sync** | Express.js + Prisma + Supabase Postgres + Render + Auth & Cloud Sync | **Chờ thực hiện (Next)** |
+| **M7: Backend, Database & Sync** | Express.js + Prisma + Supabase Postgres + Render + Auth & Cloud Sync | **Hoàn thành (Done)** |
