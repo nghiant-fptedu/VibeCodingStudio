@@ -57,8 +57,10 @@ export interface YouTubePreset {
   title: string;
   curator: string;
   videoId: string;
-  category: 'lofi' | 'ambient' | 'synthwave' | 'piano';
+  category?: 'lofi' | 'ambient' | 'synthwave' | 'piano' | 'custom';
+  isCustom?: boolean;
 }
+export type YouTubeTrack = YouTubePreset;
 
 export interface MusicPlayerState {
   currentVideoId: string;

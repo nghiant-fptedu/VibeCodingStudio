@@ -1,46 +1,46 @@
-import type { YouTubePreset } from '../types';
+import type { YouTubeTrack } from '../types';
 
-export const CURATED_PLAYLISTS: YouTubePreset[] = [
+export const CURATED_PLAYLISTS: YouTubeTrack[] = [
   {
-    id: 'lofi-girl',
-    title: 'Lofi Girl · beats to relax/study to',
+    id: 'lofi-1am',
+    title: '1 A.M Study Session 📚 [lofi hip hop]',
     curator: 'Lofi Girl',
-    videoId: 'jfKfPfyJRdk',
+    videoId: 'lTRiuFIWV54',
     category: 'lofi',
   },
   {
-    id: 'chillhop',
+    id: 'lofi-code-fi',
+    title: 'code-fi / lofi beats to code/relax to',
+    curator: 'The AMP Channel',
+    videoId: 'f02mOEt11OQ',
+    category: 'lofi',
+  },
+  {
+    id: 'lofi-chillhop',
     title: 'Chillhop Radio · jazzy & lofi hip hop',
     curator: 'Chillhop Music',
     videoId: '5yx6BWlEVcY',
     category: 'lofi',
   },
   {
-    id: 'cozy-coffee',
-    title: 'Cozy Coffee Shop · warm acoustic lofi',
-    curator: 'Coffee Vibe Records',
-    videoId: '-5KAN9_CzSA',
-    category: 'ambient',
-  },
-  {
-    id: 'synthwave-focus',
-    title: 'Synthwave Chill · retro deep concentration',
-    curator: 'Astral Throb',
-    videoId: 'MVPTGNGiI-4',
-    category: 'synthwave',
-  },
-  {
-    id: 'peaceful-piano',
-    title: 'Peaceful Piano & Strings · calm mind',
-    curator: 'Halidon Music',
-    videoId: '4xDzrJKXOOY',
-    category: 'piano',
-  },
-  {
-    id: 'rainy-lofi',
-    title: 'Rainy Night Lofi · soft thunderstorm',
-    curator: 'Lofi Sleep Chill',
-    videoId: '2GLduCdrk-0',
+    id: 'lofi-4am',
+    title: '4 A.M Study Session 💤 [lofi hip hop]',
+    curator: 'Lofi Girl',
+    videoId: 'TURbeWK2wwg',
     category: 'lofi',
+  },
+  {
+    id: 'lofi-college',
+    title: 'lofi hip hop radio · beats to relax/study to',
+    curator: 'College Music',
+    videoId: 'MCkTebktHVc',
+    category: 'lofi',
+  },
+  {
+    id: 'lofi-jazz-piano',
+    title: 'Relaxing Jazz Piano Radio · Slow Jazz Music',
+    curator: 'Cafe Music BGM channel',
+    videoId: 'Dx5qFachd3A',
+    category: 'piano',
   },
 ];

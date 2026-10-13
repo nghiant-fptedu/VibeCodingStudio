@@ -5,12 +5,14 @@ import { Header } from './components/common/Header';
 import { PomodoroTimer } from './components/pomodoro/PomodoroTimer';
 import { ZenPomodoro } from './components/pomodoro/ZenPomodoro';
 import { YouTubePlayer } from './components/music/YouTubePlayer';
+import { PlaylistModal } from './components/music/PlaylistModal';
 import { SoundMixerModal } from './components/mixer/SoundMixerModal';
 import { TodoDrawer } from './components/todo/TodoDrawer';
 
 import { usePomodoro } from './hooks/usePomodoro';
 import { useAudioMixer } from './hooks/useAudioMixer';
 import { useDailyReset } from './hooks/useDailyReset';
+import { usePlaylists } from './hooks/usePlaylists';
 import { useLocalStorage } from './hooks/useLocalStorage';
 
 import type { VisualSettings } from './types';
@@ -34,6 +36,7 @@ export default function App() {
   const [isWallpaperModalOpen, setIsWallpaperModalOpen] = useState(false);
   const [isMixerModalOpen, setIsMixerModalOpen] = useState(false);
   const [isTodoDrawerOpen, setIsTodoDrawerOpen] = useState(false);
+  const [isPlaylistModalOpen, setIsPlaylistModalOpen] = useState(false);
 
   // YouTube Music State
   const [currentVideoId, setCurrentVideoId] = useLocalStorage<string>(
@@ -50,6 +53,10 @@ export default function App() {
   const pomodoro = usePomodoro();
   const mixer = useAudioMixer();
   const todo = useDailyReset();
+  const playlist = usePlaylists(currentVideoId, (id) => {
+    setCurrentVideoId(id);
+    setIsPlayingMusic(true);
+  });
 
   // Cập nhật tiêu đề tab trình duyệt theo thời gian thực đếm ngược
   useEffect(() => {
@@ -75,7 +82,7 @@ export default function App() {
   };
 
   const currentTrackTitle =
-    CURATED_PLAYLISTS.find((p) => p.videoId === currentVideoId)?.title ||
+    playlist.tracks.find((p) => p.videoId === currentVideoId)?.title ||
     'Custom Lofi Stream';
 
   return (
@@ -131,12 +138,15 @@ export default function App() {
             currentVideoId={currentVideoId}
             isPlaying={isPlayingMusic}
             volume={musicVolume}
+            tracks={playlist.tracks}
             onTogglePlay={() => setIsPlayingMusic((prev) => !prev)}
             onVolumeChange={setMusicVolume}
             onSelectVideo={(id) => {
               setCurrentVideoId(id);
               setIsPlayingMusic(true);
             }}
+            onOpenPlaylistModal={() => setIsPlaylistModalOpen(true)}
+            onAddTrack={playlist.addTrack}
           />
 
           {/* Overlay Modals & Drawers */}
@@ -145,6 +155,21 @@ export default function App() {
             onClose={() => setIsWallpaperModalOpen(false)}
             settings={visualSettings}
             onUpdateSettings={updateVisualSettings}
+          />
+
+          <PlaylistModal
+            isOpen={isPlaylistModalOpen}
+            onClose={() => setIsPlaylistModalOpen(false)}
+            tracks={playlist.tracks}
+            currentVideoId={currentVideoId}
+            isPlaying={isPlayingMusic}
+            onSelectVideo={(id) => {
+              setCurrentVideoId(id);
+              setIsPlayingMusic(true);
+            }}
+            onRemoveTrack={playlist.removeTrack}
+            onAddTrack={playlist.addTrack}
+            onRestoreDefaults={playlist.restoreDefaults}
           />
 
           <SoundMixerModal
