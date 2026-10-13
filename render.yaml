@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: vibespace-backend
+    runtime: node
+    region: singapore
+    plan: free
+    branch: main
+    buildCommand: npm install && npm run build:backend
+    startCommand: npm run start:backend
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        value: vibespace_prod_secret_jwt_key_2026_super_secure
+      - key: DATABASE_URL
+        value: postgresql://vibespace_app.ynqwfjqiiqjtizagokdt:VibeSpace2026_SecureDbPass!@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres?sslmode=require
+      - key: CORS_ORIGIN
+        value: "*"
