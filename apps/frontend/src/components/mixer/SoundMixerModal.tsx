@@ -2,6 +2,7 @@ import React from 'react';
 import { X, Sliders, VolumeX, Sparkles } from 'lucide-react';
 import type { SoundChannel, SoundPreset } from '../../types';
 import { SoundChannelCard } from './SoundChannelCard';
+import { useI18n } from '../../context/I18nContext';
 
 interface SoundMixerModalProps {
   isOpen: boolean;
@@ -26,6 +27,8 @@ export const SoundMixerModal: React.FC<SoundMixerModalProps> = ({
   onApplyPreset,
   onMuteAll,
 }) => {
+  const { t } = useI18n();
+
   if (!isOpen) return null;
 
   return (
@@ -40,16 +43,16 @@ export const SoundMixerModal: React.FC<SoundMixerModalProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-xl font-bold tracking-tight text-white">
-                  Bộ hòa âm White Noise
+                  {t.mixer.title}
                 </h2>
                 {activeCount > 0 && (
                   <span className="px-2 py-0.5 rounded-full bg-tertiary/20 text-tertiary font-bold text-xs">
-                    {activeCount} đang phát
+                    {activeCount} {t.mixer.activeCount}
                   </span>
                 )}
               </div>
               <p className="text-xs text-slate-400">
-                Tạo âm thanh nền tự nhiên giúp xua tan tiếng ồn xung quanh
+                {t.mixer.subtitle}
               </p>
             </div>
           </div>
@@ -59,10 +62,10 @@ export const SoundMixerModal: React.FC<SoundMixerModalProps> = ({
               <button
                 onClick={onMuteAll}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/15 text-xs text-slate-300 hover:text-white border border-white/10 transition-all"
-                title="Tắt toàn bộ kênh âm thanh"
+                title={t.mixer.muteAllBtn}
               >
                 <VolumeX className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Tắt hết</span>
+                <span className="hidden sm:inline">{t.mixer.muteAllBtn}</span>
               </button>
             )}
             <button
@@ -80,30 +83,34 @@ export const SoundMixerModal: React.FC<SoundMixerModalProps> = ({
           {/* Preset Combos */}
           <div className="mb-6">
             <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-3 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-primary" /> Phối sẵn 1-click
+              <Sparkles className="w-3.5 h-3.5 text-primary" /> {t.mixer.presetsTitle}
             </span>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              {presets.map((preset: SoundPreset) => (
-                <button
-                  key={preset.id}
-                  onClick={() => onApplyPreset(preset)}
-                  className="p-3 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/5 hover:border-primary/40 text-left transition-all group active:scale-95"
-                >
-                  <span className="text-xs font-bold text-white block group-hover:text-primary transition-colors">
-                    {preset.name}
-                  </span>
-                  <span className="text-[10px] text-slate-400 line-clamp-1 mt-0.5">
-                    {preset.description}
-                  </span>
-                </button>
-              ))}
+              {presets.map((preset: SoundPreset) => {
+                const localizedName = t.mixer.presets[preset.id]?.name || preset.name;
+                const localizedDesc = t.mixer.presets[preset.id]?.description || preset.description;
+                return (
+                  <button
+                    key={preset.id}
+                    onClick={() => onApplyPreset(preset)}
+                    className="p-3 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/5 hover:border-primary/40 text-left transition-all group active:scale-95"
+                  >
+                    <span className="text-xs font-bold text-white block group-hover:text-primary transition-colors">
+                      {localizedName}
+                    </span>
+                    <span className="text-[10px] text-slate-400 line-clamp-1 mt-0.5">
+                      {localizedDesc}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* 10 Sound Channels Grid */}
           <div>
             <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-3">
-              10 Kênh âm thanh độc lập
+              {t.mixer.channelsTitle}
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
               {channels.map((channel: SoundChannel) => (
@@ -124,7 +131,7 @@ export const SoundMixerModal: React.FC<SoundMixerModalProps> = ({
             onClick={onClose}
             className="px-6 py-2 rounded-full bg-gradient-to-r from-tertiary to-teal-600 text-slate-950 font-bold text-sm shadow-lg shadow-teal-500/20 hover:brightness-110 active:scale-95 transition-all"
           >
-            Xong
+            {t.mixer.doneBtn}
           </button>
         </div>
       </div>

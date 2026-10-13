@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import type { YouTubeTrack } from '../../types';
 import { useAuth } from '../../context/AuthContext';
+import { useI18n } from '../../context/I18nContext';
 
 interface PlaylistModalProps {
   isOpen: boolean;
@@ -39,6 +40,7 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
   onRestoreDefaults,
 }) => {
   const { isAuthenticated } = useAuth();
+  const { language, t } = useI18n();
   const [newInput, setNewInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'error' | 'success'; text: string } | null>(
@@ -61,13 +63,13 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
       setNewInput('');
       setMessage({
         type: 'success',
-        text: `Đã thêm thành công: "${result.track?.title}"`,
+        text: `${language === 'vi' ? 'Đã thêm thành công:' : 'Successfully added:'} "${result.track?.title}"`,
       });
       setTimeout(() => setMessage(null), 4000);
     } else {
       setMessage({
         type: 'error',
-        text: result.error || 'Không thể thêm bài hát này.',
+        text: result.error || (language === 'vi' ? 'Không thể thêm bài hát này.' : 'Failed to add this track.'),
       });
     }
   };
@@ -83,15 +85,15 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-xl font-bold tracking-tight text-white">Danh sách bài hát Lofi</h2>
+                <h2 className="text-xl font-bold tracking-tight text-white">{t.playlist.title}</h2>
                 <span className="px-2 py-0.5 rounded-full bg-white/10 text-slate-300 font-mono text-xs">
-                  {tracks.length} bài
+                  {tracks.length} {t.playlist.songsCount}
                 </span>
               </div>
               <div className="flex items-center gap-1.5 mt-0.5">
                 <span className={`w-1.5 h-1.5 rounded-full ${isAuthenticated ? 'bg-emerald-400 animate-pulse' : 'bg-slate-400'}`} />
                 <span className="text-[11px] text-slate-400">
-                  {isAuthenticated ? 'Đồng bộ Cloud tự động' : 'Lưu trữ cục bộ (Guest)'}
+                  {isAuthenticated ? t.playlist.cloudSynced : t.playlist.localGuest}
                 </span>
               </div>
             </div>
@@ -109,12 +111,12 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
         {/* Add New Song Section */}
         <form onSubmit={handleAdd} className="my-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5 shrink-0">
           <label className="text-xs font-semibold text-slate-300 block mb-2">
-            Thêm bài hát mới
+            {t.playlist.addSongTitle}
           </label>
           <div className="flex items-center gap-2">
             <input
               type="text"
-              placeholder="Dán link YouTube (https://youtube.com/watch?v=...)"
+              placeholder={t.playlist.addSongPlaceholder}
               value={newInput}
               disabled={isLoading}
               onChange={(e) => setNewInput(e.target.value)}
@@ -128,12 +130,12 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
               {isLoading ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Đang tải...</span>
+                  <span>{t.playlist.adding}</span>
                 </>
               ) : (
                 <>
                   <Plus className="w-4 h-4" />
-                  <span>Thêm</span>
+                  <span>{t.playlist.addBtn}</span>
                 </>
               )}
             </button>
@@ -156,13 +158,15 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
           {tracks.length === 0 ? (
             <div className="text-center py-12 text-slate-400 flex flex-col items-center gap-3">
               <Music2 className="w-10 h-10 text-slate-600" />
-              <p className="text-sm">Danh sách phát đang trống.</p>
+              <p className="text-sm">
+                {language === 'vi' ? 'Danh sách phát đang trống.' : 'Playlist is empty.'}
+              </p>
               <button
                 onClick={onRestoreDefaults}
                 className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/15 text-xs text-white flex items-center gap-1.5 transition-all"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
-                <span>Khôi phục bài hát mặc định</span>
+                <span>{t.playlist.restoreDefaults}</span>
               </button>
             </div>
           ) : (
@@ -213,7 +217,7 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
                         <span className="text-[10px] text-slate-400 truncate">{track.curator}</span>
                         {track.isCustom && (
                           <span className="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[9px] font-medium">
-                            Tự thêm
+                            {language === 'vi' ? 'Tự thêm' : 'Custom'}
                           </span>
                         )}
                       </div>
@@ -229,7 +233,7 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
                         ? 'bg-primary text-slate-950 shadow-md'
                         : 'bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white'
                         }`}
-                      title="Phát bài này"
+                      title={t.playlist.nowPlaying}
                     >
                       <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
                     </button>
@@ -240,7 +244,7 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-all"
-                      title="Mở trên YouTube"
+                      title="YouTube"
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
@@ -249,7 +253,7 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
                     <button
                       onClick={() => onRemoveTrack(track.id)}
                       className="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-all"
-                      title="Xóa bài hát này"
+                      title={t.playlist.deleteTrack}
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -267,13 +271,13 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
             className="flex items-center gap-1 text-slate-400 hover:text-white underline underline-offset-4 transition-colors"
           >
             <RotateCcw className="w-3 h-3" />
-            <span>Khôi phục mặc định</span>
+            <span>{t.playlist.restoreDefaults}</span>
           </button>
           <button
             onClick={onClose}
             className="px-6 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium transition-all"
           >
-            Đóng
+            {language === 'vi' ? 'Đóng' : 'Close'}
           </button>
         </div>
       </div>

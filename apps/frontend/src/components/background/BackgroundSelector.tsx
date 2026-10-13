@@ -2,6 +2,7 @@ import React from 'react';
 import { X, Image as ImageIcon, Sliders } from 'lucide-react';
 import type { Wallpaper, VisualSettings } from '../../types';
 import { DEFAULT_WALLPAPERS } from '../../data/defaultWallpapers';
+import { useI18n } from '../../context/I18nContext';
 
 interface BackgroundSelectorProps {
   isOpen: boolean;
@@ -16,6 +17,8 @@ export const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
   settings,
   onUpdateSettings,
 }) => {
+  const { language, t } = useI18n();
+
   if (!isOpen) return null;
 
   return (
@@ -28,8 +31,8 @@ export const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
               <ImageIcon className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-xl font-bold tracking-tight text-white">Kho hình nền 4K thư giãn</h2>
-              <p className="text-xs text-slate-400">Tùy biến cảnh sắc và độ sáng theo mắt nhìn</p>
+              <h2 className="text-xl font-bold tracking-tight text-white">{t.wallpaper.title}</h2>
+              <p className="text-xs text-slate-400">{t.wallpaper.subtitle}</p>
             </div>
           </div>
           <button
@@ -44,7 +47,7 @@ export const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
         {/* Wallpaper Grid */}
         <div className="mt-6">
           <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-3">
-            Chọn không gian tĩnh lặng
+            {t.wallpaper.categories.all}
           </label>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3.5 max-h-60 overflow-y-auto pr-1">
             {DEFAULT_WALLPAPERS.map((wp: Wallpaper) => {
@@ -86,7 +89,7 @@ export const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
           <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-medium text-slate-300 flex items-center gap-1.5">
-                <Sliders className="w-3.5 h-3.5 text-primary" /> Độ tối chống chói mắt
+                <Sliders className="w-3.5 h-3.5 text-primary" /> {t.wallpaper.darkness}
               </span>
               <span className="text-xs font-mono text-primary">{settings.darknessOverlay}%</span>
             </div>
@@ -104,7 +107,7 @@ export const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
           <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-medium text-slate-300 flex items-center gap-1.5">
-                <Sliders className="w-3.5 h-3.5 text-tertiary" /> Độ mờ hậu cảnh (Blur)
+                <Sliders className="w-3.5 h-3.5 text-tertiary" /> {t.wallpaper.blur}
               </span>
               <span className="text-xs font-mono text-tertiary">{settings.blurAmount}px</span>
             </div>
@@ -125,13 +128,13 @@ export const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
             onClick={() => onUpdateSettings({ darknessOverlay: 35, blurAmount: 0 })}
             className="text-xs text-slate-400 hover:text-white underline underline-offset-4"
           >
-            Khôi phục mặc định
+            {language === 'vi' ? 'Khôi phục mặc định' : 'Restore Defaults'}
           </button>
           <button
             onClick={onClose}
             className="px-6 py-2 rounded-full bg-gradient-to-r from-primary to-amber-600 text-slate-950 font-semibold text-sm shadow-lg hover:brightness-110 active:scale-95 transition-all"
           >
-            Áp dụng
+            {language === 'vi' ? 'Áp dụng' : 'Apply'}
           </button>
         </div>
       </div>

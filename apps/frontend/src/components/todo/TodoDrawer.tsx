@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, CheckSquare, Plus, Trash2, Repeat, CalendarCheck } from 'lucide-react';
 import type { TodoItem } from '../../types';
 import { useAuth } from '../../context/AuthContext';
+import { useI18n } from '../../context/I18nContext';
 
 interface TodoDrawerProps {
   isOpen: boolean;
@@ -29,6 +30,7 @@ export const TodoDrawer: React.FC<TodoDrawerProps> = ({
   onDeleteItem,
 }) => {
   const { isAuthenticated } = useAuth();
+  const { t } = useI18n();
   const [newTitle, setNewTitle] = useState('');
   const [newType, setNewType] = useState<'habit' | 'one_off'>('one_off');
 
@@ -51,11 +53,11 @@ export const TodoDrawer: React.FC<TodoDrawerProps> = ({
               <CheckSquare className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-bold tracking-tight text-white">Kế hoạch & Thói quen</h2>
+              <h2 className="text-lg font-bold tracking-tight text-white">{t.todo.title}</h2>
               <div className="flex items-center gap-1.5 mt-0.5">
                 <span className={`w-1.5 h-1.5 rounded-full ${isAuthenticated ? 'bg-emerald-400 animate-pulse' : 'bg-slate-400'}`} />
                 <span className="text-[11px] text-slate-400">
-                  {isAuthenticated ? 'Đồng bộ Cloud tự động' : 'Lưu trữ cục bộ (Guest)'}
+                  {isAuthenticated ? t.todo.cloudSynced : t.todo.localGuest}
                 </span>
               </div>
             </div>
@@ -72,7 +74,7 @@ export const TodoDrawer: React.FC<TodoDrawerProps> = ({
         {/* Progress Bar Card */}
         <div className="my-5 p-4 rounded-2xl bg-white/[0.03] border border-white/5 shrink-0">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-slate-300">Tiến độ hôm nay</span>
+            <span className="text-xs font-semibold text-slate-300">{t.todo.todayProgress}</span>
             <span className="text-xs font-mono font-bold text-primary">
               {completedItems}/{totalItems} ({progressPercent}%)
             </span>
@@ -91,15 +93,15 @@ export const TodoDrawer: React.FC<TodoDrawerProps> = ({
           <div>
             <div className="flex items-center justify-between mb-2.5">
               <span className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                <Repeat className="w-3.5 h-3.5 text-tertiary" /> Thói quen lặp lại
+                <Repeat className="w-3.5 h-3.5 text-tertiary" /> {t.todo.habitsSection}
               </span>
-              <span className="text-[10px] text-slate-500">Tự bỏ tick sau 00:00</span>
+              <span className="text-[10px] text-slate-500">{t.todo.habitsNote}</span>
             </div>
 
             <div className="space-y-2">
               {habits.length === 0 ? (
                 <div className="p-3 text-center text-xs text-slate-500 rounded-xl bg-white/[0.02]">
-                  Chưa có thói quen nào
+                  {t.todo.noHabits}
                 </div>
               ) : (
                 habits.map((item: TodoItem) => (
@@ -135,7 +137,7 @@ export const TodoDrawer: React.FC<TodoDrawerProps> = ({
                     <button
                       onClick={() => onDeleteItem(item.id)}
                       className="text-slate-500 hover:text-rose-400 p-1 transition-colors"
-                      title="Xóa thói quen"
+                      title={t.playlist.deleteTrack}
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -149,15 +151,15 @@ export const TodoDrawer: React.FC<TodoDrawerProps> = ({
           <div>
             <div className="flex items-center justify-between mb-2.5">
               <span className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                <CalendarCheck className="w-3.5 h-3.5 text-primary" /> Việc trong ngày
+                <CalendarCheck className="w-3.5 h-3.5 text-primary" /> {t.todo.tasksSection}
               </span>
-              <span className="text-[10px] text-slate-500">Việc xong tự dọn vào ngày mới</span>
+              <span className="text-[10px] text-slate-500">{t.todo.tasksNote}</span>
             </div>
 
             <div className="space-y-2">
               {tasks.length === 0 ? (
                 <div className="p-3 text-center text-xs text-slate-500 rounded-xl bg-white/[0.02]">
-                  Không có việc tồn đọng
+                  {t.todo.noTasks}
                 </div>
               ) : (
                 tasks.map((item: TodoItem) => (
@@ -193,7 +195,7 @@ export const TodoDrawer: React.FC<TodoDrawerProps> = ({
                     <button
                       onClick={() => onDeleteItem(item.id)}
                       className="text-slate-500 hover:text-rose-400 p-1 transition-colors"
-                      title="Xóa công việc"
+                      title={t.playlist.deleteTrack}
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -216,7 +218,7 @@ export const TodoDrawer: React.FC<TodoDrawerProps> = ({
                   : 'bg-white/5 border-white/5 text-slate-400'
               }`}
             >
-              Việc hôm nay
+              {t.todo.typeTask}
             </button>
             <button
               type="button"
@@ -227,14 +229,14 @@ export const TodoDrawer: React.FC<TodoDrawerProps> = ({
                   : 'bg-white/5 border-white/5 text-slate-400'
               }`}
             >
-              Thói quen hàng ngày
+              {t.todo.typeHabit}
             </button>
           </div>
 
           <div className="flex items-center gap-2">
             <input
               type="text"
-              placeholder={newType === 'habit' ? 'Thêm thói quen mới...' : 'Thêm việc cần làm hôm nay...'}
+              placeholder={t.todo.inputPlaceholder}
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900/80 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-primary/60"
@@ -242,7 +244,7 @@ export const TodoDrawer: React.FC<TodoDrawerProps> = ({
             <button
               type="submit"
               className="w-10 h-10 rounded-xl bg-primary text-slate-950 flex items-center justify-center font-bold hover:brightness-110 active:scale-95 transition-all shrink-0"
-              aria-label="Thêm việc"
+              aria-label={t.todo.addBtn}
             >
               <Plus className="w-5 h-5" />
             </button>

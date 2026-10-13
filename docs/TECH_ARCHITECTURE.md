@@ -81,6 +81,7 @@ VibeSpace phát triển theo mô hình **Monorepo Client-Server Fullstack**:
 | **Authentication** | **JWT + bcrypt + Google Identity** | Hash mật khẩu an toàn với bcrypt, token JWT không trạng thái; đăng nhập Google 1-click mượt mà qua Google ID token. |
 | **Deployment** | **Render Web Service** | Triển khai nhanh chóng, hỗ trợ auto-deploy từ repository và quản lý biến môi trường qua Render MCP. |
 | **YouTube & Audio** | **YouTube IFrame + Web Audio API** | Không cần backend proxy, âm thanh thiên nhiên 10 kênh đa tầng loopable mượt mà. |
+| **Internationalization (i18n)** | **Custom React Context (`I18nContext`)** | Zero-dependency, type-safe 100%, tải tức thì không giật lag, lưu cache `localStorage`. |
 | **Offline Cache** | **Browser `localStorage`** | Đảm bảo tính riêng tư 100% cho chế độ Guest, tự động đồng bộ khi chuyển sang tài khoản đã đăng nhập. |
 
 ---

@@ -267,6 +267,21 @@ Mục tiêu: Triển khai trọn vẹn dịch vụ Express.js backend, thiết l
   * Kiểm thử Thêm / Xóa / Hoàn thành Todo và kịch bản Reset qua ngày với Backend Daily Reset Engine.
   * Kiểm thử gộp dữ liệu khách (Guest offline merge) qua endpoint `/api/sync/merge`.
   * Đảm bảo tính tương thích 100% giữa chế độ Guest offline-first và chế độ Cloud synced.
+- [x] **Task 8.1: Cập nhật tài liệu kỹ thuật docs/PRD.md, docs/TECH_ARCHITECTURE.md và docs/PLAN.md**
+  * Đồng bộ thông tin tính năng Đa ngôn ngữ (FR-11) và kiến trúc `I18nContext` vào tài liệu.
+- [x] **Task 8.2: Xây dựng Từ điển Dịch thuật (VI / EN) và I18nContext**
+  * Xây dựng từ điển `apps/frontend/src/i18n/translations/vi.ts` và `en.ts` định kiểu TypeScript chặt chẽ.
+  * Xây dựng `I18nContext.tsx` & hook `useI18n()` với cơ chế auto-detect ngôn ngữ trình duyệt và lưu `localStorage`.
+- [x] **Task 8.3: Tích hợp Nút Chuyển đổi Ngôn ngữ Glassmorphism vào Header**
+  * Nút bấm pill `VI | EN` 1-chạm đặt tại `Header.tsx` với animation mượt mà.
+  * Bọc `I18nProvider` trong `main.tsx`.
+- [x] **Task 8.4: Chuyển đổi Toàn bộ UI Components sang Hệ thống Đa ngôn ngữ**
+  * Header, PomodoroTimer & Document title, ZenPomodoro HUD.
+  * SoundMixerModal & 10 kênh âm thanh thiên nhiên, BackgroundSelector & danh mục hình nền.
+  * PlaylistModal, TodoDrawer, AuthModal.
+- [x] **Task 8.5: Kiểm thử Toàn diện & Bàn giao**
+  * Kiểm thử chuyển đổi ngôn ngữ tức thì, persistence sau khi F5 tải lại trang.
+  * Kiểm thử build Vite/TypeScript frontend pass 100%, commit và push lên GitHub.
 
 ---
 
@@ -281,3 +296,4 @@ Mục tiêu: Triển khai trọn vẹn dịch vụ Express.js backend, thiết l
 | **M5: Launch Ready** | Kiểm thử hoàn chỉnh và sẵn sàng sử dụng thực tế | **Hoàn thành (Done)** |
 | **M6: Monorepo Architecture** | Tổ chức lại monorepo (`apps/frontend`, `apps/backend`) & npm workspaces | **Hoàn thành (Done)** |
 | **M7: Backend, Database & Sync** | Express.js + Prisma + Supabase Postgres + Render + Auth & Cloud Sync | **Hoàn thành (Done)** |
+| **M8: Internationalization (i18n)** | Hỗ trợ 2 ngôn ngữ Tiếng Việt (VI) và Tiếng Anh (EN) | **Hoàn thành (Done)** |

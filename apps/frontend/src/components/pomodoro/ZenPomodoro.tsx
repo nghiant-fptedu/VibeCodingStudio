@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Play, Pause, Minimize2, RotateCcw, SkipForward } from 'lucide-react';
 import type { PomodoroMode } from '../../types';
 import { formatTime } from '../../utils/timeFormatter';
+import { useI18n } from '../../context/I18nContext';
 
 interface ZenPomodoroProps {
   timeLeft: number;
@@ -28,6 +29,8 @@ export const ZenPomodoro: React.FC<ZenPomodoroProps> = ({
   isPlayingMusic = false,
   onToggleMusic,
 }) => {
+  const { t } = useI18n();
+
   // Phím tắt Escape để thoát Zen Mode
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -40,7 +43,11 @@ export const ZenPomodoro: React.FC<ZenPomodoroProps> = ({
   }, [onExitZen]);
 
   const modeLabel =
-    mode === 'focus' ? 'Phiên tập trung' : mode === 'shortBreak' ? 'Nghỉ ngắn' : 'Nghỉ dài';
+    mode === 'focus'
+      ? t.pomodoro.focus
+      : mode === 'shortBreak'
+      ? t.pomodoro.shortBreak
+      : t.pomodoro.longBreak;
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-between p-6 md:p-12 animate-in fade-in duration-700 select-none">
@@ -49,10 +56,10 @@ export const ZenPomodoro: React.FC<ZenPomodoroProps> = ({
         <button
           onClick={onExitZen}
           className="flex items-center gap-2 px-4 py-2 rounded-full glass-panel-modal border border-white/10 hover:border-white/30 text-xs font-semibold text-slate-300 hover:text-white shadow-xl active:scale-95 transition-all"
-          title="Thoát chế độ Zen (phím Esc)"
+          title={`${t.zen.exitZen} (ESC)`}
         >
           <Minimize2 className="w-3.5 h-3.5" />
-          <span>Thoát Zen Mode</span>
+          <span>{t.zen.exitZen}</span>
           <span className="hidden sm:inline text-[10px] text-slate-400 font-mono bg-white/10 px-1.5 py-0.5 rounded">
             ESC
           </span>
@@ -82,7 +89,7 @@ export const ZenPomodoro: React.FC<ZenPomodoroProps> = ({
           <button
             onClick={onReset}
             className="w-11 h-11 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white border border-white/10 active:scale-95 transition-all"
-            title="Đặt lại"
+            title={t.pomodoro.reset}
           >
             <RotateCcw className="w-5 h-5" />
           </button>
@@ -90,7 +97,7 @@ export const ZenPomodoro: React.FC<ZenPomodoroProps> = ({
           <button
             onClick={onTogglePlay}
             className="w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-tr from-primary to-amber-500 hover:brightness-110 active:scale-95 text-slate-950 font-bold shadow-xl shadow-amber-500/30 transition-all"
-            title={isRunning ? 'Tạm dừng' : 'Bắt đầu'}
+            title={isRunning ? t.pomodoro.pause : t.pomodoro.start}
           >
             {isRunning ? (
               <Pause className="w-7 h-7 fill-slate-950" />
@@ -103,7 +110,7 @@ export const ZenPomodoro: React.FC<ZenPomodoroProps> = ({
             <button
               onClick={onSkip}
               className="w-11 h-11 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white border border-white/10 active:scale-95 transition-all"
-              title="Chuyển phiên tiếp theo"
+              title={t.pomodoro.skip}
             >
               <SkipForward className="w-5 h-5" />
             </button>
@@ -116,13 +123,6 @@ export const ZenPomodoro: React.FC<ZenPomodoroProps> = ({
         onClick={onToggleMusic}
         role="button"
         tabIndex={0}
-        title={
-          onToggleMusic
-            ? isPlayingMusic
-              ? 'Click để tạm dừng nhạc'
-              : 'Click để tiếp tục phát nhạc'
-            : undefined
-        }
         className={`flex items-center gap-3 px-5 py-2 rounded-full glass-panel-subtle text-xs text-slate-300/80 border border-white/5 shadow-lg transition-all ${
           onToggleMusic
             ? 'cursor-pointer hover:border-white/20 hover:text-white active:scale-95'

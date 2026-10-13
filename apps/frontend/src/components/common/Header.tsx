@@ -10,8 +10,10 @@ import {
   User as UserIcon,
   LogOut,
   ChevronDown,
+  Languages,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useI18n } from '../../context/I18nContext';
 
 interface HeaderProps {
   onOpenWallpaperModal: () => void;
@@ -35,6 +37,7 @@ export const Header: React.FC<HeaderProps> = ({
   mixerActiveCount,
 }) => {
   const { user, isAuthenticated, openAuthModal, logout } = useAuth();
+  const { language, toggleLanguage, t } = useI18n();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
 
@@ -64,12 +67,24 @@ export const Header: React.FC<HeaderProps> = ({
 
         <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full glass-panel-subtle text-xs text-slate-300 font-medium">
           <span className="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse" />
-          <span>Find your flow</span>
+          <span>{t.header.slogan}</span>
         </div>
       </div>
 
       {/* Right: Quick Action Controls */}
       <div className="flex items-center gap-2 md:gap-2.5">
+        {/* Language Switcher Pill */}
+        <button
+          onClick={toggleLanguage}
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full glass-panel border border-white/15 hover:border-white/30 text-xs font-semibold transition-all hover:bg-white/10 active:scale-95"
+          title={language === 'vi' ? 'Switch to English' : 'Chuyển sang Tiếng Việt'}
+        >
+          <Languages className="w-3.5 h-3.5 text-primary" />
+          <span className={language === 'vi' ? 'text-primary font-bold' : 'text-slate-400'}>VI</span>
+          <span className="text-slate-600">/</span>
+          <span className={language === 'en' ? 'text-primary font-bold' : 'text-slate-400'}>EN</span>
+        </button>
+
         {/* White Noise Mixer Button */}
         <button
           onClick={onOpenMixerModal}
@@ -78,10 +93,10 @@ export const Header: React.FC<HeaderProps> = ({
               ? 'glass-panel border-tertiary/50 text-tertiary shadow-glow-teal'
               : 'glass-panel-subtle border-white/10 text-slate-300 hover:text-white hover:border-white/20'
           }`}
-          title="Bộ trộn âm thanh thiên nhiên"
+          title={t.header.soundMixerTitle}
         >
           <Sliders className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">Âm thanh</span>
+          <span className="hidden sm:inline">{t.header.soundMixer}</span>
           {mixerActiveCount > 0 && (
             <span className="w-4 h-4 rounded-full bg-tertiary text-slate-950 font-bold text-[10px] flex items-center justify-center">
               {mixerActiveCount}
@@ -93,10 +108,10 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           onClick={onOpenTodoDrawer}
           className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel border border-white/10 text-slate-300 hover:text-white hover:border-white/25 text-xs font-medium transition-all"
-          title="Danh sách việc và thói quen"
+          title={t.header.todoListTitle}
         >
           <CheckSquare className="w-3.5 h-3.5 text-primary" />
-          <span className="hidden sm:inline">Việc cần làm</span>
+          <span className="hidden sm:inline">{t.header.todoList}</span>
           <span className="px-1.5 py-0.5 rounded-full bg-primary/20 text-primary-light text-[10px] font-bold">
             {todoProgressPercent}%
           </span>
@@ -106,7 +121,7 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           onClick={onOpenWallpaperModal}
           className="w-9 h-9 rounded-full flex items-center justify-center glass-panel border border-white/10 text-slate-300 hover:text-white hover:border-white/25 transition-all"
-          title="Đổi hình nền 4K"
+          title={t.header.wallpaper}
         >
           <ImageIcon className="w-4 h-4" />
         </button>
@@ -119,7 +134,7 @@ export const Header: React.FC<HeaderProps> = ({
               ? 'bg-rose-500/20 border-rose-500/50 text-rose-300'
               : 'glass-panel border-white/10 text-slate-300 hover:text-white hover:border-white/25'
           }`}
-          title={isMuted ? 'Bật lại âm thanh' : 'Tắt tiếng toàn bộ'}
+          title={isMuted ? t.header.unmuteAll : t.header.muteAll}
         >
           {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
         </button>
@@ -155,7 +170,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <p className="text-[11px] text-slate-400 truncate">{user.email}</p>
                   <div className="flex items-center gap-1.5 mt-1.5 text-[10px] text-emerald-400 font-medium">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span>Đồng bộ Cloud hoạt động</span>
+                    <span>{t.header.cloudSynced}</span>
                   </div>
                 </div>
 
@@ -167,7 +182,7 @@ export const Header: React.FC<HeaderProps> = ({
                   className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-rose-300 hover:bg-rose-500/15 transition-colors font-medium text-left"
                 >
                   <LogOut className="w-3.5 h-3.5 text-rose-400" />
-                  <span>Đăng xuất tài khoản</span>
+                  <span>{t.header.logout}</span>
                 </button>
               </div>
             )}
@@ -176,10 +191,10 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={() => openAuthModal('login')}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel border border-white/15 hover:border-primary/50 text-slate-200 hover:text-white text-xs font-semibold transition-all hover:shadow-glow-amber"
-            title="Đăng nhập để đồng bộ dữ liệu"
+            title={t.header.loginTitle}
           >
             <UserIcon className="w-3.5 h-3.5 text-primary" />
-            <span className="hidden sm:inline">Đăng nhập</span>
+            <span className="hidden sm:inline">{t.header.login}</span>
           </button>
         )}
 
@@ -187,10 +202,10 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           onClick={onToggleZenMode}
           className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-primary to-amber-500 hover:brightness-110 active:scale-95 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition-all"
-          title="Chế độ tập trung Zen Mode"
+          title={t.header.zenModeTitle}
         >
           <Maximize2 className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">Zen Mode</span>
+          <span className="hidden sm:inline">{t.header.zenMode}</span>
         </button>
       </div>
     </header>

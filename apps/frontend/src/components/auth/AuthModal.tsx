@@ -12,6 +12,7 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useI18n } from '../../context/I18nContext';
 
 export const AuthModal: React.FC = () => {
   const {
@@ -23,6 +24,7 @@ export const AuthModal: React.FC = () => {
     register,
     loginWithGoogle,
   } = useAuth();
+  const { t } = useI18n();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -179,12 +181,12 @@ export const AuthModal: React.FC = () => {
             <Sparkles className="w-6 h-6 fill-slate-950" />
           </div>
           <h2 className="text-2xl font-bold text-white tracking-tight">
-            {authModalMode === 'login' ? 'Chào mừng trở lại' : 'Tạo tài khoản VibeSpace'}
+            {authModalMode === 'login' ? t.auth.loginTitle : t.auth.registerTitle}
           </h2>
           <p className="text-xs text-slate-400 mt-1 max-w-xs mx-auto">
             {authModalMode === 'login'
-              ? 'Đăng nhập để đồng bộ playlist cá nhân và lịch trình thói quen trên mọi thiết bị'
-              : 'Lưu trữ không gian làm việc, danh sách việc cần làm và kho nhạc Lofi của riêng bạn'}
+              ? t.auth.loginSubtitle
+              : t.auth.registerSubtitle}
           </p>
         </div>
 
@@ -199,7 +201,7 @@ export const AuthModal: React.FC = () => {
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            Đăng nhập
+            {t.auth.tabLogin}
           </button>
           <button
             type="button"
@@ -210,7 +212,7 @@ export const AuthModal: React.FC = () => {
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            Đăng ký
+            {t.auth.tabRegister}
           </button>
         </div>
 
@@ -234,14 +236,14 @@ export const AuthModal: React.FC = () => {
           {authModalMode === 'register' && (
             <div>
               <label className="block text-[11px] font-medium text-slate-300 mb-1.5">
-                Họ và tên
+                {t.auth.nameLabel}
               </label>
               <div className="relative">
                 <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input
                   type="text"
                   required
-                  placeholder="Ví dụ: Nguyễn Văn A"
+                  placeholder={t.auth.namePlaceholder}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900/60 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
@@ -252,14 +254,14 @@ export const AuthModal: React.FC = () => {
 
           <div>
             <label className="block text-[11px] font-medium text-slate-300 mb-1.5">
-              Địa chỉ Email
+              {t.auth.emailLabel}
             </label>
             <div className="relative">
               <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
                 type="email"
                 required
-                placeholder="name@example.com"
+                placeholder={t.auth.emailPlaceholder}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900/60 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
@@ -269,14 +271,14 @@ export const AuthModal: React.FC = () => {
 
           <div>
             <label className="block text-[11px] font-medium text-slate-300 mb-1.5">
-              Mật khẩu
+              {t.auth.passwordLabel}
             </label>
             <div className="relative">
               <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 required
-                placeholder="Ít nhất 6 ký tự"
+                placeholder={t.auth.passwordPlaceholder}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-900/60 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
@@ -301,10 +303,10 @@ export const AuthModal: React.FC = () => {
             {isSubmitting ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
-                <span>Đang xử lý...</span>
+                <span>{t.auth.processing}</span>
               </>
             ) : (
-              <span>{authModalMode === 'login' ? 'Đăng nhập ngay' : 'Tạo tài khoản'}</span>
+              <span>{authModalMode === 'login' ? t.auth.submitLogin : t.auth.submitRegister}</span>
             )}
           </button>
         </form>
@@ -315,7 +317,7 @@ export const AuthModal: React.FC = () => {
             <div className="w-full border-t border-white/10" />
           </div>
           <span className="relative px-3 bg-surface-card text-[11px] text-slate-400 uppercase tracking-wider">
-            hoặc tiếp tục với
+            {t.auth.orContinueWith}
           </span>
         </div>
 
@@ -348,20 +350,20 @@ export const AuthModal: React.FC = () => {
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
               />
             </svg>
-            <span>Đăng nhập với Google</span>
+            <span>{t.auth.googleSignIn}</span>
           </button>
         </div>
 
         {/* Footer switch prompt */}
         <div className="mt-5 text-center">
           <p className="text-xs text-slate-400">
-            {authModalMode === 'login' ? 'Chưa có tài khoản?' : 'Đã có tài khoản?'}{' '}
+            {authModalMode === 'login' ? t.auth.noAccountPrompt : t.auth.haveAccountPrompt}{' '}
             <button
               type="button"
               onClick={() => setAuthModalMode(authModalMode === 'login' ? 'register' : 'login')}
               className="text-primary hover:text-primary-light font-semibold underline underline-offset-2 ml-1"
             >
-              {authModalMode === 'login' ? 'Đăng ký ngay' : 'Đăng nhập'}
+              {authModalMode === 'login' ? t.auth.switchRegister : t.auth.switchLogin}
             </button>
           </p>
         </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Play, Pause, RotateCcw, SkipForward } from 'lucide-react';
 import type { PomodoroMode } from '../../types';
 import { formatTime } from '../../utils/timeFormatter';
+import { useI18n } from '../../context/I18nContext';
 
 interface PomodoroTimerProps {
   timeLeft: number;
@@ -29,6 +30,7 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
   onSkip,
   onChangeMode,
 }) => {
+  const { t } = useI18n();
   // Chu vi vòng tròn SVG radius = 105: C = 2 * PI * 105 = 659.73
   const circumference = 2 * Math.PI * 105;
   const strokeDashoffset = circumference * (1 - progressRatio);
@@ -45,7 +47,7 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
               : 'text-slate-400 hover:text-white'
           }`}
         >
-          Tập trung
+          {t.pomodoro.focus}
         </button>
         <button
           onClick={() => onChangeMode('shortBreak')}
@@ -55,7 +57,7 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
               : 'text-slate-400 hover:text-white'
           }`}
         >
-          Nghỉ ngắn
+          {t.pomodoro.shortBreak}
         </button>
         <button
           onClick={() => onChangeMode('longBreak')}
@@ -65,7 +67,7 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
               : 'text-slate-400 hover:text-white'
           }`}
         >
-          Nghỉ dài
+          {t.pomodoro.longBreak}
         </button>
       </div>
 
@@ -116,7 +118,7 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
             {formatTime(timeLeft)}
           </span>
           <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 mt-2">
-            {mode === 'focus' ? 'Phiên tập trung' : 'Thời gian nghỉ'}
+            {mode === 'focus' ? t.pomodoro.focus : t.pomodoro.shortBreak}
           </span>
         </div>
       </div>
@@ -126,8 +128,8 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         <button
           onClick={onReset}
           className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white border border-white/5 active:scale-95 transition-all"
-          title="Đặt lại đồng hồ"
-          aria-label="Đặt lại"
+          title={t.pomodoro.reset}
+          aria-label={t.pomodoro.reset}
         >
           <RotateCcw className="w-4 h-4" />
         </button>
@@ -135,8 +137,8 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         <button
           onClick={isRunning ? onPause : onStart}
           className="w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-tr from-primary to-amber-500 hover:brightness-110 active:scale-95 text-slate-950 font-bold shadow-xl shadow-amber-500/30 transition-all"
-          title={isRunning ? 'Tạm dừng' : 'Bắt đầu'}
-          aria-label={isRunning ? 'Tạm dừng' : 'Bắt đầu'}
+          title={isRunning ? t.pomodoro.pause : t.pomodoro.start}
+          aria-label={isRunning ? t.pomodoro.pause : t.pomodoro.start}
         >
           {isRunning ? (
             <Pause className="w-7 h-7 fill-slate-950" />
@@ -148,8 +150,8 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         <button
           onClick={onSkip}
           className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white border border-white/5 active:scale-95 transition-all"
-          title="Bỏ qua phiên"
-          aria-label="Bỏ qua"
+          title={t.pomodoro.skip}
+          aria-label={t.pomodoro.skip}
         >
           <SkipForward className="w-4 h-4" />
         </button>
@@ -157,9 +159,9 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
 
       {/* Session Streak Counter */}
       <div className="flex items-center gap-2 mt-6 px-3.5 py-1 rounded-full bg-slate-950/40 border border-white/5 text-xs text-slate-400">
-        <span>🍅 Đã hoàn thành:</span>
+        <span>🍅 {t.pomodoro.completedToday}:</span>
         <span className="font-bold text-primary font-mono">{completedToday}</span>
-        <span>phiên hôm nay</span>
+        <span>{t.pomodoro.sessions}</span>
       </div>
     </div>
   );

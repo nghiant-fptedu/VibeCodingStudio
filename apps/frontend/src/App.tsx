@@ -16,6 +16,7 @@ import { useAudioMixer } from './hooks/useAudioMixer';
 import { useDailyReset } from './hooks/useDailyReset';
 import { usePlaylists } from './hooks/usePlaylists';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import { useI18n } from './context/I18nContext';
 
 import type { VisualSettings } from './types';
 import { DEFAULT_WALLPAPERS } from './data/defaultWallpapers';
@@ -60,15 +61,20 @@ export default function App() {
     setIsPlayingMusic(true);
   });
 
+  const { language, t } = useI18n();
+
   // Cập nhật tiêu đề tab trình duyệt theo thời gian thực đếm ngược
   useEffect(() => {
     if (pomodoro.isRunning) {
-      const modeLabel = pomodoro.mode === 'focus' ? '🍅 Tập trung' : '☕ Nghỉ ngơi';
+      const modeLabel = pomodoro.mode === 'focus' ? t.pomodoro.tabFocus : t.pomodoro.tabBreak;
       document.title = `(${formatTime(pomodoro.timeLeft)}) ${modeLabel} — VibeSpace`;
     } else {
-      document.title = 'VibeSpace — Personalized Aesthetic Focus Workspace';
+      document.title =
+        language === 'vi'
+          ? 'VibeSpace — Không gian làm việc cá nhân hóa'
+          : 'VibeSpace — Personalized Aesthetic Focus Workspace';
     }
-  }, [pomodoro.isRunning, pomodoro.timeLeft, pomodoro.mode]);
+  }, [pomodoro.isRunning, pomodoro.timeLeft, pomodoro.mode, language, t]);
 
   // Active Wallpaper Image URL
   const activeWallpaper =

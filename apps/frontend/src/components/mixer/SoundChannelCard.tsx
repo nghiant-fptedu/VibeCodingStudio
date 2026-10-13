@@ -12,6 +12,7 @@ import {
   Moon,
 } from 'lucide-react';
 import type { SoundChannel } from '../../types';
+import { useI18n } from '../../context/I18nContext';
 
 interface SoundChannelCardProps {
   channel: SoundChannel;
@@ -37,7 +38,10 @@ export const SoundChannelCard: React.FC<SoundChannelCardProps> = ({
   onToggle,
   onVolumeChange,
 }) => {
+  const { language, t } = useI18n();
   const IconComponent = ICON_MAP[channel.icon] || Droplets;
+  const localizedName =
+    t.mixer.channels[channel.id as keyof typeof t.mixer.channels] || channel.name;
 
   return (
     <div
@@ -67,10 +71,10 @@ export const SoundChannelCard: React.FC<SoundChannelCardProps> = ({
                 channel.isActive ? 'text-white' : 'text-slate-300 group-hover:text-white'
               }`}
             >
-              {channel.name}
+              {localizedName}
             </span>
             <span className="text-[10px] text-slate-500 font-mono">
-              {channel.isActive ? `${channel.volume}%` : 'Đang tắt'}
+              {channel.isActive ? `${channel.volume}%` : language === 'vi' ? 'Đang tắt' : 'Off'}
             </span>
           </div>
         </button>

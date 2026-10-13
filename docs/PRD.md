@@ -48,6 +48,11 @@ VibeSpace là ứng dụng web cá nhân hóa không gian làm việc trực tuy
 * **Cơ chế Lai (Hybrid Zero-Friction Data Sync - FR-10)**:
   * Người dùng chưa đăng nhập (Guest) vẫn sử dụng bình thường 100% với `localStorage`.
   * Khi người dùng bấm Đăng nhập/Đăng ký, toàn bộ dữ liệu bài hát và task hiện có trên máy (nếu có) sẽ được tự động đồng bộ (Merge) lên tài khoản trên server.
+* **Hỗ trợ Đa ngôn ngữ Quốc tế hóa (FR-11: Internationalization - VI / EN)**:
+  * Cho phép người dùng chuyển đổi linh hoạt giữa Tiếng Việt (VI) và Tiếng Anh (EN).
+  * Nút chuyển đổi Glassmorphism `VI | EN` 1-chạm đặt tại Header thanh điều hướng.
+  * Tự động nhận diện ngôn ngữ trình duyệt và ghi nhớ tùy chọn vào `localStorage`.
+  * Dịch toàn bộ giao diện: Header, Pomodoro Timer & Tab title, Zen Mode, White Noise Mixer (tên 10 âm thanh), Wallpaper Selector, Playlist Modal, Todo Drawer, Auth Modal.
 
 #### 1.4.3 Ngoại phạm vi (Out-of-Scope - Phiên bản V2)
 * Quên mật khẩu qua gửi email SMTP (Reset password via email).
