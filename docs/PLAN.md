@@ -138,33 +138,33 @@ Mục tiêu: Tải thiết kế chi tiết về workspace local và bóc tách c
 
 ---
 
-### Giai đoạn 4: Code & Chuyển đổi sang React Components
+### Giai đoạn 4: Code & Chuyển đổi sang React Components [HOÀN THÀNH]
 Mục tiêu: Hiện thực hóa thiết kế từ Stitch thành ứng dụng web React hoạt động hoàn chỉnh 100%.
 
-* [ ] **Task 4.1: Khởi tạo Cấu trúc Dự án React**
-  * Khởi tạo template Vite + React + TypeScript.
-  * Cài đặt các thư viện bổ trợ: `lucide-react`, `canvas-confetti` (hiệu ứng khi xong việc), và Tailwind CSS.
-* [ ] **Task 4.2: Xây dựng Layout Nền & Theme Engine**
-  * Hiện thực hóa `BackgroundContainer` với các bộ lọc `filter: blur(...)` và lớp phủ tối `brightness(...)`.
-  * Xây dựng `ZenModeController` điều khiển bật/tắt toàn màn hình.
-* [ ] **Task 4.3: Xây dựng Module Đồng hồ Pomodoro**
-  * Hiện thực hóa hook `usePomodoro`: đếm ngược, chuyển đổi Focus (25m) / Short Break (5m) / Long Break (15m).
-  * Tích hợp âm thanh chuông báo thiền (Zen chime) khi hết phiên.
+- [x] **Task 4.1: Khởi tạo Cấu trúc Dự án React**
+  * Đã thiết lập thành công Vite + React 18 + TypeScript.
+  * Cài đặt và cấu hình: `lucide-react`, `canvas-confetti`, `tailwindcss`, `postcss`, `autoprefixer`.
+- [x] **Task 4.2: Xây dựng Layout Nền & Theme Engine**
+  * Hiện thực hóa `BackgroundContainer` hỗ trợ ảnh 4K local/Unsplash, bộ lọc `blur(...)` và lớp phủ tối `darknessOverlay`.
+  * Xây dựng `ZenModeController` và modal đổi hình nền `BackgroundSelector`.
+- [x] **Task 4.3: Xây dựng Module Đồng hồ Pomodoro**
+  * Hiện thực hóa hook `usePomodoro`: đếm ngược 25m Focus / 5m Break / 15m Long Break, vòng SVG progress mượt mà.
+  * Tích hợp chuông thiền Solfeggio 528Hz sinh bằng Web Audio API và hiệu ứng ăn mừng `canvas-confetti`.
   * Lưu trữ thống kê số phiên hoàn thành trong ngày vào `localStorage`.
-* [ ] **Task 4.4: Xây dựng Module YouTube Lofi Player**
-  * Tích hợp thư viện preset các kênh Lofi nổi tiếng (Lofi Girl, Chillhop...).
-  * Xây dựng trình trích xuất link YouTube URL tùy chỉnh.
-  * Tích hợp IFrame API điều khiển Play/Pause/Volume.
-* [ ] **Task 4.5: Xây dựng Module White Noise Mixer**
-  * Chuẩn bị và tích hợp 10 file âm thanh môi trường chất lượng cao (mưa, sấm, lửa trại, gió, sóng...).
-  * Xây dựng hệ thống điều khiển âm lượng độc lập cho từng kênh qua Web Audio API.
-  * Cài đặt các preset phối sẵn 1-click ("Đêm mưa bão", "Nhà gỗ mùa đông"...).
-* [ ] **Task 4.6: Xây dựng Module Daily Todo List & Reset Engine**
-  * Xây dựng giao diện Drawer công việc đẹp mắt, phân loại `Habit` và `One-off Task`.
-  * Hiện thực hóa `useDailyReset`: tự động uncheck thói quen và dọn dẹp task cũ khi bước sang ngày mới.
-  * Thanh tiến độ trực quan (% hoàn thành trong ngày).
-* [ ] **Task 4.7: Đồng bộ & Lưu trữ LocalStorage**
-  * Đảm bảo toàn bộ cài đặt của người dùng được tự động lưu lại và phục hồi hoàn hảo khi F5/tải lại trang.
+- [x] **Task 4.4: Xây dựng Module YouTube Lofi Player**
+  * Tích hợp YouTube IFrame Player API với 6 kênh Lofi nổi tiếng (Lofi Girl, Chillhop, Cozy Coffee...).
+  * Trích xuất link/ID YouTube tùy chỉnh với regex parser thông minh.
+  * Điều khiển Play/Pause/Volume và equalizer hoạt họa sống động.
+- [x] **Task 4.5: Xây dựng Module White Noise Mixer**
+  * Xây dựng Web Audio API synthesizer cho 10 kênh âm thanh độc lập (mưa, sấm, lửa trại, gió, sóng, suối, chim, cafe, bàn phím, dế đêm).
+  * Bộ trượt điều khiển âm lượng độc lập cho từng kênh (0-100%) và nút Master Mute.
+  * Cài đặt 4 preset phối sẵn 1-click ("Đêm mưa bão", "Góc quán cafe", "Nhà gỗ mùa đông", "Bình minh trong rừng").
+- [x] **Task 4.6: Xây dựng Module Daily Todo List & Reset Engine**
+  * Xây dựng Drawer công việc cạnh phải với hai danh mục riêng biệt: `Daily Habits` và `Daily Tasks`.
+  * Hiện thực hóa `useDailyReset`: tự động uncheck thói quen sau 00:00 và dọn dẹp task đã xong.
+  * Thanh tiến độ % hoàn thành trực quan.
+- [x] **Task 4.7: Đồng bộ & Lưu trữ LocalStorage**
+  * Đảm bảo toàn bộ cài đặt người dùng, danh sách task, kênh âm thanh, âm lượng được tự động lưu vào `localStorage`.
 
 ---
 
@@ -187,5 +187,5 @@ Mục tiêu: Hiện thực hóa thiết kế từ Stitch thành ứng dụng web
 | **M1: Specification & Planning** | Hoàn thành PRD.md, TECH_ARCHITECTURE.md, PLAN.md | **Hoàn thành (Done)** |
 | **M2: Google Stitch UI Design** | Sinh và duyệt các màn hình trên StitchMCP (3 screens + wallpaper) | **Hoàn thành (Done)** |
 | **M3: Design Download & Mapping** | Trích xuất tokens & bóc tách layout thành component spec | **Hoàn thành (Done)** |
-| **M4: Core Implementation** | Chuyển đổi mã React, tích hợp Audio & YouTube, Todo Reset | **Sẵn sàng thực hiện** |
-| **M5: Launch Ready** | Kiểm thử hoàn chỉnh và sẵn sàng sử dụng thực tế | Chờ M4 |
+| **M4: Core Implementation** | Chuyển đổi mã React, tích hợp Audio & YouTube, Todo Reset | **Hoàn thành (Done)** |
+| **M5: Launch Ready** | Kiểm thử hoàn chỉnh và sẵn sàng sử dụng thực tế | **Sẵn sàng thực hiện** |
