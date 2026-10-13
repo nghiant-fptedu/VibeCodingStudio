@@ -9,6 +9,7 @@ import { RealtimeClock } from './components/common/RealtimeClock';
 import { PlaylistModal } from './components/music/PlaylistModal';
 import { SoundMixerModal } from './components/mixer/SoundMixerModal';
 import { TodoDrawer } from './components/todo/TodoDrawer';
+import { AuthModal } from './components/auth/AuthModal';
 
 import { usePomodoro } from './hooks/usePomodoro';
 import { useAudioMixer } from './hooks/useAudioMixer';
@@ -217,6 +218,9 @@ export default function App() {
           onAddItem={todo.addItem}
           onDeleteItem={todo.deleteItem}
         />
+
+        {/* User Auth Modal */}
+        <AuthModal />
       </div>
     </BackgroundContainer>
   );

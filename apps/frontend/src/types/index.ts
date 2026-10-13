@@ -85,3 +85,24 @@ export interface VisualSettings {
   blurAmount: number;          // 0 -> 10 (px)
   isZenMode: boolean;          // Bật/tắt chế độ toàn màn hình tập trung
 }
+
+// 6. Quản lý Tài khoản & Xác thực (Auth & User)
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  avatarUrl?: string | null;
+  createdAt: string;
+}
+
+export interface AuthResponse {
+  user: User;
+  token: string;
+}
+
+export interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
+}

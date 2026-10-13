@@ -248,10 +248,11 @@ Mục tiêu: Triển khai trọn vẹn dịch vụ Express.js backend, thiết l
   * Endpoint `DELETE /api/todos/:id`: Xóa task/habit.
   * Endpoint `POST /api/sync/merge`: Nhận danh sách local tracks và local todos từ frontend khi vừa đăng nhập để gộp vào tài khoản.
   * Kiểm thử tự động tích hợp thành công 100% logic Backend Daily Reset (uncheck habits, xóa completed tasks, giữ incomplete tasks) và merge sync trên Supabase PostgreSQL.
-- [ ] **Task 7.6: Xây dựng Giao diện Auth Modal Glassmorphism & Tích hợp Frontend**
-  * Xây dựng Component `AuthModal.tsx`: Chuyển đổi giữa Đăng nhập / Đăng ký (Email + Mật khẩu + Tên) và nút "Đăng nhập với Google" (Google Identity Services SDK).
-  * Cập nhật `Header.tsx`: Nút "Đăng nhập / Đăng ký" khi là Guest; hiển thị Avatar/Tên người dùng + Dropdown menu Đăng xuất khi đã login.
-  * Xây dựng `AuthContext.tsx` & API Service client trên Frontend quản lý trạng thái token và thông tin người dùng.
+- [x] **Task 7.6: Xây dựng Giao diện Auth Modal Glassmorphism & Tích hợp Frontend**
+  * Xây dựng Component `AuthModal.tsx`: Chuyển đổi giữa Đăng nhập / Đăng ký (Email + Mật khẩu + Tên) và nút "Đăng nhập với Google" (Google Identity Services SDK & demo token fallback).
+  * Cập nhật `Header.tsx`: Nút "Đăng nhập" khi là Guest; hiển thị Avatar/Tên người dùng + Dropdown menu Đăng xuất và trạng thái Cloud Sync khi đã login.
+  * Xây dựng `AuthContext.tsx` & API Service client `api.ts` trên Frontend quản lý trạng thái token và thông tin người dùng.
+  * Đã build kiểm thử Vite & TypeScript frontend pass 100%.
 - [ ] **Task 7.7: Tích hợp Cloud Sync cho `usePlaylists` và `TodoDrawer`**
   * Nâng cấp hook `usePlaylists`: Khi đã đăng nhập thì gọi API backend; khi chưa đăng nhập dùng `localStorage`; khi login thành công tự động gọi `/api/sync/merge`.
   * Nâng cấp `TodoDrawer`: Khi đã đăng nhập thì fetch và mutate dữ liệu qua API backend; giữ nguyên trải nghiệm mượt mà không độ trễ (Optimistic UI updates).

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Sparkles,
   Volume2,
@@ -7,7 +7,11 @@ import {
   Image as ImageIcon,
   Sliders,
   CheckSquare,
+  User as UserIcon,
+  LogOut,
+  ChevronDown,
 } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 interface HeaderProps {
   onOpenWallpaperModal: () => void;
@@ -30,6 +34,21 @@ export const Header: React.FC<HeaderProps> = ({
   todoProgressPercent,
   mixerActiveCount,
 }) => {
+  const { user, isAuthenticated, openAuthModal, logout } = useAuth();
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
+
+  // Close profile dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target as Node)) {
+        setIsProfileMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <header className="fixed top-0 left-0 right-0 z-40 px-4 md:px-8 py-3.5 flex items-center justify-between">
       {/* Left: Brand & Quote */}
@@ -104,6 +123,65 @@ export const Header: React.FC<HeaderProps> = ({
         >
           {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
         </button>
+
+        {/* User Auth Section */}
+        {isAuthenticated && user ? (
+          <div className="relative" ref={profileMenuRef}>
+            <button
+              onClick={() => setIsProfileMenuOpen((prev) => !prev)}
+              className="flex items-center gap-2 pl-1.5 pr-2.5 py-1 rounded-full glass-panel border border-white/15 hover:border-white/30 text-white text-xs font-medium transition-all"
+              title={user.name}
+            >
+              {user.avatarUrl ? (
+                <img
+                  src={user.avatarUrl}
+                  alt={user.name}
+                  className="w-6 h-6 rounded-full object-cover border border-white/20"
+                />
+              ) : (
+                <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-primary to-amber-500 text-slate-950 font-bold flex items-center justify-center text-xs shadow-glow-amber">
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
+              )}
+              <span className="max-w-[80px] sm:max-w-[120px] truncate">{user.name}</span>
+              <ChevronDown className="w-3 h-3 text-slate-400" />
+            </button>
+
+            {/* Profile Dropdown Menu */}
+            {isProfileMenuOpen && (
+              <div className="absolute right-0 mt-2 w-56 rounded-2xl glass-panel border border-white/15 p-2 shadow-2xl shadow-black/80 text-xs animate-fade-in z-50">
+                <div className="px-3 py-2 border-b border-white/10 mb-1">
+                  <p className="font-semibold text-white truncate">{user.name}</p>
+                  <p className="text-[11px] text-slate-400 truncate">{user.email}</p>
+                  <div className="flex items-center gap-1.5 mt-1.5 text-[10px] text-emerald-400 font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>Đồng bộ Cloud hoạt động</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    logout();
+                    setIsProfileMenuOpen(false);
+                  }}
+                  className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-rose-300 hover:bg-rose-500/15 transition-colors font-medium text-left"
+                >
+                  <LogOut className="w-3.5 h-3.5 text-rose-400" />
+                  <span>Đăng xuất tài khoản</span>
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <button
+            onClick={() => openAuthModal('login')}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel border border-white/15 hover:border-primary/50 text-slate-200 hover:text-white text-xs font-semibold transition-all hover:shadow-glow-amber"
+            title="Đăng nhập để đồng bộ dữ liệu"
+          >
+            <UserIcon className="w-3.5 h-3.5 text-primary" />
+            <span className="hidden sm:inline">Đăng nhập</span>
+          </button>
+        )}
 
         {/* Zen Mode Button */}
         <button
