@@ -13,7 +13,7 @@ router.post('/merge', async (req: AuthenticatedRequest, res: Response): Promise<
       return;
     }
 
-    const { tracks, todos, clientDate } = req.body;
+    const { tracks, todos, clientDate } = (req as any).body || {};
     const result = await SyncService.mergeLocalData(req.user.id, {
       tracks,
       todos,
