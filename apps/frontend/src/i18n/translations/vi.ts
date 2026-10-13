@@ -123,6 +123,7 @@ export const vi: Translations = {
     typeHabit: 'Thói quen',
     typeTask: 'Việc phát sinh',
     addBtn: 'Thêm',
+    deleteItem: 'Xóa mục này',
   },
   auth: {
     loginTitle: 'Chào mừng trở lại',

@@ -137,7 +137,7 @@ export const TodoDrawer: React.FC<TodoDrawerProps> = ({
                     <button
                       onClick={() => onDeleteItem(item.id)}
                       className="text-slate-500 hover:text-rose-400 p-1 transition-colors"
-                      title={t.playlist.deleteTrack}
+                      title={t.todo.deleteItem}
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -195,7 +195,7 @@ export const TodoDrawer: React.FC<TodoDrawerProps> = ({
                     <button
                       onClick={() => onDeleteItem(item.id)}
                       className="text-slate-500 hover:text-rose-400 p-1 transition-colors"
-                      title={t.playlist.deleteTrack}
+                      title={t.todo.deleteItem}
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>

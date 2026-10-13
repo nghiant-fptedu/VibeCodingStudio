@@ -123,6 +123,7 @@ export const en: Translations = {
     typeHabit: 'Habit',
     typeTask: 'One-off Task',
     addBtn: 'Add',
+    deleteItem: 'Delete item',
   },
   auth: {
     loginTitle: 'Welcome Back',

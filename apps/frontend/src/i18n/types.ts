@@ -106,6 +106,7 @@ export interface Translations {
     typeHabit: string;
     typeTask: string;
     addBtn: string;
+    deleteItem: string;
   };
   auth: {
     loginTitle: string;
