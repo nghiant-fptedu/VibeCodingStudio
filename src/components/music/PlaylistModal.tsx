@@ -86,7 +86,7 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
                   {tracks.length} bài
                 </span>
               </div>
-              <p className="text-xs text-slate-400">Xem, phát, thêm mới và quản lý bài hát cá nhân</p>
+              <p className="text-xs text-slate-400">Xem, phát, thêm mới và quản lý bài hát</p>
             </div>
           </div>
 
@@ -102,12 +102,12 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
         {/* Add New Song Section */}
         <form onSubmit={handleAdd} className="my-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5 shrink-0">
           <label className="text-xs font-semibold text-slate-300 block mb-2">
-            Thêm bài hát mới (Tự động nhận diện tên chuẩn trên YouTube)
+            Thêm bài hát mới
           </label>
           <div className="flex items-center gap-2">
             <input
               type="text"
-              placeholder="Dán link YouTube (https://youtube.com/watch?v=...) hoặc Video ID"
+              placeholder="Dán link YouTube (https://youtube.com/watch?v=...)"
               value={newInput}
               disabled={isLoading}
               onChange={(e) => setNewInput(e.target.value)}
@@ -134,11 +134,10 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
 
           {message && (
             <div
-              className={`mt-2.5 text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 ${
-                message.type === 'success'
-                  ? 'bg-teal-500/10 text-teal-300 border border-teal-500/20'
-                  : 'bg-rose-500/10 text-rose-300 border border-rose-500/20'
-              }`}
+              className={`mt-2.5 text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 ${message.type === 'success'
+                ? 'bg-teal-500/10 text-teal-300 border border-teal-500/20'
+                : 'bg-rose-500/10 text-rose-300 border border-rose-500/20'
+                }`}
             >
               <span>{message.text}</span>
             </div>
@@ -165,11 +164,10 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
               return (
                 <div
                   key={track.id}
-                  className={`group flex items-center justify-between p-2.5 rounded-2xl border transition-all ${
-                    isCurrent
-                      ? 'bg-primary/10 border-primary/40 shadow-glow-amber ring-1 ring-primary/20'
-                      : 'bg-white/[0.03] border-white/5 hover:bg-white/[0.06] hover:border-white/15'
-                  }`}
+                  className={`group flex items-center justify-between p-2.5 rounded-2xl border transition-all ${isCurrent
+                    ? 'bg-primary/10 border-primary/40 shadow-glow-amber ring-1 ring-primary/20'
+                    : 'bg-white/[0.03] border-white/5 hover:bg-white/[0.06] hover:border-white/15'
+                    }`}
                 >
                   {/* Left: Thumbnail & Info */}
                   <div
@@ -198,9 +196,8 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
                     {/* Title & Curator */}
                     <div className="flex-1 min-w-0">
                       <span
-                        className={`text-xs font-semibold block truncate ${
-                          isCurrent ? 'text-primary' : 'text-slate-200 group-hover:text-white'
-                        }`}
+                        className={`text-xs font-semibold block truncate ${isCurrent ? 'text-primary' : 'text-slate-200 group-hover:text-white'
+                          }`}
                         title={track.title}
                       >
                         {track.title}
@@ -221,11 +218,10 @@ export const PlaylistModal: React.FC<PlaylistModalProps> = ({
                     {/* Play Button */}
                     <button
                       onClick={() => onSelectVideo(track.videoId)}
-                      className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-                        isCurrent
-                          ? 'bg-primary text-slate-950 shadow-md'
-                          : 'bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white'
-                      }`}
+                      className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${isCurrent
+                        ? 'bg-primary text-slate-950 shadow-md'
+                        : 'bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white'
+                        }`}
                       title="Phát bài này"
                     >
                       <Play className="w-3.5 h-3.5 fill-current ml-0.5" />

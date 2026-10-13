@@ -5,6 +5,7 @@ import { Header } from './components/common/Header';
 import { PomodoroTimer } from './components/pomodoro/PomodoroTimer';
 import { ZenPomodoro } from './components/pomodoro/ZenPomodoro';
 import { YouTubePlayer } from './components/music/YouTubePlayer';
+import { RealtimeClock } from './components/common/RealtimeClock';
 import { PlaylistModal } from './components/music/PlaylistModal';
 import { SoundMixerModal } from './components/mixer/SoundMixerModal';
 import { TodoDrawer } from './components/todo/TodoDrawer';
@@ -148,6 +149,9 @@ export default function App() {
             onOpenPlaylistModal={() => setIsPlaylistModalOpen(true)}
             onAddTrack={playlist.addTrack}
           />
+
+          {/* Bottom-Right: Live Realtime Clock */}
+          <RealtimeClock />
 
           {/* Overlay Modals & Drawers */}
           <BackgroundSelector

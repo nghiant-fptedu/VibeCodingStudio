@@ -208,7 +208,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
       </div>
 
       {/* Floating Bottom Dock */}
-      <div className="fixed bottom-3 md:bottom-6 left-1/2 -translate-x-1/2 z-40 w-[96vw] max-w-4xl px-3 md:px-6 py-2.5 md:py-3.5 rounded-full glass-panel shadow-2xl border border-white/10 flex items-center justify-between gap-2.5 md:gap-5 backdrop-blur-2xl">
+      <div className="fixed bottom-3 md:bottom-6 left-1/2 -translate-x-1/2 z-40 w-[94vw] max-w-xl md:max-w-2xl lg:max-w-3xl px-3 md:px-5 py-2.5 md:py-3 rounded-full glass-panel shadow-2xl border border-white/10 flex items-center justify-between gap-2 md:gap-4 backdrop-blur-2xl">
         {/* Playback Controls & Track Info */}
         <div className="flex items-center gap-2 md:gap-3 min-w-0 max-w-[280px] md:max-w-sm">
           {/* Previous Track */}

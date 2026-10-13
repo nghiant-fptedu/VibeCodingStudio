@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Sparkles,
   Volume2,
@@ -30,23 +30,6 @@ export const Header: React.FC<HeaderProps> = ({
   todoProgressPercent,
   mixerActiveCount,
 }) => {
-  const [currentTime, setCurrentTime] = useState<string>('');
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      setCurrentTime(
-        now.toLocaleTimeString('vi-VN', {
-          hour: '2-digit',
-          minute: '2-digit',
-        })
-      );
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <header className="fixed top-0 left-0 right-0 z-40 px-4 md:px-8 py-3.5 flex items-center justify-between">
       {/* Left: Brand & Quote */}
@@ -64,14 +47,6 @@ export const Header: React.FC<HeaderProps> = ({
           <span className="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse" />
           <span>Find your flow</span>
         </div>
-      </div>
-
-      {/* Center: Live Digital Clock */}
-      <div className="hidden lg:flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-white/10 shadow-lg">
-        <span className="w-2 h-2 rounded-full bg-tertiary shadow-glow-teal animate-pulse" />
-        <span className="font-mono text-sm tracking-wider font-semibold text-slate-100 tabular-nums">
-          {currentTime || '--:--'}
-        </span>
       </div>
 
       {/* Right: Quick Action Controls */}
