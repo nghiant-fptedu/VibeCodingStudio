@@ -1,0 +1,97 @@
+{
+  "name": "Lofi Nightfall Workspace",
+  "version": "1.0.0",
+  "designSystemId": "assets/d79328efeafd49b7bcd14ace16f8ab89",
+  "theme": {
+    "colorMode": "dark",
+    "colors": {
+      "primary": {
+        "main": "#f59e0b",
+        "light": "#ffc174",
+        "dim": "#ffb95f",
+        "container": "#f59e0b",
+        "onContainer": "#613b00",
+        "onPrimary": "#472a00"
+      },
+      "secondary": {
+        "main": "#6366f1",
+        "light": "#c0c1ff",
+        "container": "#3131c0",
+        "onContainer": "#b0b2ff"
+      },
+      "tertiary": {
+        "main": "#14b8a6",
+        "light": "#57e1ce",
+        "fixed": "#71f8e4",
+        "container": "#30c5b3",
+        "onContainer": "#004d44"
+      },
+      "surface": {
+        "base": "#0b1326",
+        "bright": "#31394d",
+        "dim": "#0b1326",
+        "containerLowest": "#060e20",
+        "containerLow": "#131b2e",
+        "container": "#171f33",
+        "containerHigh": "#222a3d",
+        "containerHighest": "#2d3449"
+      },
+      "glass": {
+        "surface": "rgba(15, 23, 42, 0.65)",
+        "surfaceSubtle": "rgba(15, 23, 42, 0.40)",
+        "surfaceActive": "rgba(30, 41, 59, 0.75)",
+        "surfaceModal": "rgba(11, 19, 38, 0.85)",
+        "border": "rgba(255, 255, 255, 0.08)",
+        "borderHighlight": "rgba(255, 255, 255, 0.16)",
+        "borderActive": "rgba(245, 158, 11, 0.4)"
+      },
+      "text": {
+        "primary": "#f8fafc",
+        "secondary": "#94a3b8",
+        "muted": "#64748b",
+        "onSurface": "#dae2fd",
+        "onSurfaceVariant": "#d8c3ad"
+      }
+    },
+    "typography": {
+      "fontFamilies": {
+        "body": "Plus Jakarta Sans, sans-serif",
+        "heading": "Plus Jakarta Sans, sans-serif",
+        "monospace": "JetBrains Mono, monospace"
+      },
+      "sizes": {
+        "displayTimer": "64px",
+        "displayTimerMobile": "40px",
+        "headlineLg": "32px",
+        "headlineMd": "22px",
+        "headlineSm": "18px",
+        "bodyLg": "16px",
+        "bodyMd": "14px",
+        "bodySm": "12px",
+        "labelLg": "13px",
+        "labelMd": "11px",
+        "labelSm": "10px"
+      }
+    },
+    "borderRadius": {
+      "sm": "0.5rem",
+      "md": "0.75rem",
+      "lg": "1rem",
+      "xl": "1.5rem",
+      "2xl": "2rem",
+      "3xl": "3rem",
+      "full": "9999px"
+    },
+    "shadows": {
+      "glowAmber": "0 0 24px -2px rgba(245, 158, 11, 0.35), inset 0 0 12px 0 rgba(245, 158, 11, 0.12)",
+      "glowIndigo": "0 0 22px -2px rgba(99, 102, 241, 0.35), inset 0 0 10px 0 rgba(99, 102, 241, 0.10)",
+      "glowTeal": "0 0 16px -2px rgba(87, 225, 206, 0.4)",
+      "timerGlow": "0 0 45px -5px rgba(245, 158, 11, 0.18), inset 0 0 25px 0 rgba(245, 158, 11, 0.05)"
+    },
+    "backdropBlur": {
+      "subtle": "blur(8px)",
+      "standard": "blur(16px)",
+      "heavy": "blur(24px) saturate(180%)"
+    }
+  }
+}

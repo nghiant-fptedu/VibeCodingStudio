@@ -21,10 +21,10 @@ $$\text{Planning} \longrightarrow \text{Design (Google Stitch)} \longrightarrow 
 |  - Tạo các màn hình giao diện (Main Workspace, Zen Mode, Sound Mixer, Todo)      [HOÀN THÀNH]   |
 |                                                                                                 |
 |  [Giai đoạn 3: DOWNLOAD DESIGN TỪ GOOGLE STITCH]                                                |
-|  - Trích xuất HTML, CSS, Design Tokens và Asset references từ StitchMCP                          |
-|  - Phân tích cấu trúc phân rã giao diện thành các React Component Specs                         |
+|  - Trích xuất HTML, CSS, Design Tokens và Asset references từ StitchMCP         [HOÀN THÀNH]   |
+|  - Phân tích cấu trúc phân rã giao diện thành các React Component Specs          [HOÀN THÀNH]   |
 |                                                                                                 |
-|  [Giai đoạn 4: CODE & CHUYỂN ĐỔI SANG REACT COMPONENTS]                                         |
+|  [Giai đoạn 4: CODE & CHUYỂN ĐỔI SANG REACT COMPONENTS]                         [SẮP TỚI]      |
 |  - Khởi tạo project React 18 + TypeScript + Vite + Tailwind CSS                                 |
 |  - Cài đặt Theme, Glassmorphism, CSS variables từ Design Tokens của Stitch                      |
 |  - Xây dựng các Modules (Pomodoro, YouTube, White Noise, Todo, Background)                      |
@@ -120,6 +120,6 @@ Mục tiêu: Sử dụng công cụ Google Stitch (qua StitchMCP) để sinh cá
 | :--- | :--- | :--- |
 | **M1: Specification & Planning** | Hoàn thành PRD.md, TECH_ARCHITECTURE.md, PLAN.md | **Hoàn thành (Done)** |
 | **M2: Google Stitch UI Design** | Sinh và duyệt các màn hình trên StitchMCP (3 screens + wallpaper) | **Hoàn thành (Done)** |
-| **M3: Design Download & Mapping** | Trích xuất tokens & bóc tách layout thành component spec | **Sẵn sàng thực hiện** |
-| **M4: Core Implementation** | Chuyển đổi mã React, tích hợp Audio & YouTube, Todo Reset | Chờ M3 |
+| **M3: Design Download & Mapping** | Trích xuất tokens & bóc tách layout thành component spec | **Hoàn thành (Done)** |
+| **M4: Core Implementation** | Chuyển đổi mã React, tích hợp Audio & YouTube, Todo Reset | **Sẵn sàng thực hiện** |
 | **M5: Launch Ready** | Kiểm thử hoàn chỉnh và sẵn sàng sử dụng thực tế | Chờ M4 |
