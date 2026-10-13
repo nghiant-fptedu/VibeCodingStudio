@@ -155,9 +155,19 @@ Mục tiêu: Hiện thực hóa thiết kế từ Stitch thành ứng dụng web
   * Tích hợp YouTube IFrame Player API với 6 kênh Lofi nổi tiếng (Lofi Girl, Chillhop, Cozy Coffee...).
   * Trích xuất link/ID YouTube tùy chỉnh với regex parser thông minh.
   * Điều khiển Play/Pause/Volume và equalizer hoạt họa sống động.
-- [x] **Task 4.5: Xây dựng Module White Noise Mixer**
-  * Xây dựng Web Audio API synthesizer cho 10 kênh âm thanh độc lập (mưa, sấm, lửa trại, gió, sóng, suối, chim, cafe, bàn phím, dế đêm).
-  * Bộ trượt điều khiển âm lượng độc lập cho từng kênh (0-100%) và nút Master Mute.
+- [x] **Task 4.5: Xây dựng & Tinh chỉnh Module White Noise Mixer**
+  * Xây dựng và tinh chỉnh chuyên sâu Web Audio API synthesizer cho toàn bộ 10 kênh âm thanh độc lập, đảm bảo âm thanh phát ra chuẩn xác 100% với tên gọi:
+    1. **Mưa rào**: Tiếng mưa rào rơi dày hạt qua cascaded lowpass + highpass filter kèm LFO điều biến cường độ gió thoảng.
+    2. **Sấm chớp**: Tiếng sấm rền xa với sub-bass resonant boom (48-52Hz) và sóng âm vọng qua mây đa đỉnh (rolling thunderclaps) chu kỳ 8-15s.
+    3. **Lửa trại**: Tiếng lửa bập bùng trầm ấm kết hợp bộ đệm procedural crackles tạo tiếng gỗ nổ lách tách, nổ đanh giòn chân thực.
+    4. **Gió thoảng**: Tiếng gió lùa qua tán cây dùng bandpass filter biến thiên qua 2 bộ dao động LFO bất đối xứng (0.08Hz & 0.19Hz).
+    5. **Sóng biển**: Chu kỳ sóng vỗ bờ 11.5s với ngọn sóng vỡ dạt dào và lớp bọt sóng tần số cao (foam shimmer) rút dần về biển.
+    6. **Suối rừng**: Dòng suối róc rách sống động kết hợp 3 tầng lọc cộng hưởng biến thiên (950Hz, 1700Hz, 2450Hz) mô phỏng bọt nước va vào đá cuội.
+    7. **Chim hót**: Bộ phát họa âm chim rừng hót líu lo theo 4 đoản khúc ngẫu nhiên (tiu-tiu, trill, woodland whistle) có độ trễ không gian rộng mở.
+    8. **Quán cafe**: Không gian phòng cafe ấm cúng với tiếng chuyện trò râm ran mờ ảo (room murmur) và tiếng chạm ly tách gốm/thìa ngẫu nhiên.
+    9. **Bàn phím cơ**: Chuỗi gõ phím cơ nhịp nhàng với tiếng click đanh switch tactile (2800-3600Hz) và tiếng chạm đáy "thock" ấm áp (420-950Hz).
+    10. **Dế đêm**: Tiếng dế đêm đồng quê du dương với hòa âm kép (4550Hz & 4900Hz) tạo nhịp đập cánh tự nhiên và chùm tiếng gáy 3-4 xung.
+  * Bộ trượt điều khiển âm lượng độc lập cho từng kênh (0-100%) và nút Master Mute / Tắt hết.
   * Cài đặt 4 preset phối sẵn 1-click ("Đêm mưa bão", "Góc quán cafe", "Nhà gỗ mùa đông", "Bình minh trong rừng").
 - [x] **Task 4.6: Xây dựng Module Daily Todo List & Reset Engine**
   * Xây dựng Drawer công việc cạnh phải với hai danh mục riêng biệt: `Daily Habits` và `Daily Tasks`.

@@ -273,11 +273,10 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
               <button
                 key={preset.id}
                 onClick={() => onSelectVideo(preset.videoId)}
-                className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all truncate max-w-[140px] ${
-                  isActive
-                    ? 'bg-primary/20 border border-primary/50 text-primary shadow-glow-amber'
-                    : 'bg-white/5 border border-white/5 text-slate-300 hover:bg-white/10 hover:text-white'
-                }`}
+                className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all truncate max-w-[140px] ${isActive
+                  ? 'bg-primary/20 border border-primary/50 text-primary shadow-glow-amber'
+                  : 'bg-white/5 border border-white/5 text-slate-300 hover:bg-white/10 hover:text-white'
+                  }`}
                 title={preset.title}
               >
                 {preset.title.split('·')[0].split('[')[0].trim()}
@@ -301,11 +300,10 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
           {/* Quick Add Song Button */}
           <button
             onClick={() => setShowQuickAdd((prev) => !prev)}
-            className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all ${
-              showQuickAdd
-                ? 'bg-primary/20 border-primary text-primary'
-                : 'bg-white/5 border-white/5 text-slate-400 hover:text-white hover:bg-white/10'
-            }`}
+            className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all ${showQuickAdd
+              ? 'bg-primary/20 border-primary text-primary'
+              : 'bg-white/5 border-white/5 text-slate-400 hover:text-white hover:bg-white/10'
+              }`}
             title="Thêm bài hát mới bằng link YouTube"
           >
             <Plus className="w-3.5 h-3.5" />
@@ -348,9 +346,6 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
                 ✕
               </button>
             </div>
-            <p className="text-[11px] text-slate-400">
-              Dán link YouTube (hệ thống sẽ tự động lấy tên video chuẩn trên YouTube)
-            </p>
             <div className="flex items-center gap-2">
               <input
                 type="text"
@@ -376,11 +371,10 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
 
             {statusMessage && (
               <div
-                className={`text-[11px] px-3 py-1.5 rounded-lg flex items-center gap-1.5 ${
-                  statusMessage.type === 'success'
-                    ? 'bg-teal-500/10 text-teal-300 border border-teal-500/20'
-                    : 'bg-rose-500/10 text-rose-300 border border-rose-500/20'
-                }`}
+                className={`text-[11px] px-3 py-1.5 rounded-lg flex items-center gap-1.5 ${statusMessage.type === 'success'
+                  ? 'bg-teal-500/10 text-teal-300 border border-teal-500/20'
+                  : 'bg-rose-500/10 text-rose-300 border border-rose-500/20'
+                  }`}
               >
                 {statusMessage.type === 'error' && <AlertCircle className="w-3 h-3" />}
                 <span>{statusMessage.text}</span>
