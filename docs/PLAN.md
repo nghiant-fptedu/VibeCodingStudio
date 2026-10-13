@@ -226,12 +226,13 @@ Mục tiêu: Triển khai trọn vẹn dịch vụ Express.js backend, thiết l
   * Khởi tạo Prisma Client singleton instance tại `apps/backend/src/lib/prisma.ts`.
   * Áp dụng migration DDL đồng bộ 3 bảng (`users`, `music_tracks`, `todo_items`) và thiết lập chỉ mục indexes trên Supabase project `VibeSpace` (`ynqwfjqiiqjtizagokdt`).
   * Kích hoạt Row Level Security (RLS) bảo vệ an toàn toàn bộ các bảng trên Supabase PostgreSQL.
-- [ ] **Task 7.3: Hiện thực hóa Authentication API (Email/Password & Google OAuth)**
-  * Endpoint `POST /api/auth/register`: Validate input, hash mật khẩu bằng `bcryptjs`, tạo user, cấp token `JWT`.
-  * Endpoint `POST /api/auth/login`: Xác thực credentials, cấp token `JWT`.
-  * Endpoint `POST /api/auth/google`: Sử dụng `google-auth-library` verify Google ID token từ client, upsert user (tìm hoặc tạo tài khoản mới), cấp token `JWT`.
-  * Middleware `authMiddleware`: Xác thực Bearer JWT token và gán `req.user`.
-  * Endpoint `GET /api/auth/me`: Lấy thông tin tài khoản đang đăng nhập.
+- [x] **Task 7.3: Hiện thực hóa Authentication API (Email/Password & Google OAuth)**
+  * Endpoint `POST /api/auth/register`: Validate input, hash mật khẩu bằng `bcryptjs`, tạo user, tự động seed 6 bài Lofi mặc định vào playlist cá nhân, cấp token `JWT`.
+  * Endpoint `POST /api/auth/login`: Xác thực credentials, so sánh hash mật khẩu bcrypt, cấp token `JWT`.
+  * Endpoint `POST /api/auth/google`: Sử dụng `google-auth-library` verify Google ID token, upsert user (tạo mới và seed nhạc nếu chưa có, hoặc cập nhật avatar/googleId), cấp token `JWT`.
+  * Middleware `authMiddleware`: Xác thực Bearer JWT token qua `Authorization` header và gán `req.user`.
+  * Endpoint `GET /api/auth/me`: Lấy thông tin tài khoản đang đăng nhập (Protected route).
+  * Kiểm thử tự động tích hợp thành công 100% toàn bộ kịch bản đăng ký, đăng nhập sai/đúng, xác thực token và dọn dẹp test record trên Supabase.
 - [ ] **Task 7.4: Hiện thực hóa Music Tracks Controller & Router**
   * Endpoint `GET /api/tracks`: Lấy danh sách bài hát cá nhân; nếu user mới tạo rỗng danh sách thì tự động seed 6 bài Lofi mặc định.
   * Endpoint `POST /api/tracks`: Thêm bài hát YouTube mới vào tài khoản.
