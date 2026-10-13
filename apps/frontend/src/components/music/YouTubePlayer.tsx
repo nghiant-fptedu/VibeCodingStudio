@@ -153,10 +153,11 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
 
   // Đồng bộ Video ID
   useEffect(() => {
-    if (playerRef.current && playerRef.current.loadVideoById) {
-      playerRef.current.loadVideoById(currentVideoId);
+    if (playerRef.current) {
       if (isPlaying) {
-        playerRef.current.playVideo();
+        playerRef.current.loadVideoById?.(currentVideoId);
+      } else {
+        playerRef.current.cueVideoById?.(currentVideoId);
       }
     }
   }, [currentVideoId]);

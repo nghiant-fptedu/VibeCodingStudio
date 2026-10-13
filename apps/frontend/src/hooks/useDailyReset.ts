@@ -269,6 +269,11 @@ export function useDailyReset() {
   const completedItems = todoState.items.filter((i) => i.completed).length;
   const progressPercent = totalItems > 0 ? Math.round((completedItems / totalItems) * 100) : 0;
 
+  const resetToGuestDefaults = useCallback(() => {
+    setTodoState(DEFAULT_TODO_STATE);
+    saveStoredTodoState(DEFAULT_TODO_STATE);
+  }, []);
+
   return {
     todoState,
     habits,
@@ -280,5 +285,6 @@ export function useDailyReset() {
     toggleItem,
     addItem,
     deleteItem,
+    resetToGuestDefaults,
   };
 }

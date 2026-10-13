@@ -175,11 +175,17 @@ export function usePlaylists(
     }
   }, [isAuthenticated, onSelectVideo]);
 
+  const resetToGuestDefaults = useCallback(() => {
+    setTracks(CURATED_PLAYLISTS);
+    saveStoredTracks(CURATED_PLAYLISTS);
+  }, []);
+
   return {
     tracks,
     isLoading,
     addTrack,
     removeTrack,
     restoreDefaults,
+    resetToGuestDefaults,
   };
 }

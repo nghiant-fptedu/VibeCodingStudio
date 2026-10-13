@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { BackgroundContainer } from './components/background/BackgroundContainer';
 import { BackgroundSelector } from './components/background/BackgroundSelector';
 import { Header } from './components/common/Header';
@@ -17,6 +17,7 @@ import { useDailyReset } from './hooks/useDailyReset';
 import { usePlaylists } from './hooks/usePlaylists';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useI18n } from './context/I18nContext';
+import { useAuth } from './context/AuthContext';
 
 import type { VisualSettings } from './types';
 import { DEFAULT_WALLPAPERS } from './data/defaultWallpapers';
@@ -100,6 +101,50 @@ export default function App() {
     playlist.tracks.find((p) => p.videoId === currentVideoId)?.title ||
     'Custom Lofi Stream';
 
+  // Handler xử lý Đăng xuất: Tắt nhạc, tắt mixer, reset Pomodoro, modals và dữ liệu Guest
+  const { isAuthenticated } = useAuth();
+
+  const handleSignOutReset = useCallback(() => {
+    // 1. Tắt nhạc YouTube Lofi & đưa về bài đầu tiên
+    setIsPlayingMusic(false);
+    if (CURATED_PLAYLISTS.length > 0) {
+      setCurrentVideoId(CURATED_PLAYLISTS[0].videoId);
+    }
+
+    // 2. Tắt toàn bộ kênh âm thanh môi trường White Noise
+    mixer.muteAll();
+
+    // 3. Dừng Pomodoro & reset về Focus 25:00
+    pomodoro.changeMode('focus');
+
+    // 4. Thoát Zen Mode và khôi phục cài đặt hình nền về mặc định ban đầu
+    setVisualSettings({
+      currentWallpaperId: 'pine-forest',
+      darknessOverlay: 35,
+      blurAmount: 0,
+      isZenMode: false,
+    });
+
+    // 5. Đóng toàn bộ Modals & Drawers
+    setIsWallpaperModalOpen(false);
+    setIsMixerModalOpen(false);
+    setIsTodoDrawerOpen(false);
+    setIsPlaylistModalOpen(false);
+
+    // 6. Khôi phục dữ liệu Playlist & Todo về danh sách mẫu mặc định Guest
+    playlist.resetToGuestDefaults();
+    todo.resetToGuestDefaults();
+  }, [mixer, pomodoro, playlist, todo, setVisualSettings, setCurrentVideoId]);
+
+  // Double-layer trigger: Tự động reset khi isAuthenticated chuyển từ true sang false (vd: token hết hạn)
+  const prevAuthRef = useRef(isAuthenticated);
+  useEffect(() => {
+    if (prevAuthRef.current && !isAuthenticated) {
+      handleSignOutReset();
+    }
+    prevAuthRef.current = isAuthenticated;
+  }, [isAuthenticated, handleSignOutReset]);
+
   return (
     <BackgroundContainer
       imageUrl={activeWallpaper.imageUrl}
@@ -139,6 +184,7 @@ export default function App() {
           onToggleMasterMute={mixer.toggleMasterMute}
           todoProgressPercent={todo.progressPercent}
           mixerActiveCount={mixer.activeCount}
+          onSignOut={handleSignOutReset}
         />
 
         {/* Central Hero: Pomodoro Timer */}

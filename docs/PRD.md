@@ -53,6 +53,14 @@ VibeSpace là ứng dụng web cá nhân hóa không gian làm việc trực tuy
   * Nút chuyển đổi Glassmorphism `VI | EN` 1-chạm đặt tại Header thanh điều hướng.
   * Tự động nhận diện ngôn ngữ trình duyệt và ghi nhớ tùy chọn vào `localStorage`.
   * Dịch toàn bộ giao diện: Header, Pomodoro Timer & Tab title, Zen Mode, White Noise Mixer (tên 10 âm thanh), Wallpaper Selector, Playlist Modal, Todo Drawer, Auth Modal.
+* **Xử lý Đăng xuất & Khôi phục Không gian Mặc định (FR-12: Sign Out & Clean Workspace Reset)**:
+  * Khi người dùng bấm **Sign Out (Đăng xuất tài khoản)**, hệ thống lập tức thực hiện quy trình dọn dẹp và reset toàn diện trên React (SPA-level Reset, không reload trang, không chớp màn hình):
+    * **Âm thanh & Nhạc**: Dừng phát nhạc YouTube Lofi, tắt toàn bộ các kênh âm thanh môi trường White Noise đang bật.
+    * **Pomodoro & Zen Mode**: Dừng đếm ngược và đặt lại Pomodoro về chế độ Focus 25:00; tự động thoát khỏi Zen Mode nếu đang kích hoạt.
+    * **Cửa sổ hiển thị**: Đóng toàn bộ các modal/drawer đang mở (*Wallpaper Selector, Sound Mixer, Todo Drawer, Playlist Modal, User Menu*).
+    * **Dữ liệu Guest**: Khôi phục danh sách bài hát về 6 bài mặc định (`CURATED_PLAYLISTS`) và danh sách Todo về 5 mục mẫu ban đầu (`DEFAULT_TODO_STATE`) để bảo vệ dữ liệu riêng tư của tài khoản vừa đăng xuất.
+    * **Hình nền & Hiển thị**: Khôi phục về hình nền gốc (Rừng thông tuyết `pine-forest`, độ tối 35%, độ mờ 0%).
+    * **Ngôn ngữ**: Giữ nguyên tùy chọn ngôn ngữ (`VI` hoặc `EN`) hiện tại của người dùng.
 
 #### 1.4.3 Ngoại phạm vi (Out-of-Scope - Phiên bản V2)
 * Quên mật khẩu qua gửi email SMTP (Reset password via email).

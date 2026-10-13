@@ -46,3 +46,6 @@ build/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Playwright artifacts
+.playwright-mcp/

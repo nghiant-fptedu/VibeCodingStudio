@@ -285,6 +285,24 @@ Mục tiêu: Triển khai trọn vẹn dịch vụ Express.js backend, thiết l
 
 ---
 
+### Giai đoạn 9: Tắt Nhạc & Reset Toàn Bộ Trang Web Khi Đăng Xuất (Milestone M9) [ĐANG THỰC HIỆN]
+Mục tiêu: Đảm bảo khi người dùng lựa chọn Sign Out, hệ thống sẽ tự động tắt nhạc YouTube Lofi, tắt toàn bộ âm thanh môi trường White Noise, dừng Pomodoro về 25:00, thoát Zen Mode, đóng tất cả modals/drawers, khôi phục hình nền gốc và nạp lại dữ liệu mẫu an toàn cho Guest mà không cần reload trang.
+
+- [x] **Task 9.1: Cập nhật tài liệu kỹ thuật docs/PRD.md, docs/TECH_ARCHITECTURE.md và docs/PLAN.md**
+  * Quy định rõ ràng vòng đời reset nguyên khối (Atomic SPA Reset Lifecycle) và cơ chế kích hoạt kép.
+- [x] **Task 9.2: Nâng cấp Hooks `usePlaylists` và `useDailyReset` với `resetToGuestDefaults()`**
+  * `usePlaylists`: Khôi phục 6 bài hát gốc của `CURATED_PLAYLISTS` và lưu `localStorage`.
+  * `useDailyReset`: Khôi phục 5 công việc/thói quen gốc của `DEFAULT_TODO_STATE` và lưu `localStorage`.
+- [x] **Task 9.3: Hiện thực hóa Central Reset Handler trong `App.tsx` & Kết nối `Header.tsx`**
+  * Viết `handleSignOutReset()` dừng YouTube, tắt mixer (`muteAll`), reset Pomodoro về `focus` 25:00, đặt lại `visualSettings`, đóng các modal/drawer.
+  * Tích hợp trigger kép: callback từ `Header` khi click Đăng xuất và `useEffect` bắt sự kiện chuyển trạng thái auth.
+- [x] **Task 9.4: Kiểm thử E2E Trực tiếp trên Trình duyệt & Build Production**
+  * Kiểm tra đầy đủ kịch bản: Đang phát nhạc + mixer + chạy Pomodoro -> bấm Sign Out -> xác nhận âm thanh ngắt ngay lập tức, Pomodoro dừng, giao diện trở về mặc định.
+  * Kiểm tra build Vite/TypeScript frontend pass 100%.
+- [x] **Task 9.5: Commit & Push GitHub Bàn giao Milestone M9**
+
+---
+
 ## 3. Các Mốc Hoàn thành (Milestones & Next Step)
 
 | Mốc | Mô tả | Trạng thái |
@@ -297,3 +315,4 @@ Mục tiêu: Triển khai trọn vẹn dịch vụ Express.js backend, thiết l
 | **M6: Monorepo Architecture** | Tổ chức lại monorepo (`apps/frontend`, `apps/backend`) & npm workspaces | **Hoàn thành (Done)** |
 | **M7: Backend, Database & Sync** | Express.js + Prisma + Supabase Postgres + Render + Auth & Cloud Sync | **Hoàn thành (Done)** |
 | **M8: Internationalization (i18n)** | Hỗ trợ 2 ngôn ngữ Tiếng Việt (VI) và Tiếng Anh (EN) | **Hoàn thành (Done)** |
+| **M9: Sign Out Audio Stop & Reset** | Tắt nhạc, tắt mixer, reset Pomodoro, modals và dữ liệu Guest khi Sign Out | **Hoàn thành (Done)** |

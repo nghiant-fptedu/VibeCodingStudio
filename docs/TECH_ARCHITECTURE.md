@@ -400,3 +400,17 @@ Tất cả các endpoint yêu cầu xác thực (`Protected`) sử dụng Header
 2. **GPU Acceleration**: Các hiệu ứng mờ (backdrop-blur) và chuyển đổi nền (fade transition) sử dụng thuộc tính CSS `will-change: transform, opacity` và tăng tốc phần cứng thông qua GPU.
 3. **Audio Preload Strategy**: Chỉ preload metadata của các file âm thanh (`preload="metadata"`), chỉ tải toàn bộ dữ liệu âm thanh khi người dùng kích hoạt kênh đó hoặc áp dụng Sound Preset, tiết kiệm băng thông tối đa.
 4. **Clean DOM in Zen Mode**: Khi người dùng bật Zen Mode, các widget xung quanh sử dụng CSS `opacity: 0` và `pointer-events: none` thay vì unmount hoàn toàn khỏi DOM, giúp các tiến trình (nhạc đang phát, timer đang chạy) tiếp tục chạy ngầm ổn định mà không bị reload lại.
+5. **Sign Out & SPA Clean Reset Lifecycle (FR-12)**:
+   * **Cơ chế**: Không reload trang (`window.location.reload()`) nhằm giữ vững trải nghiệm mượt mà, không chớp nháy màn hình.
+   * **Quy trình Reset Nguyên khối (Atomic SPA Reset)**:
+     1. `setIsPlayingMusic(false)` & nạp lại bài hát đầu tiên trong playlist mặc định.
+     2. `mixer.muteAll()`: Tắt toàn bộ 10 kênh âm thanh thiên nhiên White Noise.
+     3. `pomodoro.changeMode('focus')`: Dừng đếm ngược và đặt lại thời gian về 25:00.
+     4. `setVisualSettings`: Khôi phục `isZenMode: false`, hình nền `pine-forest`, độ tối 35%, độ mờ 0%.
+     5. Đóng toàn bộ Modals/Drawers (`isWallpaperModalOpen`, `isMixerModalOpen`, `isTodoDrawerOpen`, `isPlaylistModalOpen`, `isUserMenuOpen`).
+     6. `playlist.resetToGuestDefaults()`: Gán lại 6 bài hát Lofi gốc và cập nhật `localStorage`.
+     7. `todo.resetToGuestDefaults()`: Gán lại 5 việc/thói quen mẫu ban đầu và cập nhật `localStorage`.
+     8. Giữ nguyên cài đặt ngôn ngữ hiện tại (`vibespace_language`).
+   * **Cơ chế kích hoạt kép (Double-layer Trigger)**:
+     * Kích hoạt trực tiếp qua hàm `handleSignOutReset()` khi người dùng click vào nút Đăng xuất trên `Header`.
+     * Kích hoạt tự động qua `useEffect` theo dõi biến đổi `isAuthenticated` từ `true` sang `false` để xử lý các tình huống phiên hết hạn (Session expired / 401 Unauthorized).

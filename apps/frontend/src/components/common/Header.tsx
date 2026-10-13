@@ -24,6 +24,7 @@ interface HeaderProps {
   onToggleMasterMute: () => void;
   todoProgressPercent: number;
   mixerActiveCount: number;
+  onSignOut?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -35,6 +36,7 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleMasterMute,
   todoProgressPercent,
   mixerActiveCount,
+  onSignOut,
 }) => {
   const { user, isAuthenticated, openAuthModal, logout } = useAuth();
   const { language, toggleLanguage, t } = useI18n();
@@ -176,8 +178,9 @@ export const Header: React.FC<HeaderProps> = ({
 
                 <button
                   onClick={() => {
-                    logout();
                     setIsProfileMenuOpen(false);
+                    onSignOut?.();
+                    logout();
                   }}
                   className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-rose-300 hover:bg-rose-500/15 transition-colors font-medium text-left"
                 >
