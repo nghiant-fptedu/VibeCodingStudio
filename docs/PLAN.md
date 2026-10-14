@@ -342,6 +342,22 @@ Mục tiêu: Tối ưu hóa thanh Header trên thiết bị di động (< 768px)
 
 ---
 
+### Giai đoạn 12: Thiết kế & Chuẩn Hóa Favicon Thương Hiệu (Milestone M12) [HOÀN THÀNH]
+Mục tiêu: Thay thế favicon Vite mặc định bằng biểu tượng Favicon SVG vector cao cấp chuẩn nhận diện thương hiệu VibeSpace theo phong cách "Amber Radiance", hiển thị sắc nét và tương phản vượt trội trên mọi kích thước tab trình duyệt và thiết bị di động.
+
+- [x] **Task 12.1: Thiết kế Favicon SVG Vector Phong cách Amber Radiance**
+  * Thay thế file `apps/frontend/public/favicon.svg` mặc định của Vite.
+  * Thiết kế hình khối squircle bo góc mềm mại (`rx="16"`) với dải màu gradient hổ phách đa tầng (`#fde68a` → `#fbbf24` → `#f59e0b` → `#d97706`) đồng bộ 100% với Logo Header và Auth Modal.
+  * Tích hợp lớp viền kính phản quang (specular glass highlight rim) và đổ bóng chiều sâu (ambient depth).
+  * Biểu tượng chòm sao Sparkles (ngôi sao chính 4 cánh tâm điểm, ngôi sao phụ góc trên và điểm focus orbit) màu xanh đen Midnight Slate (`#0b1326`) đạt độ tương phản tối đa trên cả tab trình duyệt nền tối lẫn nền sáng.
+- [x] **Task 12.2: Cấu hình Thẻ Nhúng Trình duyệt & Apple Touch Icon trong `index.html`**
+  * Cập nhật `apps/frontend/index.html` với thẻ `<link rel="icon" type="image/svg+xml" href="/favicon.svg" />`.
+  * Bổ sung thẻ `<link rel="apple-touch-icon" href="/favicon.svg" />` phục vụ bookmark trên iOS Safari và thiết bị di động.
+- [x] **Task 12.3: Kiểm thử Build Production Frontend**
+  * Chạy `npm run build:frontend` thành công 100% (bundle gzipped tối ưu, không phát sinh lỗi liên kết asset).
+
+---
+
 ## 3. Các Mốc Hoàn thành (Milestones & Next Step)
 
 | Mốc | Mô tả | Trạng thái |
@@ -357,3 +373,5 @@ Mục tiêu: Tối ưu hóa thanh Header trên thiết bị di động (< 768px)
 | **M9: Sign Out Audio Stop & Reset** | Tắt nhạc, tắt mixer, reset Pomodoro, modals và dữ liệu Guest khi Sign Out | **Hoàn thành (Done)** |
 | **M10: Wallpaper Persistence & Sync** | Lưu hình nền & visual settings lên Cloud DB, auto-save ngầm, bảo lưu khi Sign Out | **Hoàn thành (Done)** |
 | **M11: Mobile Responsive Navigation** | Thu gọn Top Header mobile, tích hợp Slide-in Drawer chứa toàn bộ công cụ | **Hoàn thành (Done)** |
+| **M12: Brand Favicon & Meta Icons** | Thiết kế favicon SVG Amber Radiance, đồng bộ nhận diện logo và hỗ trợ apple-touch-icon | **Hoàn thành (Done)** |
+
