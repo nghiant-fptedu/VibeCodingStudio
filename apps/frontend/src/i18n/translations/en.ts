@@ -103,7 +103,7 @@ export const en: Translations = {
     addBtn: 'Add Track',
     adding: 'Adding...',
     curatedSection: 'Playlist Tracks',
-    restoreDefaults: 'Restore 6 Default Tracks',
+    restoreDefaults: 'Restore Default Tracks',
     nowPlaying: 'Playing',
     deleteTrack: 'Delete Track',
   },

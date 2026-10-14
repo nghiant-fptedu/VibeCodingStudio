@@ -103,7 +103,7 @@ export const vi: Translations = {
     addBtn: 'Thêm bài',
     adding: 'Đang thêm...',
     curatedSection: 'Bài hát trong danh sách',
-    restoreDefaults: 'Khôi phục 6 bài mặc định',
+    restoreDefaults: 'Khôi phục các bài nhạc mặc định',
     nowPlaying: 'Đang phát',
     deleteTrack: 'Xóa bài hát',
   },

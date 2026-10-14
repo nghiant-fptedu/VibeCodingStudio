@@ -15,6 +15,7 @@ Trước khi thực hiện bất kỳ nhiệm vụ nào:
 
 Không được:
 
+- Đọc tài liệu trong thư mục `do-not-read`
 - Bỏ qua tài liệu
 - Tự ý thay đổi kiến trúc
 - Tự ý thêm thư viện
